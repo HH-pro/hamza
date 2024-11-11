@@ -55,15 +55,15 @@ export default function Contact1() {
 										<div className="row mt-3">
 											<div className="col-md-6 ">
 												<label className="mb-1 mt-3 text-dark" htmlFor="name">Your name <span className="text-primary">*</span></label>
-												<input type="text" className="form-control border rounded-3" id="name" name="name" placeholder="John Doe" aria-label="username" />
+												<input type="text" className="form-control border rounded-3" id="name" name="name" placeholder="Hamza" aria-label="username" />
 											</div>
 											<div className="col-md-6">
 												<label className="mb-1 mt-3 text-dark" htmlFor="email">Email address <span className="text-primary">*</span></label>
-												<input type="text" className="form-control border rounded-3" id="email" name="email" placeholder="contact.john@gmail.com" aria-label="email" />
+												<input type="text" className="form-control border rounded-3" id="email" name="email" placeholder="contact.hamza@gmail.com" aria-label="email" />
 											</div>
 											<div className="col-md-6">
 												<label className="mb-1 mt-3 text-dark" htmlFor="phone">Your phone <span className="text-primary">*</span></label>
-												<input type="text" className="form-control border rounded-3" id="phone" name="phone" placeholder="+01 234 567 89" aria-label="phone" />
+												<input type="text" className="form-control border rounded-3" id="phone" name="phone" placeholder="+92 263 7865123" aria-label="phone" />
 											</div>
 											<div className="col-md-6">
 												<label className="mb-1 mt-3 text-dark" htmlFor="subject">Subject <span className="text-primary">*</span></label>

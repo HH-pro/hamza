@@ -34,9 +34,9 @@ export default function Resume1() {
 									<div className="resume-card-item px-4 py-3 mt-5">
 										<div className="d-flex align-items-end">
 											<div>
-												<p className="fw-extra-bold text-linear-1 mb-2">2018-2019</p>
-												<h5>Certification in UX Design</h5>
-												<p className="text-300 mb-0">University of Stanford</p>
+												<p className="fw-extra-bold text-linear-1 mb-2">2020-2021</p>
+												<h5>Certification in Python Language</h5>
+												{/* <p className="text-300 mb-0">Computer College</p> */}
 											</div>
 											<h3 className="text-linear-1 ms-auto fw-semibold">4.9<span className="fs-4 fw-bold">/5</span></h3>
 										</div>
@@ -44,9 +44,9 @@ export default function Resume1() {
 									<div className="resume-card-item px-4 py-3 mt-5">
 										<div className="d-flex align-items-end">
 											<div>
-												<p className="fw-extra-bold text-linear-1 mb-2">2017-2018</p>
+												<p className="fw-extra-bold text-linear-1 mb-2">2021-2022</p>
 												<h5>Certification in Web Dev</h5>
-												<p className="text-300 mb-0">University of Stanford</p>
+												<p className="text-300 mb-0">Tech Solutions</p>
 											</div>
 											<h3 className="text-linear-1 ms-auto fw-semibold">5.0<span className="fs-4 fw-bold">/5</span></h3>
 										</div>
@@ -54,14 +54,14 @@ export default function Resume1() {
 									<div className="resume-card-item px-4 py-3 mt-5">
 										<div className="d-flex align-items-end">
 											<div>
-												<p className="fw-extra-bold text-linear-1 mb-2">2014-2016</p>
-												<h5>Advanced UX/UI Bootcamp</h5>
-												<p className="text-300 mb-0">Design Academy</p>
+												<p className="fw-extra-bold text-linear-1 mb-2">2022-2023</p>
+												<h5>Advanced programming</h5>
+												<p className="text-300 mb-0">Programming Academy</p>
 											</div>
 											<h3 className="text-linear-1 ms-auto fw-semibold">4.9<span className="fs-4 fw-bold">/5</span></h3>
 										</div>
 									</div>
-									<div className="resume-card-item px-4 py-3 mt-5">
+									{/* <div className="resume-card-item px-4 py-3 mt-5">
 										<div className="d-flex align-items-end">
 											<div>
 												<p className="fw-extra-bold text-linear-1 mb-2">2012-2013</p>
@@ -70,7 +70,7 @@ export default function Resume1() {
 											</div>
 											<h3 className="text-linear-1 ms-auto fw-semibold">4.8<span className="fs-4 fw-bold">/5</span></h3>
 										</div>
-									</div>
+									</div> */}
 								</div>
 							</div>
 						</div>
@@ -82,33 +82,33 @@ export default function Resume1() {
 								</div>
 								<div className="resume-card-body">
 									<div className="resume-card-item px-4 py-3 mt-5">
-										<p className="fw-extra-bold text-linear-1 mb-2">2019 - Present</p>
-										<h5>Senior UI/UX Designer</h5>
+										<p className="fw-extra-bold text-linear-1 mb-2">2024 - Present</p>
+										<h5>Senior Programmer</h5>
 										<p className="text-300 mb-0">Leader in Creative team</p>
 									</div>
 									<div className="resume-card-item px-4 py-3 mt-5">
-										<p className="fw-extra-bold text-linear-1 mb-2">2016 - 2019</p>
-										<h5>UI/UX Designer at BOS Agency</h5>
-										<p className="text-300 mb-0">Tech Startup</p>
+										<p className="fw-extra-bold text-linear-1 mb-2">2021 - 2024</p>
+										<h5>Work as freelancer</h5>
+										<p className="text-300 mb-0">Work in different programming languages</p>
 									</div>
 									<div className="resume-card-item px-4 py-3 mt-5">
-										<p className="fw-extra-bold text-linear-1 mb-2">2014-2016</p>
-										<h5>Freelance UI/UX Designer</h5>
+										<p className="fw-extra-bold text-linear-1 mb-2">2020-2022</p>
+										<h5>Freelance Web Development</h5>
 										<p className="text-300 mb-0">Self-Employed</p>
 									</div>
-									<div className="resume-card-item px-4 py-3 mt-4">
+									{/* <div className="resume-card-item px-4 py-3 mt-4">
 										<p className="fw-extra-bold text-linear-1 mb-2">2012 - 2014</p>
 										<h5>Junior UI Designer</h5>
 										<p className="text-300 mb-0">Web Solutions team</p>
-									</div>
+									</div> */}
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div className="scroll-move-right position-relative pb-160 pt-lg-150">
-					<div className="d-flex align-items-center gap-5 wow img-custom-anim-top position-absolute top-50 start-50 translate-middle">
-						<h3 className="stroke fs-150 text-uppercase text-white">Branding . Marketing . User Interface</h3>
+				<div className="scroll-move-right position-relative pb-160 pt-lg-100">
+					<div className="d-flex align-items-center gap-2 wow img-custom-anim-top position-absolute top-10 start-50 translate-middle">
+						{/* <h3 className="stroke fs-150 text-uppercase text-white">Branding . Marketing . User Interface</h3> */}
 					</div>
 				</div>
 			</section>
