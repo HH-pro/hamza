@@ -6,7 +6,7 @@ export default function ThemeSwitch() {
 
 	useEffect(() => {
 		// Access localStorage only on the client-side
-		const savedTheme = localStorage?.getItem("theme") || "dark"
+		const savedTheme = localStorage?.getItem("theme") || "light"
 		setTheme(savedTheme)
 		document.documentElement.setAttribute("data-bs-theme", savedTheme)
 	}, [])
@@ -18,7 +18,7 @@ export default function ThemeSwitch() {
 	}, [theme])
 
 	const toggleTheme = () => {
-		setTheme(prevTheme => (prevTheme === "light" ? "dark" : "light"))
+		setTheme(prevTheme => (prevTheme === "dark" ? "light" : "dark"))
 	}
 
 	return (
@@ -28,7 +28,7 @@ export default function ThemeSwitch() {
 				onClick={toggleTheme}
 				style={{ cursor: "pointer" }}
 			>
-				<i className={`bi theme-icon ${theme === "dark" ? "ri-sun-line text-warning" : "ri-contrast-2-line text-white"}`} />
+				<i className={`bi theme-icon ${theme === "light" ? "ri-sun-line text-warning" : "ri-contrast-2-line text-white"}`} />
 			</div>
 
 			
