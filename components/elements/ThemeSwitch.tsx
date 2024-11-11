@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react"
 
 export default function ThemeSwitch() {
-	const [theme, setTheme] = useState<string>("dark")
+	const [theme, setTheme] = useState<string>("light")
 
 	useEffect(() => {
 		// Access localStorage only on the client-side
