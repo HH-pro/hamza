@@ -11,19 +11,19 @@ export default function Footer1() {
 								<img src="/assets/imgs/footer-1/logo.svg" alt="infinia" />
 								<span className="fs-4 ms-2 text-white-keep">Hamza.Manzoor</span>
 							</Link>
-							<div className="navigation d-none d-md-flex align-items-center justify-content-center flex-wrap gap-4 my-4">
-								<Link href="/" className="fs-5">
+							<div className="navigation text-white-keep d-none d-md-flex align-items-center justify-content-center flex-wrap gap-4 my-4">
+								<Link  href="/" className="text-white-keep fs-5">
 									Home
 								</Link>
-								<Link href="/services" className="fs-5">
+								<Link href="/services" className="text-white-keep fs-5">
 									Services
 								</Link>
-								<Link href="/work" className="fs-5">
+								<Link href="/work" className="text-white-keep fs-5">
 									Portfolio
 								</Link>
 								
 								
-								<Link href="/#contact" className="fs-5">
+								<Link href="/#contact" className="text-white-keep fs-5">
 									Contact
 								</Link>
 							</div>

@@ -27,13 +27,11 @@ export default function Header1({ scroll, isMobileMenu, handleMobileMenu, isOffC
 								<Link href="/http://facebook.com">
 									<i className="ri-facebook-circle-fill fs-18" />
 								</Link>
-								<Link href="/http://twitter.com">
-									<i className="ri-twitter-x-fill fs-18" />
-								</Link>
+								
 								<Link href="/http://linkedin.com">
 									<i className="ri-linkedin-fill fs-18" />
 								</Link>
-								<Link href="/http://github.com">
+								<Link href="/https://github.com/HH-PRO/">
 									<i className="ri-github-fill fs-18" />
 								</Link>
 							</div>
