@@ -35,11 +35,10 @@ export default function Service1() {
 								<div className="service-card-details d-lg-flex align-items-center">
 									<h3 className="service-card-title w-lg-50 w-100 mb-0">
 										<Link href="/work-single">
-											<span className="service-number">01.</span>
 											Web Development
 										</Link>
 									</h3>
-									<Link href="/#" className="d-md-flex d-block ps-lg-10 align-items-center justify-content-end w-100">
+									<Link href="/services" className="d-md-flex d-block ps-lg-10 align-items-center justify-content-end w-100">
 										<p className="service-card-text my-3">
 											Crafting responsive and engaging websites that align with your <br />
 											brand and business goals.
@@ -49,7 +48,9 @@ export default function Service1() {
 										</div>
 									</Link>
 								</div>
+								
 							</div>
+							
 						</div>
 					</div>
 				</div>

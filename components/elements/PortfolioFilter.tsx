@@ -42,41 +42,58 @@ export default function PortfolioFilter() {
 				<div className="text-start">
 					<div className="button-group filter-button-group filter-menu-active">
 						<button className={activeBtn("*")} onClick={handleFilterKeyChange("*")}>All Projects</button>
-						<button className={activeBtn("brand")} onClick={handleFilterKeyChange("brand")}>Branding</button>
-						<button className={activeBtn("webdesign")} onClick={handleFilterKeyChange("webdesign")}>Web Design</button>
-						<button className={activeBtn("ui")} onClick={handleFilterKeyChange("ui")}>UI/UX</button>
-						<button className={activeBtn("app")} onClick={handleFilterKeyChange("app")}>App Dev</button>
+						{/* <button className={activeBtn("brand")} onClick={handleFilterKeyChange("brand")}>Branding</button> */}
+						{/* <button className={activeBtn("webdesign")} onClick={handleFilterKeyChange("webdesign")}>Web Design</button> */}
+						{/* <button className={activeBtn("ui")} onClick={handleFilterKeyChange("ui")}>UI/UX</button> */}
+						{/* <button className={activeBtn("app")} onClick={handleFilterKeyChange("app")}>App Dev</button> */}
 					</div>
 				</div>
 				<div className="row masonry-active justify-content-between mt-6">
 					<div className="grid-sizer" />
-					<div className="filter-item col-lg-6 col-12 brand ui app">
+					<div className="filter-item col-lg-6 col-12 app app dataanalysis brand">
 						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
-							<Link href="/work-single">
-								<img className="rounded-3 w-100 zoom-img" src="/assets/imgs/projects/projects-1/img-1.png" alt="infinia" />
+							<Link href="https://xiaomi.kg/">
+								<img className="rounded-3 w-100 zoom-img" src="/assets/imgs/projects/projects-1/img-4.png" alt="infinia" />
 							</Link>
 							<div className="d-flex align-items-center mt-4">
 								<Link href="/work-single" className="project-card-content">
-									<h3 className="fw-semibold">Photo App UI/UX</h3>
-									<p>Bokeh network</p>
+									<h3 className="fw-semibold">Ecommerece Store</h3>
+									<p>Xiaomi.kg</p>
 								</Link>
-								<Link href="/work-single" className="project-card-icon icon-shape ms-auto icon-md rounded-circle">
+								<Link href="https://xiaomi.kg/" className="project-card-icon icon-shape ms-auto icon-md rounded-circle">
 									<i className="ri-arrow-right-up-line" />
 								</Link>
 							</div>
 						</div>
 					</div>
+					
 					<div className="filter-item col-lg-6 col-12 webdesign brand dataanalysis brand">
 						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
-							<Link href="/work-single">
+							<Link href="https://visualsblaze.com">
 								<img className="rounded-3 w-100 zoom-img" src="/assets/imgs/projects/projects-1/img-2.png" alt="infinia" />
 							</Link>
 							<div className="d-flex align-items-center mt-4">
 								<Link href="/work-single" className="project-card-content">
-									<h3 className="fw-semibold">Mobile App Design</h3>
-									<p>Tech Innovators Inc.</p>
+									<h3 className="fw-semibold">Portfolio Website</h3>
+									<p>Visualsblaze</p>
 								</Link>
-								<Link href="/work-single" className="project-card-icon icon-shape ms-auto icon-md rounded-circle">
+								<Link href="https://visualsblaze.com/" className="project-card-icon icon-shape ms-auto icon-md rounded-circle">
+									<i className="ri-arrow-right-up-line" />
+								</Link>
+							</div>
+						</div>
+					</div>
+					<div className="filter-item col-lg-6 col-12 brand ui app">
+						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
+							<Link href="https://wecinema.co">
+								<img className="rounded-3 w-100 zoom-img" src="/assets/imgs/projects/projects-1/img-1.png" alt="infinia" />
+							</Link>
+							<div className="d-flex align-items-center mt-4">
+								<Link href="/work-single" className="project-card-content">
+									<h3 className="fw-semibold">Socail Website</h3>
+									<p>Wecinema </p>
+								</Link>
+								<Link href="https://wecinema.co/" className="project-card-icon icon-shape ms-auto icon-md rounded-circle">
 									<i className="ri-arrow-right-up-line" />
 								</Link>
 							</div>
@@ -84,36 +101,21 @@ export default function PortfolioFilter() {
 					</div>
 					<div className="filter-item col-lg-6 col-12 ui app">
 						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
-							<Link href="/work-single">
+							<Link href="https://www.votingbuddy.com">
 								<img className="rounded-3 w-100 zoom-img" src="/assets/imgs/projects/projects-1/img-3.png" alt="infinia" />
 							</Link>
 							<div className="d-flex align-items-center mt-4">
 								<Link href="/work-single" className="project-card-content">
-									<h3 className="fw-semibold">Interaction Design</h3>
-									<p>HealthTrack Solutions</p>
+									<h3 className="fw-semibold">Quiz Website</h3>
+									<p>Voting Buddy</p>
 								</Link>
-								<Link href="/work-single" className="project-card-icon icon-shape ms-auto icon-md rounded-circle">
+								<Link href="https://www.votingbuddy.com/" className="project-card-icon icon-shape ms-auto icon-md rounded-circle">
 									<i className="ri-arrow-right-up-line" />
 								</Link>
 							</div>
 						</div>
 					</div>
-					<div className="filter-item col-lg-6 col-12 app app dataanalysis brand">
-						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
-							<Link href="/work-single">
-								<img className="rounded-3 w-100 zoom-img" src="/assets/imgs/projects/projects-1/img-4.png" alt="infinia" />
-							</Link>
-							<div className="d-flex align-items-center mt-4">
-								<Link href="/work-single" className="project-card-content">
-									<h3 className="fw-semibold">Design Consultation</h3>
-									<p>Creative Pulse Studios</p>
-								</Link>
-								<Link href="/work-single" className="project-card-icon icon-shape ms-auto icon-md rounded-circle">
-									<i className="ri-arrow-right-up-line" />
-								</Link>
-							</div>
-						</div>
-					</div>
+					
 				</div>
 			</div>
 		</>

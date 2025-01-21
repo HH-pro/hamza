@@ -24,8 +24,9 @@ export default function Header1({ scroll, isMobileMenu, handleMobileMenu, isOffC
 						</div>
 						<div className="navbar-social d-flex align-items-center pe-5 pe-lg-0 me-5 me-lg-0">
 							<div className="d-md-flex d-none gap-3">
-								<Link href="/http://facebook.com">
-									<i className="ri-facebook-circle-fill fs-18" />
+								<Link href="https://wa.link/ykd7rb">
+								<i className="ri-whatsapp-fill fs-18" />
+
 								</Link>
 								
 								<Link href="/http://linkedin.com">

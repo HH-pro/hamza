@@ -56,7 +56,7 @@ export default function Services() {
 																Back-End Development
 															</p>
 															<p className="card__description text-300 fs-6 mb-0">
-																Implementing server-side logic and database management with technologies such as Node.js, Python,  on Rails to ensure seamless performance and data integrity.
+																Implementing server-side logic and database management with technologies such as Node.js, Python to ensure seamless performance and data integrity.
 															</p>
 														</div>
 														<div className="d-md-flex content">
@@ -64,7 +64,7 @@ export default function Services() {
 																Content Management Systems
 															</p>
 															<p className="card__description text-300 fs-6 mb-0">
-																Integrating user-friendly CMS platforms like WordPress, Drupal, or custom solutions for easy content updates, allowing non-technical users to manage website content efficiently.
+																Integrating user-friendly CMS platforms like WordPress, Shopify, or custom solutions for easy content updates, allowing non-technical users to manage website content efficiently.
 															</p>
 														</div>
 													</div>
