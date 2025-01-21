@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 
 export default function ThemeSwitch() {
-	const [theme, setTheme] = useState<string>("dark")
+	const [theme, setTheme] = useState<string>("light")
 
 	useEffect(() => {
 		// Default to "light" theme and then check localStorage for saved theme
