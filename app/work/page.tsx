@@ -235,7 +235,7 @@ export default function Work() {
 												</div>
 												<div className="card__content px-md-4 px-3">
 													<div className="card__title d-md-flex align-items-center mb-0 mb-lg-2">
-														<p className="text-primary mb-0 mb-md-2">APP DEVELOPMENT</p>
+														{/* <p className="text-primary mb-0 mb-md-2">APP DEVELOPMENT</p> */}
 														<h3 className="fw-semibold">Worker Performance App</h3>
 													</div>
 													<p className="text-300 mb-lg-auto mb-md-4 mb-3">
