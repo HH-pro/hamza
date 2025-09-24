@@ -191,7 +191,7 @@ export default function Work() {
   className="card__image object-cover rounded-lg mx-auto" 
   src="/assets/imgs/work/plants.jpeg" 
   alt="Plant Caring App"
-  style={{ width: "460px", height: "260px" }} 
+  style={{ width: "460px", height: "460px" }} 
 />
 
 
