@@ -36,7 +36,7 @@ export default function Work() {
 												</div>
 												<div className="card__content px-md-4 px-3">
 													<div className="card__title d-md-flex align-items-center mb-0 mb-lg-2">
-														<p className="text-primary mb-0 mb-md-2">WEB DEVELOPMENT</p>
+														{/* <p className="text-primary mb-0 mb-md-2">WEB DEVELOPMENT</p> */}
 														<h3 className="fw-semibold">Social Website</h3>
 													</div>
 													<p className="text-300 mb-lg-auto mb-md-4 mb-3">
@@ -67,7 +67,7 @@ export default function Work() {
 												</div>
 												<div className="card__content px-md-4 px-3">
 													<div className="card__title d-md-flex align-items-center mb-0 mb-lg-2">
-														<p className="text-primary mb-0 mb-md-2">WEB DEVELOPMENT</p>
+														{/* <p className="text-primary mb-0 mb-md-2">WEB DEVELOPMENT</p> */}
 														<h3 className="fw-semibold">Voting Buddy Website</h3>
 													</div>
 													<p className="text-300 mb-lg-auto mb-md-4 mb-3">
@@ -98,7 +98,7 @@ export default function Work() {
 												</div>
 												<div className="card__content px-md-4 px-3">
 													<div className="card__title d-md-flex align-items-center mb-0 mb-lg-2">
-														<p className="text-primary mb-0 mb-md-2">WEB DEVELOPMENT</p>
+														{/* <p className="text-primary mb-0 mb-md-2">WEB DEVELOPMENT</p> */}
 														<h3 className="fw-semibold">Portfolio Website</h3>
 													</div>
 													<p className="text-300 mb-lg-auto mb-md-4 mb-3">
