@@ -156,7 +156,12 @@ export default function Work() {
 										<div className="card-custom" data-index={0}>
 											<div className="card__inner bg-6 p-lg-6 p-md-4 p-3">
 												<div className="card__image-container zoom-img position-relative">
-													<img className="card__image" src="/assets/imgs/work/chat-app.png" alt="Freeform Chat App" />
+													<img 
+  className="card__image object-cover rounded-lg mx-auto" 
+  src="/assets/imgs/work/chat.jpeg" 
+  alt="Plant Caring App"
+  style={{ width: "360px", height: "460px" }} 
+/>
 												</div>
 												<div className="card__content px-md-4 px-3">
 													<div className="card__title d-md-flex align-items-center mb-0 mb-lg-2">
