@@ -188,7 +188,7 @@ export default function Work() {
 											<div className="card__inner bg-6 p-lg-6 p-md-4 p-3">
 												<div className="card__image-container zoom-img position-relative">
 													<img 
-  className="card__image w-40 h-40 object-cover rounded-lg mx-auto" 
+  className="card__image w-4 h-40 object-cover rounded-lg mx-auto" 
   src="/assets/imgs/work/plants.jpeg" 
   alt="Plant Caring App" 
 />
