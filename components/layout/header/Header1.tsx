@@ -52,7 +52,6 @@ export default function Header1({
           Right Side (Social + Mobile Burger)
           <div className="navbar-social d-flex align-items-center pe-3">
           
-            </div>
 
             {/* Mobile Burger Icon */}
             <div
