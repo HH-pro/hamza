@@ -19,7 +19,6 @@ export default function PortfolioFilter() {
 			})
 		}, 1000)
 
-		// Cleanup on unmount
 		return () => clearTimeout(timeout)
 	}, [])
 
@@ -41,12 +40,6 @@ export default function PortfolioFilter() {
 	return (
 		<>
 			<div className="container">
-				{/* Section Title */}
-				<div className="text-center mb-5">
-					<h2 className="fw-bold">Recent Projects</h2>
-					<p className="text-muted">Some of our latest work</p>
-				</div>
-
 				<div className="text-start">
 					<div className="button-group filter-button-group filter-menu-active">
 						<button className={activeBtn("*")} onClick={handleFilterKeyChange("*")}>
@@ -62,14 +55,22 @@ export default function PortfolioFilter() {
 					<div className="filter-item col-lg-6 col-12 app dataanalysis brand">
 						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
 							<a href="https://xiaomi.kg/" target="_blank">
-								<img className="rounded-3 w-100 zoom-img" src="/assets/imgs/projects/projects-1/img-4.png" alt="Xiaomi Store" />
+								<img
+									className="rounded-3 w-100 zoom-img"
+									src="/assets/imgs/projects/projects-1/img-4.png"
+									alt="Xiaomi Store"
+								/>
 							</a>
 							<div className="d-flex align-items-center mt-4">
 								<div className="project-card-content">
 									<h3 className="fw-semibold">Ecommerce Store</h3>
 									<p>Xiaomi.kg</p>
 								</div>
-								<a href="https://xiaomi.kg/" target="_blank" className="project-card-icon icon-shape ms-auto icon-md rounded-circle">
+								<a
+									href="https://xiaomi.kg/"
+									target="_blank"
+									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
+								>
 									<i className="ri-arrow-right-up-line" />
 								</a>
 							</div>
@@ -80,14 +81,22 @@ export default function PortfolioFilter() {
 					<div className="filter-item col-lg-6 col-12 webdesign brand dataanalysis">
 						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
 							<a href="https://visualsblaze.com" target="_blank">
-								<img className="rounded-3 w-100 zoom-img" src="/assets/imgs/projects/projects-1/img-2.png" alt="Visuals Blaze" />
+								<img
+									className="rounded-3 w-100 zoom-img"
+									src="/assets/imgs/projects/projects-1/img-2.png"
+									alt="Visuals Blaze"
+								/>
 							</a>
 							<div className="d-flex align-items-center mt-4">
 								<div className="project-card-content">
 									<h3 className="fw-semibold">Portfolio Website</h3>
 									<p>Visuals Blaze</p>
 								</div>
-								<a href="https://visualsblaze.com/" target="_blank" className="project-card-icon icon-shape ms-auto icon-md rounded-circle">
+								<a
+									href="https://visualsblaze.com/"
+									target="_blank"
+									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
+								>
 									<i className="ri-arrow-right-up-line" />
 								</a>
 							</div>
@@ -98,14 +107,22 @@ export default function PortfolioFilter() {
 					<div className="filter-item col-lg-6 col-12 brand ui app">
 						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
 							<a href="https://wecinema.co" target="_blank">
-								<img className="rounded-3 w-100 zoom-img" src="/assets/imgs/projects/projects-1/img-1.png" alt="Wecinema" />
+								<img
+									className="rounded-3 w-100 zoom-img"
+									src="/assets/imgs/projects/projects-1/img-1.png"
+									alt="Wecinema"
+								/>
 							</a>
 							<div className="d-flex align-items-center mt-4">
 								<div className="project-card-content">
 									<h3 className="fw-semibold">Social Website</h3>
 									<p>Wecinema</p>
 								</div>
-								<a href="https://wecinema.co/" target="_blank" className="project-card-icon icon-shape ms-auto icon-md rounded-circle">
+								<a
+									href="https://wecinema.co/"
+									target="_blank"
+									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
+								>
 									<i className="ri-arrow-right-up-line" />
 								</a>
 							</div>
@@ -116,55 +133,130 @@ export default function PortfolioFilter() {
 					<div className="filter-item col-lg-6 col-12 ui app">
 						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
 							<a href="https://www.votingbuddy.com" target="_blank">
-								<img className="rounded-3 w-100 zoom-img" src="/assets/imgs/projects/projects-1/img-3.png" alt="Voting Buddy" />
+								<img
+									className="rounded-3 w-100 zoom-img"
+									src="/assets/imgs/projects/projects-1/img-3.png"
+									alt="Voting Buddy"
+								/>
 							</a>
 							<div className="d-flex align-items-center mt-4">
 								<div className="project-card-content">
 									<h3 className="fw-semibold">Quiz Website</h3>
 									<p>Voting Buddy</p>
 								</div>
-								<a href="https://www.votingbuddy.com/" target="_blank" className="project-card-icon icon-shape ms-auto icon-md rounded-circle">
+								<a
+									href="https://www.votingbuddy.com/"
+									target="_blank"
+									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
+								>
 									<i className="ri-arrow-right-up-line" />
 								</a>
 							</div>
 						</div>
 					</div>
 
-					{/* Project 5 - Bright Funded Traders */}
+					{/* Project 5 */}
 					<div className="filter-item col-lg-6 col-12 ui app">
 						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
 							<a href="https://brightfundedtraders.com/" target="_blank">
-								<img className="rounded-3 w-100 zoom-img" src="/assets/imgs/projects/projects-1/bright.png" alt="Bright Funded Traders" />
+								<img
+									className="rounded-3 w-100 zoom-img"
+									src="/assets/imgs/projects/projects-1/bright.png"
+									alt="Bright Funded Traders"
+								/>
 							</a>
 							<div className="d-flex align-items-center mt-4">
 								<div className="project-card-content">
 									<h3 className="fw-semibold">Trading Website</h3>
 									<p>Bright Funded Traders</p>
 								</div>
-								<a href="https://brightfundedtraders.com/" target="_blank" className="project-card-icon icon-shape ms-auto icon-md rounded-circle">
+								<a
+									href="https://brightfundedtraders.com/"
+									target="_blank"
+									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
+								>
 									<i className="ri-arrow-right-up-line" />
 								</a>
 							</div>
 						</div>
 					</div>
 
-					{/* Project 6 - Quantum Funding Traders */}
+					{/* Project 6 */}
 					<div className="filter-item col-lg-6 col-12 ui app">
 						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
 							<a href="https://quantumfundingtraders.com/" target="_blank">
-								<img className="rounded-3 w-100 zoom-img" src="/assets/imgs/projects/projects-1/break.png" alt="Quantum Funding Traders" />
+								<img
+									className="rounded-3 w-100 zoom-img"
+									src="/assets/imgs/projects/projects-1/break.png"
+									alt="Quantum Funding Traders"
+								/>
 							</a>
 							<div className="d-flex align-items-center mt-4">
 								<div className="project-card-content">
 									<h3 className="fw-semibold">Trading Website</h3>
 									<p>Quantum Funding Traders</p>
 								</div>
-								<a href="https://quantumfundingtraders.com/" target="_blank" className="project-card-icon icon-shape ms-auto icon-md rounded-circle">
+								<a
+									href="https://quantumfundingtraders.com/"
+									target="_blank"
+									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
+								>
 									<i className="ri-arrow-right-up-line" />
 								</a>
 							</div>
 						</div>
 					</div>
+
+					{/* Project 7 - Free Chat Freedom App */}
+					<div className="filter-item col-lg-6 col-12 ui app mobile">
+						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
+							<a href="#" target="_blank">
+								<img
+									className="rounded-3 w-100 zoom-img"
+									src="/assets/imgs/projects/projects-1/freechat.png"
+									alt="Free Chat Freedom App"
+								/>
+							</a>
+							<div className="d-flex align-items-center mt-4">
+								<div className="project-card-content">
+									<h3 className="fw-semibold">Free Chat Freedom</h3>
+									<p>Mobile App</p>
+								</div>
+								<a
+									href="#"
+									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
+								>
+									<i className="ri-arrow-right-up-line" />
+								</a>
+							</div>
+						</div>
+					</div>
+
+					{/* Project 8 - Employee Wordplaze App */}
+					<div className="filter-item col-lg-6 col-12 ui app mobile">
+						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
+							<a href="#" target="_blank">
+								<img
+									className="rounded-3 w-100 zoom-img"
+									src="/assets/imgs/projects/projects-1/wordplaze.png"
+									alt="Employee Wordplaze App"
+								/>
+							</a>
+							<div className="d-flex align-items-center mt-4">
+								<div className="project-card-content">
+									<h3 className="fw-semibold">Employee Wordplaze App</h3>
+									<p>Business App</p>
+								</div>
+								<a
+									href="#"
+									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
+								>
+									<i className="ri-arrow-right-up-line" />
+								</a>
+							</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
 		</>
