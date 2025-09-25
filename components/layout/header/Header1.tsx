@@ -49,7 +49,7 @@ export default function Header1({
             </div>
           </div>
 
-          {/* Right Side (Social + Mobile Burger) */}
+          {/* Right Side (Social + Mobile Burger)
           <div className="navbar-social d-flex align-items-center pe-3">
             {/* Social Links */}
             <div className="d-md-flex d-none gap-3">
@@ -62,7 +62,7 @@ export default function Header1({
               <Link href="https://github.com/HH-PRO" target="_blank">
                 <i className="ri-github-fill fs-18" />
               </Link>
-            </div>
+            </div> */}
 
             {/* Mobile Burger Icon */}
             <div
