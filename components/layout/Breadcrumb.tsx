@@ -3,43 +3,29 @@ import Link from "next/link"
 
 interface BreadcrumbProps {
   breadcrumbTitle: string
-  backgroundImage?: string
 }
 
-export default function Breadcrumb({ breadcrumbTitle, backgroundImage }: BreadcrumbProps) {
+export default function Breadcrumb({ breadcrumbTitle }: BreadcrumbProps) {
   return (
-    <section
-      className="breadcrumb-area py-5 border-bottom text-white"
-      style={{
-        background: backgroundImage
-          ? `url(${backgroundImage}) center/cover no-repeat`
-          : "#f9f9f9",
-      }}
-    >
-      <div className="container">
-        <div className="d-flex flex-column flex-md-row align-items-md-center justify-content-between">
+    <section className="py-6 bg-gray-100 border-b">
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+          
           {/* Page Title */}
-          <h2 className={`mb-2 mb-md-0 fw-bold ${backgroundImage ? "text-white" : "text-dark"}`}>
+          <h2 className="text-xl font-semibold text-gray-800 mb-2 md:mb-0">
             {breadcrumbTitle}
           </h2>
 
           {/* Breadcrumb Trail */}
           <nav aria-label="breadcrumb">
-            <ol className="breadcrumb mb-0">
-              <li className="breadcrumb-item">
-                <Link
-                  href="/"
-                  className={backgroundImage ? "text-white text-decoration-none" : "text-primary text-decoration-none"}
-                >
+            <ol className="flex text-sm text-gray-600 space-x-2">
+              <li>
+                <Link href="/" className="text-blue-600 hover:underline">
                   Home
                 </Link>
               </li>
-              <li
-                className={`breadcrumb-item ${backgroundImage ? "text-light" : "text-secondary"}`}
-                aria-current="page"
-              >
-                {breadcrumbTitle}
-              </li>
+              <li>/</li>
+              <li className="text-gray-500">{breadcrumbTitle}</li>
             </ol>
           </nav>
         </div>
