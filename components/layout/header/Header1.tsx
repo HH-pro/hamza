@@ -49,7 +49,7 @@ export default function Header1({
             </div>
           </div>
 
-          Right Side (Social + Mobile Burger)
+        
           <div className="navbar-social d-flex align-items-center pe-3">
           
 
