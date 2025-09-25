@@ -194,6 +194,7 @@ export default function PortfolioFilter() {
 								</Link>
 								<Link
 									href="https://quantumfundingtraders.com/"
+									
 									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
 								>
 									<i className="ri-arrow-right-up-line" />
