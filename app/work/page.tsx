@@ -231,7 +231,7 @@ export default function Work() {
 										<div className="card-custom" data-index={0}>
 											<div className="card__inner bg-6 p-lg-6 p-md-4 p-3">
 												<div className="card__image-container zoom-img position-relative">
-													<img className="card__image" src="/assets/imgs/work/worker-app.png" alt="Worker Performance App" />
+													<img className="card__image" src="/assets/imgs/work/work.jpeg" alt="Worker Performance App" />
 												</div>
 												<div className="card__content px-md-4 px-3">
 													<div className="card__title d-md-flex align-items-center mb-0 mb-lg-2">
