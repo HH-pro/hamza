@@ -42,7 +42,7 @@ export default function Header2({ scroll, isMobileMenu, handleMobileMenu,isOffCa
 										</ul>
 									</div>
 								</div>
-								<div className="navbar-social d-flex align-items-center pe-5 pe-lg-0 me-5 me-lg-0">
+								{/* <div className="navbar-social d-flex align-items-center pe-5 pe-lg-0 me-5 me-lg-0">
 									<div className="d-md-flex d-none gap-3">
 										<Link href="/http://facebook.com">
 											<i className="ri-facebook-circle-fill fs-18" />
@@ -62,7 +62,7 @@ export default function Header2({ scroll, isMobileMenu, handleMobileMenu,isOffCa
 										<span className="burger-icon-mid" />
 										<span className="burger-icon-bottom" />
 									</div>
-								</div>
+								</div> */}
 							</div>
 							<ThemeSwitch />
 						</nav>
