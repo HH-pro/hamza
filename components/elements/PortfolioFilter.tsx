@@ -213,7 +213,7 @@ export default function PortfolioFilter() {
 							<a href="#" target="_blank">
 								<img
 									className="rounded-3 w-100 zoom-img"
-									src="/assets/imgs/projects/projects-1/freechat.png"
+									src="/assets/imgs/projects/projects-1/chat.jpeg"
 									alt="Free Chat Freedom App"
 								/>
 							</a>
