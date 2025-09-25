@@ -42,7 +42,7 @@ export default function Home1() {
 
 						{/* Experience Note */}
 						<p className="text-400 mt-6 mb-3">
-							+ 2 years of professional experience in Web & App Development
+							+ 4 years of professional experience in Web & App Development
 						</p>
 
 						{/* Tech Logos */}
