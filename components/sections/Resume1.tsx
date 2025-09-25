@@ -79,7 +79,7 @@ export default function Resume1() {
 								</div>
 								<div className="resume-card-body">
 									<div className="resume-card-item px-4 py-3 mt-5">
-										<p className="fw-extra-bold text-linear-1 mb-2">2024 - Present</p>
+										<p className="fw-extra-bold text-linear-1 mb-2">2025 - Present</p>
 										<h5>Senior Software Developer</h5>
 										<p className="text-300 mb-0">
 											Leading development of scalable web applications and
