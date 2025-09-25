@@ -41,7 +41,7 @@ export default function Header1({ scroll, isMobileMenu, handleMobileMenu, isOffC
 								<span className="burger-icon-mid" />
 								<span className="burger-icon-bottom" />
 							</div> */}
-						</div>
+						{/* </div> */}
 					</div>
 					<ThemeSwitch />
 
