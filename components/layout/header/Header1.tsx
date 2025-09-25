@@ -22,7 +22,7 @@ export default function Header1({ scroll, isMobileMenu, handleMobileMenu, isOffC
 								<Menu />
 							</div>
 						</div>
-						<div className="navbar-social d-flex align-items-center pe-5 pe-lg-0 me-5 me-lg-0">
+						{/* <div className="navbar-social d-flex align-items-center pe-5 pe-lg-0 me-5 me-lg-0">
 							<div className="d-md-flex d-none gap-3">
 								<Link href="https://wa.link/ykd7rb">
 								<i className="ri-whatsapp-fill fs-18" />
@@ -40,7 +40,7 @@ export default function Header1({ scroll, isMobileMenu, handleMobileMenu, isOffC
 								<span className="burger-icon-top" />
 								<span className="burger-icon-mid" />
 								<span className="burger-icon-bottom" />
-							</div>
+							</div> */}
 						</div>
 					</div>
 					<ThemeSwitch />
