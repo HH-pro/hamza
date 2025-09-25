@@ -158,7 +158,7 @@ export default function PortfolioFilter() {
 							<Link href="https://brightfundedtraders.com/">
 								<img
 									className="rounded-3 w-100 zoom-img"
-									src="/assets/imgs/projects/projects-1/brightfunded.png"
+									src="/assets/imgs/projects/projects-1/bright.png"
 									alt="Bright Funded Traders"
 								/>
 							</Link>
@@ -169,6 +169,7 @@ export default function PortfolioFilter() {
 								</Link>
 								<Link
 									href="https://brightfundedtraders.com/"
+									
 									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
 								>
 									<i className="ri-arrow-right-up-line" />
