@@ -28,23 +28,7 @@ export default function OffCanvas({ isOffCanvas, handleOffCanvas }: any) {
 								<p className="mb-0">Narowal,Punjab</p>
 							</div>
 						</div>
-						<div className="contact-list">
-							<p className="text-400 fs-5 mb-2">Social</p>
-							<div className="d-md-flex d-none gap-3">
-								<Link href="/http://facebook.com">
-									<i className="ri-facebook-circle-fill fs-18" />
-								</Link>
-								<Link href="/http://twitter.com">
-									<i className="ri-twitter-x-fill fs-18" />
-								</Link>
-								<Link href="/http://linkedin.com">
-									<i className="ri-linkedin-fill fs-18" />
-								</Link>
-								<Link href="/http://github.com">
-									<i className="ri-github-fill fs-18" />
-								</Link>
-							</div>
-						</div>
+						
 					</div>
 				</div>
 			<div className={`offCanvas__overly ${isOffCanvas ? 'active' : ''}`}  onClick={handleOffCanvas}/>
