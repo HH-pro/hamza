@@ -238,7 +238,7 @@ export default function PortfolioFilter() {
 							<a href="#" target="_blank">
 								<img
 									className="rounded-3 w-100 zoom-img"
-									src="/assets/imgs/projects/projects-1/work.png"
+									src="/assets/imgs/projects/projects-1/work.jpeg"
 									alt="Employee Wordplaze App"
 								/>
 							</a>
