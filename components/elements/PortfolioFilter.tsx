@@ -183,7 +183,7 @@ export default function PortfolioFilter() {
 							<Link href="https://quantumfundingtraders.com/">
 								<img
 									className="rounded-3 w-100 zoom-img"
-									src="/assets/imgs/projects/projects-1/quantumfunding.png"
+									src="/assets/imgs/projects/projects-1/break.png"
 									alt="Quantum Funding Traders"
 								/>
 							</Link>
