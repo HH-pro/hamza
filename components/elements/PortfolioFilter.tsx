@@ -208,54 +208,37 @@ export default function PortfolioFilter() {
 					</div>
 
 					{/* Project 7 - Free Chat Freedom App */}
-					<div className="filter-item col-lg-6 col-12 ui app mobile">
-						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
-							<a href="#" target="_blank">
-								<img
-									className="rounded-3 w-100 zoom-img"
-									src="/assets/imgs/projects/projects-1/chat.jpeg"
-									alt="Free Chat Freedom App"
-								/>
-							</a>
-							<div className="d-flex align-items-center mt-4">
-								<div className="project-card-content">
-									<h3 className="fw-semibold">Free Chat Freedom</h3>
-									<p>Mobile App</p>
-								</div>
-								<a
-									href="#"
-									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
-								>
-									<i className="ri-arrow-right-up-line" />
-								</a>
-							</div>
-						</div>
-					</div>
+<div className="filter-item col-lg-6 col-12 ui app mobile">
+	<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white text-center">
+		<img
+			className="rounded-3 zoom-img mx-auto"
+			src="/assets/imgs/projects/projects-1/chat.jpeg"
+			alt="Free Chat Freedom App"
+			style={{ width: "220px", height: "auto" }}
+		/>
+		<div className="mt-3">
+			<h3 className="fw-semibold fs-5">Free Chat Freedom</h3>
+			<p className="mb-0 small">Mobile App</p>
+		</div>
+	</div>
+</div>
 
-					{/* Project 8 - Employee Wordplaze App */}
-					<div className="filter-item col-lg-6 col-12 ui app mobile">
-						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
-							<a href="#" target="_blank">
-								<img
-									className="rounded-3 w-100 zoom-img"
-									src="/assets/imgs/projects/projects-1/work.jpeg"
-									alt="Employee Wordplaze App"
-								/>
-							</a>
-							<div className="d-flex align-items-center mt-4">
-								<div className="project-card-content">
-									<h3 className="fw-semibold">Employee Wordplaze App</h3>
-									<p>Business App</p>
-								</div>
-								<a
-									href="#"
-									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
-								>
-									<i className="ri-arrow-right-up-line" />
-								</a>
-							</div>
-						</div>
-					</div>
+{/* Project 8 - Employee Wordplaze App */}
+<div className="filter-item col-lg-6 col-12 ui app mobile">
+	<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white text-center">
+		<img
+			className="rounded-3 zoom-img mx-auto"
+			src="/assets/imgs/projects/projects-1/work.jpeg"
+			alt="Employee Wordplaze App"
+			style={{ width: "220px", height: "auto" }}
+		/>
+		<div className="mt-3">
+			<h3 className="fw-semibold fs-5">Employee Wordplaze App</h3>
+			<p className="mb-0 small">Business App</p>
+		</div>
+	</div>
+</div>
+
 
 				</div>
 			</div>
