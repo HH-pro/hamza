@@ -49,8 +49,8 @@ export default function Header1({
             </div>
           </div>
 
-          {/* Right Side (Social + Mobile Burger)
-          <div className="navbar-social d-flex align-items-center pe-3">
+          Right Side (Social + Mobile Burger)
+          {/* <div className="navbar-social d-flex align-items-center pe-3">
             {/* Social Links */}
             <div className="d-md-flex d-none gap-3">
               <Link href="https://wa.link/ykd7rb" target="_blank">
