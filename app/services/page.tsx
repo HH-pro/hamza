@@ -252,7 +252,7 @@ export default function Services() {
 								<div className="col-lg-auto col-md-6">
 									<div className="content text-center d-flex align-items-center">
 										<span className="ds-3 text-primary fw-medium my-0">
-											+<span className="odometer ds-1 text-dark fw-semibold">70</span>
+											+<span className="odometer ds-1 text-dark fw-semibold">50</span>
 										</span>
 										<div className="text-start ms-2">
 											<p className="fs-5 mb-0 text-300">Happy</p>
