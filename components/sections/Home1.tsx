@@ -13,10 +13,10 @@ export default function Home1() {
 
 						{/* Professional Summary */}
 						<p className="text-300 mb-6">
-							I specialize in building modern applications across web and mobile,
-							with expertise in UI/UX, artificial intelligence, and machine learning.
-							My goal is to deliver scalable, user-friendly, and intelligent solutions 
-							that create real impact.
+							I specialize in building scalable <strong>web and mobile applications</strong>,
+							with expertise in <strong>App Development</strong>, UI/UX design,
+							and integrating advanced technologies such as Artificial Intelligence
+							and Machine Learning.
 							<br />
 							<span className="fw-semibold text-primary">
 								Skills: App Development • Web Development • UI/UX • AI • ML
