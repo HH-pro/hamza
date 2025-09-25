@@ -25,7 +25,7 @@ export default function Header1({
       >
         {/* OffCanvas trigger */}
         <button
-          className="navbar-menu p-4 text-center square-100 menu-tigger icon_80 icon-shape d-none d-md-flex"
+          className="navbar-menu p-4 text-center menu-tigger icon_80 icon-shape d-none d-md-flex"
           onClick={handleOffCanvas}
           aria-label="Toggle OffCanvas"
         >
