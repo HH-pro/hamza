@@ -25,9 +25,10 @@ export default function Header1({
       >
         {/* OffCanvas trigger */}
         <button
-          className="navbar-menu p-4 text-center menu-tigger icon_80 icon-shape d-none d-md-flex"
+          className="navbar-menu p-4 text-center square-100 menu-tigger icon_80 icon-shape d-none d-md-flex border-0 bg-transparent shadow-none"
           onClick={handleOffCanvas}
           aria-label="Toggle OffCanvas"
+          style={{ outline: 'none' }}
         >
           <i className="ri-menu-2-line" />
         </button>
@@ -49,10 +50,7 @@ export default function Header1({
             </div>
           </div>
 
-        
           <div className="navbar-social d-flex align-items-center pe-3">
-          
-
             {/* Mobile Burger Icon */}
             <div
               className="burger-icon border rounded-3 ms-3"
