@@ -9,19 +9,18 @@ export default function Home1() {
 						<span className="text-dark">👋 Hi there, I'm Hamza</span>
 
 						{/* Main Heading */}
-						<h1 className="ds-2 mb-3">
-							Full Stack Developer <br />
-							<span className="text-primary">
-								(Apps • Web • UI/UX • AI • ML)
-							</span>
-						</h1>
+						<h2 className="ds-3 mb-3">Full Stack Developer</h2>
 
-						{/* Short Professional Summary */}
+						{/* Professional Summary */}
 						<p className="text-300 mb-6">
 							I specialize in building modern applications across web and mobile,
 							with expertise in UI/UX, artificial intelligence, and machine learning.
-							My goal is to deliver scalable, user-friendly, and intelligent
-							solutions that create real impact.
+							My goal is to deliver scalable, user-friendly, and intelligent solutions 
+							that create real impact.
+							<br />
+							<span className="fw-semibold text-primary">
+								Skills: App Development • Web Development • UI/UX • AI • ML
+							</span>
 						</p>
 
 						{/* Action Buttons */}
