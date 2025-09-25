@@ -180,7 +180,7 @@ export default function Services() {
 													<div className="card__image-container zoom-img">
 														<img
 															className="card__image"
-															src="/assets/imgs/services-list/img-5.png"
+															src="/assets/imgs/services-list/img-2.png"
 															alt="Bot Automation"
 														/>
 													</div>
