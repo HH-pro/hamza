@@ -252,7 +252,7 @@ export default function Work() {
 													</div>
 													<div className="d-md-flex content">
 														<p className="mb-0 fs-7 text-dark text-uppercase w-40">Tools</p>
-														<p className="mb-0 card__description text-300 fs-6 mb-0">React Native, Node.js, PostgreSQL</p>
+														<p className="mb-0 card__description text-300 fs-6 mb-0">Swift</p>
 													</div>
 												</div>
 											</div>
