@@ -52,16 +52,8 @@ export default function MobileMenu({ isMobileMenu, handleMobileMenu }: MobileMen
 											Portfolio
 										</Link>
 									</li>
-									<li className="nav-item">
-										<Link className="nav-link" href="/pricing" onClick={handleMobileMenu}>
-											Pricing
-										</Link>
-									</li>
-									<li className="nav-item">
-										<Link className="nav-link" href="/blog-list" onClick={handleMobileMenu}>
-											Blog
-										</Link>
-									</li>
+									
+									
 									<li className="nav-item">
 										<Link className="nav-link" href="/#contact" onClick={handleMobileMenu}>
 											Contact
