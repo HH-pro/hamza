@@ -1,14 +1,14 @@
-
 import Link from "next/link"
 import dynamic from 'next/dynamic'
+
 const PortfolioFilter = dynamic(() => import('../elements/PortfolioFilter'), {
 	ssr: false,
+	loading: () => <div className="text-center py-5"><div className="spinner-border text-primary" role="status"><span className="visually-hidden">Loading...</span></div></div>
 })
 
 export default function Projects1() {
 	return (
 		<>
-
 			<div id="projects" className="section-projects-1 position-relative pt-120 pb-6 bg-900">
 				<div className="container">
 					<div className="row align-items-end">
@@ -21,29 +21,40 @@ export default function Projects1() {
 							</span>
 						</div>
 						<div className="col-lg-auto">
-							<Link href="/work" className="btn btn-gradient mt-lg-0 mt-5 ms-lg-auto d-none d-xl-block">
-								View All Projects
-								<i className="ri-arrow-right-up-line" />
+							{/* Desktop button - visible on large screens */}
+							<Link 
+								href="/work" 
+								className="btn btn-gradient mt-lg-0 mt-5 ms-lg-auto d-none d-xl-inline-flex align-items-center gap-2"
+							>
+								<span>View All Projects</span>
+								<i className="ri-arrow-right-up-line fs-6" />
 							</Link>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div className="bg-900 fillter-project" data-background="assets/imgs/projects/projects-1/background.png">
-				<PortfolioFilter/>
+			
+			<div className="bg-900 fillter-project position-relative" data-background="assets/imgs/projects/projects-1/background.png">
+				<PortfolioFilter />
 			</div>
-			<div className="contairer overflow-hidden">
+			
+			{/* Mobile/Tablet button - visible on smaller screens */}
+			<div className="container overflow-hidden">
 				<div className="row justify-content-center position-relative button-project pb-160 bg-900 pt-1">
-					<Link href="/work" className="icon_hover position-relative z-1 icon-shape icon_150 border-linear-2 rounded-circle position-relative overflow-hidden bg-white hover-up">
-						<span className="icon-shape icon-md bg-linear-2 rounded-circle position-absolute bottom-0 end-0" />
-						<p className="m-0 fs-7 fw-bold text-capitalize position-absolute top-50 start-50 translate-middle">
-							View All
-						</p>
+					<Link 
+						href="/work" 
+						className="icon_hover position-relative z-1 icon-shape icon_150 border-linear-2 rounded-circle overflow-hidden bg-white hover-up d-xl-none d-flex align-items-center justify-content-center"
+						style={{ width: '150px', height: '150px' }}
+					>
+						<span className="icon-shape icon-md bg-linear-2 rounded-circle position-absolute bottom-0 end-0" style={{ width: '50px', height: '50px' }} />
+						<span className="d-flex flex-column align-items-center justify-content-center gap-1">
+							<span className="fs-7 fw-bold text-capitalize">View All</span>
+							<i className="ri-arrow-right-up-line fs-4" />
+						</span>
 					</Link>
 					<div className="ellipse position-absolute bottom-0 start-50 translate-middle-x z-0" />
 				</div>
 			</div>
-
 		</>
 	)
 }
