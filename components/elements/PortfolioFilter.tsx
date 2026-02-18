@@ -258,7 +258,7 @@ export default function PortfolioFilter() {
 							<div className="text-center">
 								<img
 									className="rounded-3 zoom-img mx-auto"
-									src="/assets/imgs/projects/projects-1/facme.jpeg"
+									src="/assets/imgs/projects/projects-1/faceme.jpeg"
 									alt="FacmeQuiz iOS App"
 									style={{ width: "220px", height: "auto", maxWidth: "100%" }}
 								/>
