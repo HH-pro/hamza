@@ -1,8 +1,8 @@
-import "/public/assets/css/vendors/bootstrap.min.css"
-import "/public/assets/css/vendors/swiper-bundle.min.css"
-import "/public/assets/css/vendors/carouselTicker.css"
-import "/public/assets/css/vendors/magnific-popup.css"
-import "/public/assets/fonts/remixicon/remixicon.css"
+import "../public/assets/css/vendors/bootstrap.min.css"
+import "../public/assets/css/vendors/swiper-bundle.min.css"
+import "../public/assets/css/vendors/carouselTicker.css"
+import "../public/assets/css/vendors/magnific-popup.css"
+import "../public/assets/fonts/remixicon/remixicon.css"
 import "../public/assets/css/main.css"
 
 
