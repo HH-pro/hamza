@@ -219,20 +219,20 @@ export default function PortfolioFilter() {
 						</div>
 					</div>
 
-					{/* Project 7 - FacmeQuiz iOS App (Mobile) */}
+					{/* Project 7 - FacemeQuiz iOS App (Mobile) */}
 					<div className="filter-item col-lg-6 col-12 mobile">
 						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
 							<div className="text-center">
 								<img
 									className="rounded-3 zoom-img mx-auto"
-									src="/assets/imgs/projects/projects-1/facmequiz.jpeg"
+									src="/assets/imgs/projects/projects-1/faceme.png"
 									alt="FacmeQuiz iOS App"
 									style={{ width: "220px", height: "auto", maxWidth: "100%" }}
 								/>
 							</div>
 							<div className="d-flex align-items-center mt-4">
 								<div className="project-card-content">
-									<h3 className="fw-semibold">FacmeQuiz</h3>
+									<h3 className="fw-semibold">FacemeQuiz</h3>
 									<p className="mb-0">iOS Quiz App</p>
 								</div>
 								<a
