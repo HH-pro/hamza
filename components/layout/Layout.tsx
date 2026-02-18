@@ -22,6 +22,7 @@ interface LayoutProps {
 
 export default function Layout({ headerStyle, footerStyle, breadcrumbTitle, children }: LayoutProps) {
   const [scroll, setScroll] = useState<boolean>(false)
+  const [wowInitialized, setWowInitialized] = useState<boolean>(false)
 
   // Mobile Menu
   const [isMobileMenu, setMobileMenu] = useState<boolean>(false)
@@ -40,14 +41,47 @@ export default function Layout({ headerStyle, footerStyle, breadcrumbTitle, chil
   const [isOffCanvas, setOffCanvas] = useState<boolean>(false)
   const handleOffCanvas = (): void => setOffCanvas(!isOffCanvas)
 
+  // Initialize WOW.js
   useEffect(() => {
-    const WOW: any = require('wowjs');
-    (window as any).wow = new WOW.WOW({
-      live: false
-    });
+    // Check if we're on the client side and WOW hasn't been initialized
+    if (typeof window !== 'undefined' && !wowInitialized) {
+      // Dynamic import of wowjs
+      import('wowjs').then((WOW) => {
+        // Make sure to clean up any existing instance
+        if ((window as any).wow) {
+          (window as any).wow = null
+        }
+        
+        // Initialize new WOW instance
+        (window as any).wow = new WOW.WOW({
+          live: false,
+          offset: 100, // Add default offset
+          mobile: true, // Enable on mobile
+          callback: function(box: Element) {
+            // Optional callback when animation completes
+            console.log('WOW animation completed:', box)
+          }
+        })
+        
+        // Initialize WOW
+        (window as any).wow.init()
+        setWowInitialized(true)
+      }).catch((error) => {
+        console.error('Failed to load WOW.js:', error)
+      })
+    }
 
-    (window as any).wow.init()
+    // Cleanup function
+    return () => {
+      if ((window as any).wow) {
+        // Optional: Clean up WOW instance if needed
+        (window as any).wow = null
+      }
+    }
+  }, [wowInitialized])
 
+  // Handle scroll effect
+  useEffect(() => {
     const handleScroll = (): void => {
       const scrollCheck: boolean = window.scrollY > 100
       if (scrollCheck !== scroll) {
