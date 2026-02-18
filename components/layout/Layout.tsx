@@ -22,7 +22,6 @@ interface LayoutProps {
 
 export default function Layout({ headerStyle, footerStyle, breadcrumbTitle, children }: LayoutProps) {
   const [scroll, setScroll] = useState<boolean>(false)
-  const [wowInitialized, setWowInitialized] = useState<boolean>(false)
 
   // Mobile Menu
   const [isMobileMenu, setMobileMenu] = useState<boolean>(false)
@@ -43,42 +42,22 @@ export default function Layout({ headerStyle, footerStyle, breadcrumbTitle, chil
 
   // Initialize WOW.js
   useEffect(() => {
-    // Check if we're on the client side and WOW hasn't been initialized
-    if (typeof window !== 'undefined' && !wowInitialized) {
-      // Dynamic import of wowjs
-      import('wowjs').then((WOW) => {
-        // Make sure to clean up any existing instance
-        if ((window as any).wow) {
-          (window as any).wow = null
-        }
-        
-        // Initialize new WOW instance
-        (window as any).wow = new WOW.WOW({
-          live: false,
-          offset: 100, // Add default offset
-          mobile: true, // Enable on mobile
-          callback: function(box: Element) {
-            // Optional callback when animation completes
-            console.log('WOW animation completed:', box)
-          }
-        })
-        
-        // Initialize WOW
-        (window as any).wow.init()
-        setWowInitialized(true)
-      }).catch((error) => {
-        console.error('Failed to load WOW.js:', error)
+    // Check if WOW is available globally and not initialized
+    if (typeof window !== 'undefined' && window.WOW && !(window as any).wowInitialized) {
+      // Initialize new WOW instance
+      (window as any).wow = new window.WOW({
+        live: false,
+        offset: 100,
+        mobile: true,
+        boxClass: 'wow',
+        animateClass: 'animated'
       })
+      
+      // Initialize WOW
+      (window as any).wow.init()
+      (window as any).wowInitialized = true
     }
-
-    // Cleanup function
-    return () => {
-      if ((window as any).wow) {
-        // Optional: Clean up WOW instance if needed
-        (window as any).wow = null
-      }
-    }
-  }, [wowInitialized])
+  }, [])
 
   // Handle scroll effect
   useEffect(() => {
@@ -125,4 +104,13 @@ export default function Layout({ headerStyle, footerStyle, breadcrumbTitle, chil
       <BackToTop target="#top" />
     </>
   )
+}
+
+// Add type declaration for window.WOW
+declare global {
+  interface Window {
+    WOW: any;
+    wow: any;
+    wowInitialized?: boolean;
+  }
 }
