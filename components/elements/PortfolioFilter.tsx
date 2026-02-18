@@ -51,6 +51,9 @@ export default function PortfolioFilter() {
 						<button className={activeBtn("mobile")} onClick={handleFilterKeyChange("mobile")}>
 							Mobile Apps
 						</button>
+						<button className={activeBtn("flutter")} onClick={handleFilterKeyChange("flutter")}>
+							Flutter
+						</button>
 					</div>
 				</div>
 
@@ -219,20 +222,50 @@ export default function PortfolioFilter() {
 						</div>
 					</div>
 
-					{/* Project 7 - FacemeQuiz iOS App (Mobile) */}
+					{/* Project 7 - Food Order App (Flutter) */}
+					<div className="filter-item col-lg-6 col-12 mobile flutter">
+						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
+							<div className="text-center">
+								<img
+									className="rounded-3 zoom-img mx-auto"
+									src="/assets/imgs/projects/projects-1/food-app.jpeg"
+									alt="Food Order App"
+									style={{ width: "220px", height: "auto", maxWidth: "100%" }}
+								/>
+							</div>
+							<div className="d-flex align-items-center mt-4">
+								<div className="project-card-content">
+									<h3 className="fw-semibold">Food Order App</h3>
+									<p className="mb-0">Flutter • Restaurant App</p>
+								</div>
+								<a
+									href="#"
+									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
+									onClick={(e) => {
+										e.preventDefault();
+										alert('App store link coming soon!');
+									}}
+								>
+									<i className="ri-arrow-right-up-line" />
+								</a>
+							</div>
+						</div>
+					</div>
+
+					{/* Project 8 - FacmeQuiz iOS App (Mobile) */}
 					<div className="filter-item col-lg-6 col-12 mobile">
 						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
 							<div className="text-center">
 								<img
 									className="rounded-3 zoom-img mx-auto"
-									src="/assets/imgs/projects/projects-1/faceme.jpeg"
+									src="/assets/imgs/projects/projects-1/facmequiz.jpeg"
 									alt="FacmeQuiz iOS App"
 									style={{ width: "220px", height: "auto", maxWidth: "100%" }}
 								/>
 							</div>
 							<div className="d-flex align-items-center mt-4">
 								<div className="project-card-content">
-									<h3 className="fw-semibold">FacemeQuiz</h3>
+									<h3 className="fw-semibold">FacmeQuiz</h3>
 									<p className="mb-0">iOS Quiz App</p>
 								</div>
 								<a
@@ -249,7 +282,7 @@ export default function PortfolioFilter() {
 						</div>
 					</div>
 
-					{/* Project 8 - Free Chat Freedom App (Mobile) */}
+					{/* Project 9 - Free Chat Freedom App (Mobile) */}
 					<div className="filter-item col-lg-6 col-12 mobile">
 						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
 							<div className="text-center">
@@ -279,7 +312,7 @@ export default function PortfolioFilter() {
 						</div>
 					</div>
 
-					{/* Project 9 - Employee Wordplaze App (Mobile) */}
+					{/* Project 10 - Employee Wordplaze App (Mobile) */}
 					<div className="filter-item col-lg-6 col-12 mobile">
 						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
 							<div className="text-center">
