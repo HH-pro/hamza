@@ -228,7 +228,7 @@ export default function PortfolioFilter() {
 							<div className="text-center">
 								<img
 									className="rounded-3 zoom-img mx-auto"
-									src="/assets/imgs/projects/projects-1/food-app.jpeg"
+									src="/assets/imgs/projects/projects-1/order.jpeg"
 									alt="Food Order App"
 									style={{ width: "220px", height: "auto", maxWidth: "100%" }}
 								/>
@@ -258,7 +258,7 @@ export default function PortfolioFilter() {
 							<div className="text-center">
 								<img
 									className="rounded-3 zoom-img mx-auto"
-									src="/assets/imgs/projects/projects-1/facmequiz.jpeg"
+									src="/assets/imgs/projects/projects-1/facme.jpeg"
 									alt="FacmeQuiz iOS App"
 									style={{ width: "220px", height: "auto", maxWidth: "100%" }}
 								/>
