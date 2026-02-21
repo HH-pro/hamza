@@ -14322,3 +14322,13 @@ strong {
   background-color: var(--tc-neutral-200) !important;
 }
 /*# sourceMappingURL=main.css.map */
+@media (max-width: 991.98px) {
+  .hero-image-wrapper {
+    margin-top: 2rem;
+  }
+  
+  .hero-image-wrapper img {
+    max-width: 80%;
+    margin: 0 auto;
+  }
+}
