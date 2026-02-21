@@ -1,11 +1,13 @@
 import Link from "next/link"
+import Image from "next/image"
 
 export default function Home1() {
 	return (
 		<section className="section-hero-1 position-relative pt-200 pb-120 overflow-hidden">
 			<div className="container position-relative z-3">
-				<div className="row">
-					<div className="col-lg-6 col-md-12">
+				<div className="row align-items-center">
+					{/* Left Content - Text Section */}
+					<div className="col-lg-6 col-md-12 mb-5 mb-lg-0">
 						<span className="text-dark">👋 Hi there, I'm Hamza</span>
 
 						{/* Main Heading */}
@@ -61,6 +63,36 @@ export default function Home1() {
 							</div>
 							<div className="brand-logo icon-xl icon-shape rounded-3 bg-900">
 								<i className="ri-brain-line fs-3 text-primary"></i>
+							</div>
+						</div>
+					</div>
+
+					{/* Right Content - Image Section */}
+					<div className="col-lg-6 col-md-12">
+						<div className="hero-image-wrapper text-center text-lg-end">
+							<div className="position-relative d-inline-block">
+								{/* Main Profile Image */}
+								<Image
+									src="/assets/imgs/hero/hero-1/profile-image.png"
+									alt="Hamza - Full Stack Developer"
+									width={500}
+									height={500}
+									className="img-fluid rounded-4 shadow-lg"
+									priority
+									style={{
+										maxWidth: '100%',
+										height: 'auto',
+										objectFit: 'cover'
+									}}
+								/>
+								
+								{/* Optional: Floating Badge or Decorative Element */}
+								<div className="position-absolute bottom-0 start-0 bg-white p-3 rounded-4 shadow-sm m-3 d-none d-lg-block">
+									<div className="d-flex align-items-center gap-2">
+										<div className="bg-success rounded-circle p-2"></div>
+										<small className="fw-semibold">Available for work</small>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
