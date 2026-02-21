@@ -258,7 +258,7 @@ export default function PortfolioFilter() {
 							<a href="https://risbyhomes.co.uk/" target="_blank" rel="noopener noreferrer">
 								<img
 									className="rounded-3 w-100 zoom-img"
-									src="/assets/imgs/projects/projects-1/risby-homes.jpg"
+									src="/assets/imgs/projects/projects-1/3.png"
 									alt="Risby Homes"
 								/>
 							</a>
