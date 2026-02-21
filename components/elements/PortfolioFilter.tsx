@@ -63,32 +63,7 @@ export default function PortfolioFilter() {
 				<div className="row masonry-active justify-content-between mt-6">
 					<div className="grid-sizer" />
 
-					{/* Project 1 - Xiaomi Store (Web) */}
-					<div className="filter-item col-lg-6 col-12 web">
-						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
-							<a href="https://xiaomi.kg/" target="_blank" rel="noopener noreferrer">
-								<img
-									className="rounded-3 w-100 zoom-img"
-									src="/assets/imgs/projects/projects-1/img-4.png"
-									alt="Xiaomi Store"
-								/>
-							</a>
-							<div className="d-flex align-items-center mt-4">
-								<div className="project-card-content">
-									<h3 className="fw-semibold">Ecommerce Store</h3>
-									<p>Xiaomi.kg</p>
-								</div>
-								<a
-									href="https://xiaomi.kg/"
-									target="_blank"
-									rel="noopener noreferrer"
-									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
-								>
-									<i className="ri-arrow-right-up-line" />
-								</a>
-							</div>
-						</div>
-					</div>
+					
 
 					{/* Project 2 - Visuals Blaze (Web) */}
 					<div className="filter-item col-lg-6 col-12 web">
@@ -96,7 +71,7 @@ export default function PortfolioFilter() {
 							<a href="https://visualsblaze.com" target="_blank" rel="noopener noreferrer">
 								<img
 									className="rounded-3 w-100 zoom-img"
-									src="/assets/imgs/projects/projects-1/img-2.png"
+									src="/assets/imgs/projects/projects-1/2.png"
 									alt="Visuals Blaze"
 								/>
 							</a>
@@ -123,13 +98,13 @@ export default function PortfolioFilter() {
 							<a href="https://wecinema.co" target="_blank" rel="noopener noreferrer">
 								<img
 									className="rounded-3 w-100 zoom-img"
-									src="/assets/imgs/projects/projects-1/img-1.png"
+									src="/assets/imgs/projects/projects-1/1.png"
 									alt="Wecinema"
 								/>
 							</a>
 							<div className="d-flex align-items-center mt-4">
 								<div className="project-card-content">
-									<h3 className="fw-semibold">Social Website</h3>
+									<h3 className="fw-semibold">Bussiness Website</h3>
 									<p>Wecinema</p>
 								</div>
 								<a
@@ -150,7 +125,7 @@ export default function PortfolioFilter() {
 							<a href="https://www.votingbuddy.com" target="_blank" rel="noopener noreferrer">
 								<img
 									className="rounded-3 w-100 zoom-img"
-									src="/assets/imgs/projects/projects-1/img-3.png"
+									src="/assets/imgs/projects/projects-1/7.png"
 									alt="Voting Buddy"
 								/>
 							</a>
@@ -177,7 +152,7 @@ export default function PortfolioFilter() {
 							<a href="https://brightfundedtraders.com/" target="_blank" rel="noopener noreferrer">
 								<img
 									className="rounded-3 w-100 zoom-img"
-									src="/assets/imgs/projects/projects-1/bright.png"
+									src="/assets/imgs/projects/projects-1/9.png"
 									alt="Bright Funded Traders"
 								/>
 							</a>
@@ -204,7 +179,7 @@ export default function PortfolioFilter() {
 							<a href="https://quantumfundingtraders.com/" target="_blank" rel="noopener noreferrer">
 								<img
 									className="rounded-3 w-100 zoom-img"
-									src="/assets/imgs/projects/projects-1/break.png"
+									src="/assets/imgs/projects/projects-1/5.png"
 									alt="Quantum Funding Traders"
 								/>
 							</a>
@@ -278,7 +253,32 @@ export default function PortfolioFilter() {
 							</div>
 						</div>
 					</div>
-
+{/* Project 1 - Xiaomi Store (Web) */}
+					<div className="filter-item col-lg-6 col-12 web">
+						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
+							<a href="https://xiaomi.kg/" target="_blank" rel="noopener noreferrer">
+								<img
+									className="rounded-3 w-100 zoom-img"
+									src="/assets/imgs/projects/projects-1/img-4.png"
+									alt="Xiaomi Store"
+								/>
+							</a>
+							<div className="d-flex align-items-center mt-4">
+								<div className="project-card-content">
+									<h3 className="fw-semibold">Ecommerce Store</h3>
+									<p>Xiaomi.kg</p>
+								</div>
+								<a
+									href="https://xiaomi.kg/"
+									target="_blank"
+									rel="noopener noreferrer"
+									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
+								>
+									<i className="ri-arrow-right-up-line" />
+								</a>
+							</div>
+						</div>
+					</div>
 					{/* Project 9 - Food Order App (Flutter) */}
 					<div className="filter-item col-lg-6 col-12 mobile flutter">
 						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
