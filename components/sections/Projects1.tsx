@@ -32,6 +32,7 @@ export default function Projects1() {
 				</div>
 			</div>
 			<div className="bg-900 fillter-project position-relative" data-background="assets/imgs/projects/projects-1/background.png">
+				<PortfolioFilter/>
 			</div>
 			<div className="container overflow-hidden">
 				<div className="row justify-content-center position-relative button-project pb-160 bg-900 pt-1">
