@@ -1,5 +1,4 @@
-const path = require("path");
+/** @type {import('next').NextConfig} */
+const nextConfig = {};
 
-module.exports = {
-  outputFileTracingRoot: path.join(__dirname),
-};
+export default nextConfig;
