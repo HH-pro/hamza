@@ -54,6 +54,9 @@ export default function PortfolioFilter() {
 						<button className={activeBtn("flutter")} onClick={handleFilterKeyChange("flutter")}>
 							Flutter
 						</button>
+						<button className={activeBtn("wordpress")} onClick={handleFilterKeyChange("wordpress")}>
+							WordPress
+						</button>
 					</div>
 				</div>
 
@@ -222,7 +225,61 @@ export default function PortfolioFilter() {
 						</div>
 					</div>
 
-					{/* Project 7 - Food Order App (Flutter) */}
+					{/* Project 7 - Betto Lettings (WordPress) */}
+					<div className="filter-item col-lg-6 col-12 wordpress">
+						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
+							<a href="https://bettolettings.co.uk/" target="_blank" rel="noopener noreferrer">
+								<img
+									className="rounded-3 w-100 zoom-img"
+									src="/assets/imgs/projects/projects-1/betto-lettings.jpg"
+									alt="Betto Lettings"
+								/>
+							</a>
+							<div className="d-flex align-items-center mt-4">
+								<div className="project-card-content">
+									<h3 className="fw-semibold">Property Lettings</h3>
+									<p>Betto Lettings • WordPress</p>
+								</div>
+								<a
+									href="https://bettolettings.co.uk/"
+									target="_blank"
+									rel="noopener noreferrer"
+									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
+								>
+									<i className="ri-arrow-right-up-line" />
+								</a>
+							</div>
+						</div>
+					</div>
+
+					{/* Project 8 - Risby Homes (WordPress) */}
+					<div className="filter-item col-lg-6 col-12 wordpress">
+						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
+							<a href="https://risbyhomes.co.uk/" target="_blank" rel="noopener noreferrer">
+								<img
+									className="rounded-3 w-100 zoom-img"
+									src="/assets/imgs/projects/projects-1/risby-homes.jpg"
+									alt="Risby Homes"
+								/>
+							</a>
+							<div className="d-flex align-items-center mt-4">
+								<div className="project-card-content">
+									<h3 className="fw-semibold">Property Development</h3>
+									<p>Risby Homes • WordPress</p>
+								</div>
+								<a
+									href="https://risbyhomes.co.uk/"
+									target="_blank"
+									rel="noopener noreferrer"
+									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
+								>
+									<i className="ri-arrow-right-up-line" />
+								</a>
+							</div>
+						</div>
+					</div>
+
+					{/* Project 9 - Food Order App (Flutter) */}
 					<div className="filter-item col-lg-6 col-12 mobile flutter">
 						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
 							<div className="text-center">
@@ -252,7 +309,7 @@ export default function PortfolioFilter() {
 						</div>
 					</div>
 
-					{/* Project 8 - FacmeQuiz iOS App (Mobile) */}
+					{/* Project 10 - FacmeQuiz iOS App (Mobile) */}
 					<div className="filter-item col-lg-6 col-12 mobile">
 						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
 							<div className="text-center">
@@ -282,7 +339,7 @@ export default function PortfolioFilter() {
 						</div>
 					</div>
 
-					{/* Project 9 - Free Chat Freedom App (Mobile) */}
+					{/* Project 11 - Free Chat Freedom App (Mobile) */}
 					<div className="filter-item col-lg-6 col-12 mobile">
 						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
 							<div className="text-center">
@@ -312,7 +369,7 @@ export default function PortfolioFilter() {
 						</div>
 					</div>
 
-					{/* Project 10 - Employee Wordplaze App (Mobile) */}
+					{/* Project 12 - Employee Wordplaze App (Mobile) */}
 					<div className="filter-item col-lg-6 col-12 mobile">
 						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
 							<div className="text-center">
