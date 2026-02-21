@@ -259,7 +259,7 @@ export default function PortfolioFilter() {
 							<a href="https://xiaomi.kg/" target="_blank" rel="noopener noreferrer">
 								<img
 									className="rounded-3 w-100 zoom-img"
-									src="/assets/imgs/projects/projects-1/img-4.png"
+									src="/assets/imgs/projects/projects-1/8.png"
 									alt="Xiaomi Store"
 								/>
 							</a>
