@@ -206,7 +206,7 @@ export default function PortfolioFilter() {
 							<a href="https://bettolettings.co.uk/" target="_blank" rel="noopener noreferrer">
 								<img
 									className="rounded-3 w-100 zoom-img"
-									src="/assets/imgs/projects/projects-1/7.png"
+									src="/assets/imgs/projects/projects-1/6.png"
 									alt="Betto Lettings"
 								/>
 							</a>
