@@ -73,7 +73,7 @@ export default function Home1() {
 							<div className="position-relative d-inline-block">
 								{/* Main Profile Image */}
 								<Image
-									src="/assets/imgs/hero/hero-1/profile.jpeg"
+									src="/assets/imgs/hero/hero-1/profile.png"
 									alt="Hamza - Full Stack Developer"
 									width={500}
 									height={500}
