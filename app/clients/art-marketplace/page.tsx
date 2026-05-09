@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Layout from "@/components/layout/Layout"
 
 export const metadata: Metadata = {
 	title: "Project Proposal — Art Marketplace",
@@ -164,7 +165,7 @@ const proposalCss = `
 
 export default function ArtMarketplaceProposal() {
 	return (
-		<>
+		<Layout headerStyle={1} footerStyle={1}>
 			<link
 				href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap"
 				rel="stylesheet"
@@ -507,6 +508,6 @@ export default function ArtMarketplaceProposal() {
 					</div>
 				</div>
 			</div>
-		</>
+		</Layout>
 	)
 }
