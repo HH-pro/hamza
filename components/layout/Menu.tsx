@@ -22,6 +22,11 @@ export default function Menu() {
 						Portfolio
 					</Link>
 				</li>
+				<li className="nav-item">
+					<Link href="/website-plans" className={pathname === "/website-plans" ? "nav-link active" : "nav-link"}>
+						Plans
+					</Link>
+				</li>
 				{/* <li className="nav-item">
 					<Link href="/pricing" className={pathname === "/pricing" ? "nav-link active" : "nav-link"}>
 						Pricing
