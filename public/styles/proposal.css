@@ -2608,3 +2608,354 @@
 	}
 }
 
+/* ================================================================
+   PRICING / RUNNING COSTS / DELIVERY — additional palette + sections
+   ================================================================ */
+.proposal-doc {
+	--rc-rose:     #c4705a;
+	--rc-rose-lt:  #fceae6;
+	--rc-rose-dk:  #9a3520;
+	--rc-blue-lt:  #e6f0fb;
+	--rc-blue-dk:  #1a4e8a;
+	--rc-blue-bd:  #b5d4f4;
+	--rc-green-lt: #eaf3de;
+	--rc-green-dk: #27500a;
+	--rc-green-bd: #c0dd97;
+	--rc-amber-lt: #faeeda;
+	--rc-amber-dk: #633806;
+	--rc-amber-bd: #fac775;
+	--rc-gray-lt:  #f4f4f2;
+	--rc-gray-dk:  #555;
+	--rc-ink:      #2c1a14;
+	--rc-ink-lt:   #f5cfc0;
+	--rc-ink-mid:  #9a8a85;
+	--rc-petal:    #fdf8f6;
+	--rc-border:   #ede8e5;
+}
+
+/* ── PRICE HERO ── */
+.proposal-doc .price-hero {
+	background: var(--rc-ink);
+	border-radius: 12px;
+	padding: 36px 44px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 24px;
+	margin-bottom: 12px;
+}
+.proposal-doc .price-num {
+	font-family: 'Cormorant Garamond', serif;
+	font-size: 84px;
+	font-weight: 600;
+	color: var(--rc-ink-lt);
+	line-height: 1;
+}
+.proposal-doc .price-sub {
+	font-size: 12px;
+	color: #9a7a6e;
+	margin-top: 6px;
+	letter-spacing: 0.04em;
+}
+.proposal-doc .price-desc {
+	font-size: 13px;
+	color: #c9b4ac;
+	max-width: 240px;
+	line-height: 1.7;
+	text-align: right;
+}
+
+/* ── EXPENSE TABLE ── */
+.proposal-doc .expense-wrap {
+	overflow-x: auto;
+	border-radius: 10px;
+	border: 1px solid var(--rc-border);
+	background: white;
+	margin-bottom: 18px;
+}
+.proposal-doc .expense-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 13px;
+}
+.proposal-doc .expense-table thead th {
+	background: #faf7f5;
+	font-size: 10px;
+	font-weight: 500;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: #999;
+	padding: 12px 16px;
+	text-align: left;
+	border-bottom: 1px solid var(--rc-border);
+}
+.proposal-doc .expense-table tbody td {
+	padding: 14px 16px;
+	border-bottom: 1px solid #f4f0ee;
+	vertical-align: top;
+	color: #1a1a1a;
+}
+.proposal-doc .expense-table tbody tr:last-child td { border-bottom: none; }
+.proposal-doc .svc { font-weight: 500; color: #1a1a1a; font-size: 13px; }
+.proposal-doc .svc-note { font-size: 11px; color: #666; margin-top: 3px; line-height: 1.55; }
+.proposal-doc .svc-details { font-size: 12px; color: #666; line-height: 1.65; }
+
+/* ── RC BADGES ── */
+.proposal-doc .rc-badge {
+	display: inline-block;
+	font-size: 10px;
+	font-weight: 500;
+	padding: 3px 10px;
+	border-radius: 12px;
+	letter-spacing: 0.02em;
+	white-space: nowrap;
+}
+.proposal-doc .rc-badge-rose   { background: var(--rc-rose-lt);  color: var(--rc-rose-dk); }
+.proposal-doc .rc-badge-blue   { background: var(--rc-blue-lt);  color: var(--rc-blue-dk); }
+.proposal-doc .rc-badge-green  { background: var(--rc-green-lt); color: var(--rc-green-dk); }
+.proposal-doc .rc-badge-gray   { background: var(--rc-gray-lt);  color: var(--rc-gray-dk); }
+.proposal-doc .rc-badge-amber  { background: var(--rc-amber-lt); color: var(--rc-amber-dk); }
+.proposal-doc .rc-badge-done   { background: #e6f0fb;            color: #0c447c; }
+
+/* ── SUMMARY BOX ── */
+.proposal-doc .summary-box {
+	background: var(--rc-ink);
+	border-radius: 10px;
+	padding: 24px 28px;
+	margin-bottom: 16px;
+}
+.proposal-doc .sum-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 0;
+	border-bottom: 1px solid #3e2920;
+	font-size: 13px;
+}
+.proposal-doc .sum-row:last-child { border-bottom: none; }
+.proposal-doc .sum-row-total {
+	padding-top: 16px;
+	margin-top: 6px;
+}
+.proposal-doc .sum-lbl { color: #c9b4ac; }
+.proposal-doc .sum-val { color: var(--rc-ink-lt); font-weight: 500; }
+.proposal-doc .sum-free { color: #9fcc6e; font-weight: 500; }
+.proposal-doc .sum-total-lbl { font-size: 14px; font-weight: 500; color: #e8d0c8; }
+.proposal-doc .sum-total-val {
+	font-family: 'Cormorant Garamond', serif;
+	font-size: 32px;
+	font-weight: 600;
+	color: var(--rc-ink-lt);
+}
+
+/* ── ALERTS ── */
+.proposal-doc .rc-alert {
+	border-radius: 8px;
+	padding: 14px 18px;
+	font-size: 12.5px;
+	line-height: 1.75;
+	margin-top: 10px;
+	display: flex;
+	gap: 10px;
+	align-items: flex-start;
+}
+.proposal-doc .rc-alert-icon { flex-shrink: 0; font-size: 14px; }
+.proposal-doc .rc-alert strong { font-weight: 500; }
+.proposal-doc .rc-alert-blue   { background: var(--rc-blue-lt);  border: 1px solid var(--rc-blue-bd);  color: #0c447c; }
+.proposal-doc .rc-alert-amber  { background: var(--rc-amber-lt); border: 1px solid var(--rc-amber-bd); color: var(--rc-amber-dk); }
+.proposal-doc .rc-alert-green  { background: var(--rc-green-lt); border: 1px solid var(--rc-green-bd); color: var(--rc-green-dk); }
+.proposal-doc .rc-alert-rose   { background: var(--rc-rose-lt);  border: 1px solid #f5c4b3;            color: var(--rc-rose-dk); }
+
+/* ── PAGES GRID (delivery scope) ── */
+.proposal-doc .page-card-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+	gap: 10px;
+}
+.proposal-doc .page-card {
+	background: white;
+	border: 1px solid var(--rc-border);
+	border-radius: 8px;
+	padding: 14px 16px;
+	transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.proposal-doc .page-card:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 20px -10px rgba(44, 26, 20, 0.18);
+}
+.proposal-doc .pg-num {
+	font-size: 10px;
+	color: var(--rc-rose);
+	font-weight: 500;
+	letter-spacing: 0.08em;
+	margin-bottom: 4px;
+}
+.proposal-doc .pg-name {
+	font-size: 13px;
+	font-weight: 500;
+	color: #1a1a1a;
+	margin-bottom: 3px;
+	line-height: 1.3;
+}
+.proposal-doc .pg-note {
+	font-size: 11px;
+	color: #666;
+	line-height: 1.5;
+}
+
+/* ── EMAIL GRID ── */
+.proposal-doc .email-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 10px;
+}
+.proposal-doc .em-card {
+	background: white;
+	border: 1px solid var(--rc-border);
+	border-radius: 8px;
+	padding: 14px 16px;
+	transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.proposal-doc .em-card:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 20px -10px rgba(44, 26, 20, 0.18);
+}
+.proposal-doc .em-title {
+	font-size: 13px;
+	font-weight: 500;
+	color: #1a1a1a;
+	margin-bottom: 4px;
+}
+.proposal-doc .em-desc {
+	font-size: 12px;
+	color: #666;
+	line-height: 1.6;
+}
+
+/* ── WEEK TIMELINE ── */
+.proposal-doc .week-timeline {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+.proposal-doc .wk-row {
+	display: flex;
+	gap: 14px;
+	align-items: flex-start;
+}
+.proposal-doc .wk-tag {
+	background: var(--rc-rose-lt);
+	color: var(--rc-rose-dk);
+	border-radius: 8px;
+	padding: 8px 14px;
+	font-size: 11px;
+	font-weight: 500;
+	letter-spacing: 0.04em;
+	min-width: 78px;
+	text-align: center;
+	flex-shrink: 0;
+	margin-top: 2px;
+}
+.proposal-doc .wk-box {
+	background: white;
+	border: 1px solid var(--rc-border);
+	border-radius: 8px;
+	padding: 14px 18px;
+	flex: 1;
+}
+.proposal-doc .wk-phase {
+	font-size: 13px;
+	font-weight: 500;
+	color: #1a1a1a;
+	margin-bottom: 6px;
+}
+.proposal-doc .wk-tasks {
+	font-size: 12px;
+	color: #666;
+	line-height: 1.75;
+}
+
+/* ── EXCL LIST ── */
+.proposal-doc .excl-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	background: white;
+	border: 1px solid var(--rc-border);
+	border-radius: 10px;
+	padding: 4px 18px;
+}
+.proposal-doc .excl-list li {
+	font-size: 13px;
+	color: #666;
+	padding: 12px 0;
+	border-bottom: 1px solid #f4f0ee;
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+	line-height: 1.55;
+}
+.proposal-doc .excl-list li:last-child { border-bottom: none; }
+.proposal-doc .excl-dot {
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: var(--rc-rose);
+	flex-shrink: 0;
+	margin-top: 8px;
+}
+
+/* ── COMMITMENT ── */
+.proposal-doc .commit-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 12px;
+}
+.proposal-doc .commit-card {
+	background: var(--rc-petal);
+	border: 1px solid #e8d8d0;
+	border-radius: 10px;
+	padding: 16px 20px;
+	transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.proposal-doc .commit-card:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 20px -10px rgba(44, 26, 20, 0.18);
+}
+.proposal-doc .commit-title {
+	font-size: 13px;
+	font-weight: 500;
+	color: var(--rc-ink);
+	margin-bottom: 4px;
+}
+.proposal-doc .commit-desc {
+	font-size: 12.5px;
+	color: var(--rc-ink-mid);
+	line-height: 1.6;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 720px) {
+	.proposal-doc .price-hero {
+		padding: 28px 24px;
+	}
+	.proposal-doc .price-num { font-size: 60px; }
+	.proposal-doc .price-desc { text-align: left; max-width: 100%; }
+	.proposal-doc .email-grid,
+	.proposal-doc .commit-grid {
+		grid-template-columns: 1fr;
+	}
+	.proposal-doc .expense-table thead { display: none; }
+	.proposal-doc .expense-table tbody tr {
+		display: block;
+		padding: 14px;
+		border-bottom: 1px solid #f4f0ee;
+	}
+	.proposal-doc .expense-table tbody td {
+		display: block;
+		padding: 6px 0;
+		border: none;
+	}
+}
+

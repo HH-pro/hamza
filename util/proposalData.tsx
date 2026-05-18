@@ -83,10 +83,51 @@ interface BentoBenefit {
   stat?: string
 }
 
+interface RunningCostRow {
+  service: string
+  serviceNote: string
+  details: ReactNode
+  badge: string
+  badgeVariant: 'rose' | 'blue' | 'green' | 'gray' | 'amber' | 'done'
+}
+
+interface SummaryRow {
+  label: string
+  value: string
+  isFree?: boolean
+  isTotal?: boolean
+}
+
+interface AlertItem {
+  variant: 'blue' | 'amber' | 'green' | 'rose'
+  icon: string
+  title: string
+  body: string
+}
+
+interface PageScreenItem {
+  number: string
+  name: string
+  note: string
+  badge: string
+  badgeVariant: 'rose' | 'blue' | 'green' | 'gray' | 'amber'
+}
+
+interface EmailItem {
+  title: string
+  description: string
+}
+
+interface WeekPhase {
+  week: string
+  phase: string
+  tasks: string
+}
+
 export const proposalData = {
   // Cover section
   cover: {
-    logoName: 'ArtSpace',
+    logoName: 'PaintedByUs',
     date: 'Project Proposal · 2026',
     preparedBy: 'Hamza Manzoor',
     title: <>A Home for<br /><em>Human Art</em></> as ReactNode,
@@ -386,7 +427,7 @@ export const proposalData = {
         fillVariant: 'mid' as const,
       },
       {
-        name: 'ArtSpace',
+        name: 'PaintedByUs',
         detail: 'Verified human-made, focused, sales-first',
         score: 9,
         fillVariant: 'us' as const,
@@ -583,4 +624,221 @@ export const proposalData = {
       { name: 'Cream', hex: '#FAF8F6' },
     ] as ColorSwatch[],
   },
+
+  // Investment
+  investment: {
+    eyebrow: '13 — Investment',
+    title: <>One Flat <em>Price</em></> as ReactNode,
+    price: '$950',
+    priceSub: 'Fixed · No hidden charges · Full source code',
+    priceDesc:
+      'One flat price for the complete platform. You own everything delivered — code, database, and deployment.',
+  },
+
+  // Running Costs
+  runningCosts: {
+    eyebrow: '14 — Running Costs — Full Guide',
+    title: <>What You'll Pay <em>After Launch</em></> as ReactNode,
+    description:
+      "These are third-party service costs — completely separate from the $950 build fee. Most start free and only cost money as you grow.",
+    rows: [
+      {
+        service: 'Domain Name',
+        serviceNote: 'paintedbyus.com',
+        details: 'Already purchased by client',
+        badge: '✓ Done',
+        badgeVariant: 'done' as const,
+      },
+      {
+        service: 'Hostinger VPS KVM 1',
+        serviceNote:
+          '1 vCPU · 4 GB RAM · 50 GB NVMe · 4 TB bandwidth. Runs the entire Next.js application.',
+        details: (
+          <>
+            Promo (1-year plan): ~$4.99/mo
+            <br />
+            <span style={{ color: 'var(--rc-rose)' }}>Renewal after 1st year: ~$9.99/mo</span>
+            <br />
+            DDoS protection + weekly backups included free. AI assistant for server management included.
+          </>
+        ),
+        badge: '~$5–10 / mo',
+        badgeVariant: 'amber' as const,
+      },
+      {
+        service: 'Firebase Auth',
+        serviceNote:
+          'Email/password sign-in. Google login optional. No hard user limits for email auth.',
+        details:
+          "Spark free plan. Email auth is permanently free. Paid tier only needed for phone/SMS auth — which we don't use.",
+        badge: 'FREE forever',
+        badgeVariant: 'green' as const,
+      },
+      {
+        service: 'MongoDB Atlas',
+        serviceNote: 'Stores all users, listings, orders, and platform data.',
+        details: (
+          <>
+            M0 Free: 512 MB — enough for 30,000–50,000+ listings
+            <br />
+            M2 ($9/mo): when you need more storage
+            <br />
+            M5 ($25/mo): at serious growth scale
+          </>
+        ),
+        badge: 'FREE to start',
+        badgeVariant: 'green' as const,
+      },
+      {
+        service: 'Firebase Storage',
+        serviceNote: "Stores all high-res artwork images. Served globally via Google's CDN.",
+        details: (
+          <>
+            Free tier: 5 GB storage + 1 GB/day downloads
+            <br />
+            Paid: $0.026/GB after free limit
+            <br />
+            Won't cost anything for months post-launch
+          </>
+        ),
+        badge: 'FREE to start',
+        badgeVariant: 'green' as const,
+      },
+      {
+        service: 'Stripe',
+        serviceNote: 'Processes all buyer payments. Auto-splits platform commission from artist payout.',
+        details: (
+          <>
+            No monthly fee ever.
+            <br />
+            Per transaction: 2.9% + $0.30
+            <br />
+            On a $100 sale → ~$3.20 goes to Stripe
+          </>
+        ),
+        badge: 'Per sale only',
+        badgeVariant: 'rose' as const,
+      },
+      {
+        service: 'Resend (Email)',
+        serviceNote:
+          'Sends all automated emails — welcome, order confirm, resets, approvals, contact form.',
+        details:
+          'Free: 3,000 emails/month — sufficient at launch. Paid ($20/mo) only at high volume.',
+        badge: 'FREE to start',
+        badgeVariant: 'green' as const,
+      },
+      {
+        service: 'SSL Certificate',
+        serviceNote: 'Makes the site https://. Required for Stripe and user trust.',
+        details: "Let's Encrypt — free, auto-renewing. Configured during VPS deployment.",
+        badge: 'FREE',
+        badgeVariant: 'green' as const,
+      },
+    ] as RunningCostRow[],
+    summary: [
+      { label: 'Hostinger VPS KVM 1 (first year promo)', value: '~$5 / month' },
+      { label: 'Firebase Auth', value: 'FREE', isFree: true },
+      { label: 'MongoDB Atlas (M0 free tier)', value: 'FREE', isFree: true },
+      { label: 'Firebase Storage (free tier)', value: 'FREE', isFree: true },
+      { label: 'Resend Email (free tier)', value: 'FREE', isFree: true },
+      { label: 'SSL Certificate', value: 'FREE', isFree: true },
+      {
+        label: 'Estimated monthly running cost at launch',
+        value: '~$5 / mo',
+        isTotal: true,
+      },
+    ] as SummaryRow[],
+    alerts: [
+      {
+        variant: 'amber' as const,
+        icon: '⚠',
+        title: 'Hostinger renewal note:',
+        body: 'Promo price of ~$4.99/mo applies to the first 1–2 year term only. After renewal it increases to ~$9.99/mo. Still very affordable — just budget for this after year one.',
+      },
+      {
+        variant: 'blue' as const,
+        icon: '✦',
+        title: 'MongoDB upgrade trigger:',
+        body: "Free M0 tier lasts until you hit 512 MB of data — roughly 30,000–50,000 listings. Upgrade to M2 ($9/mo) only happens well into your growth phase, when you're already earning.",
+      },
+      {
+        variant: 'green' as const,
+        icon: '✦',
+        title: 'Firebase Auth + MongoDB — a great combo?',
+        body: 'Yes. Firebase handles login sessions cleanly and securely. MongoDB gives full flexibility for marketplace data (listings, orders, users, reviews). Widely used together in production — no conflicts.',
+      },
+    ] as AlertItem[],
+  },
+
+  // All Pages & Screens (delivery scope)
+  allPages: {
+    eyebrow: '15 — All Pages & Screens',
+    title: <>Every Page, <em>Built and Delivered</em></> as ReactNode,
+    items: [
+      { number: '01', name: 'Home / Landing', note: 'Hero, featured artworks, artist spotlights, CTAs', badge: 'Public', badgeVariant: 'green' as const },
+      { number: '02', name: 'Browse / Gallery', note: 'Full catalogue, filters — medium, style, price', badge: 'Public', badgeVariant: 'green' as const },
+      { number: '03', name: 'Artwork Detail', note: 'Full image, description, artist info, buy button', badge: 'Public', badgeVariant: 'green' as const },
+      { number: '04', name: 'Artist Profile', note: 'Portfolio, bio, all listings in one clean view', badge: 'Public', badgeVariant: 'green' as const },
+      { number: '05', name: 'About Us', note: 'Mission, story, human-art-only promise', badge: 'Public', badgeVariant: 'green' as const },
+      { number: '06', name: 'Contact Us', note: 'Contact form routed to admin email inbox', badge: 'Public', badgeVariant: 'green' as const },
+      { number: '07', name: 'FAQ', note: 'Common questions for buyers and artists', badge: 'Public', badgeVariant: 'green' as const },
+      { number: '08', name: 'Sign Up / Log In', note: 'Firebase Auth — email/password, email verify', badge: 'Public', badgeVariant: 'green' as const },
+      { number: '09', name: 'Artist Dashboard', note: 'Manage listings, mark sold, earnings view', badge: 'Artist', badgeVariant: 'rose' as const },
+      { number: '10', name: 'Upload / Sell', note: 'List artwork — images, title, price, medium, size', badge: 'Artist', badgeVariant: 'rose' as const },
+      { number: '11', name: 'Checkout & Payment', note: 'Stripe checkout, order confirmation page', badge: 'Buyer', badgeVariant: 'blue' as const },
+      { number: '12', name: 'Admin Panel', note: 'Approve listings, manage users, feature artists, analytics', badge: 'Admin', badgeVariant: 'amber' as const },
+      { number: '13', name: 'Terms & Conditions', note: 'Platform rules, seller obligations, buyer rights', badge: 'Legal', badgeVariant: 'gray' as const },
+      { number: '14', name: 'Privacy Policy', note: 'Data collection, usage, and storage disclosure', badge: 'Legal', badgeVariant: 'gray' as const },
+    ] as PageScreenItem[],
+  },
+
+  // Email System
+  emailSystem: {
+    eyebrow: '16 — Email System',
+    title: <>Automated Emails — <em>All Included</em></> as ReactNode,
+    items: [
+      { title: 'Welcome Email', description: 'Sent on sign-up. Confirms account and guides first steps for artist or buyer.' },
+      { title: 'Email Verification', description: 'New accounts verify email before listing or buying. Reduces spam and fake accounts.' },
+      { title: 'Password Reset', description: 'Secure reset link emailed on request. Handled seamlessly via Firebase Auth.' },
+      { title: 'Order Confirmation', description: 'Buyer receives receipt. Artist gets instant sale notification with buyer details.' },
+      { title: 'Listing Approved', description: 'Artist notified by email the moment admin approves their artwork listing.' },
+      { title: 'Listing Rejected', description: 'Artist informed with reason when listing is rejected. Keeps communication transparent.' },
+      { title: 'Contact Form Routing', description: 'Messages from Contact page routed directly to admin email inbox instantly.' },
+      { title: 'Account Suspended', description: 'Admin can suspend accounts — user automatically notified by email with reason.' },
+    ] as EmailItem[],
+  },
+
+  // 4-Week Delivery Timeline
+  deliveryTimeline: {
+    eyebrow: '17 — Delivery Timeline',
+    title: <>4 Weeks, <em>Delivered Clean</em></> as ReactNode,
+    weeks: [
+      {
+        week: 'Week 1',
+        phase: 'Foundation — Setup, Design & Auth',
+        tasks:
+          'Hostinger VPS setup · Domain + SSL configuration · Next.js + Tailwind project · MongoDB Atlas connection · Firebase Auth integration (sign up / log in / email verification) · Home page · About Us · FAQ',
+      },
+      {
+        week: 'Week 2',
+        phase: 'Artist Side — Profiles, Upload & Dashboard',
+        tasks:
+          'Artist profile page · Artwork upload form · Firebase Storage for images · Artist dashboard (manage listings, mark sold, earnings view) · Listing approval flow + email notification',
+      },
+      {
+        week: 'Week 3',
+        phase: 'Buyer Side — Browse, Detail & Checkout',
+        tasks:
+          'Browse / gallery page with filters · Artwork detail page · Stripe checkout + commission split · Order confirmation · All transactional emails via Resend · Contact page with email routing',
+      },
+      {
+        week: 'Week 4',
+        phase: 'Admin, Legal Pages & Launch',
+        tasks:
+          'Admin panel (approve / reject listings, manage users, feature artists, view analytics) · Terms & Conditions · Privacy Policy · Mobile responsiveness · SEO meta tags · Final deployment on Hostinger VPS',
+      },
+    ] as WeekPhase[],
+  },
+
 }

@@ -8,8 +8,8 @@ import Reveal from "@/components/proposal/Reveal"
 import { proposalData } from "@/util/proposalData"
 
 export const metadata: Metadata = {
-	title: "Project Proposal — Art Marketplace",
-	description: "Private project proposal for ArtSpace.",
+	title: "Project Proposal — PaintedByUs",
+	description: "Private project proposal for PaintedByUs.",
 	robots: { index: false, follow: false },
 }
 
@@ -29,6 +29,11 @@ export default function ArtMarketplaceProposal() {
 		tech,
 		timeline,
 		design,
+		investment,
+		runningCosts,
+		allPages,
+		emailSystem,
+		deliveryTimeline,
 	} = proposalData
 
 	return (
@@ -463,12 +468,156 @@ export default function ArtMarketplaceProposal() {
 						))}
 					</div>
 
-					<hr className="page-divider" />
+					</div>
 
-					{/* Closing */}
-					<Reveal>
-						<div className="sec-eyebrow">12 — Our Commitment</div>
-					</Reveal>
+					{/* PAGE 4 — PRICING, COSTS & DELIVERY */}
+					<div className="page" style={{ paddingTop: 48 }}>
+						{/* Investment */}
+						<Reveal>
+							<div className="sec-eyebrow">{investment.eyebrow}</div>
+							<h2 className="sec-title">{investment.title}</h2>
+						</Reveal>
+
+						<Reveal variant="scale" delay={120}>
+							<div className="price-hero">
+								<div>
+									<div className="price-num">{investment.price}</div>
+									<div className="price-sub">{investment.priceSub}</div>
+								</div>
+								<div className="price-desc">{investment.priceDesc}</div>
+							</div>
+						</Reveal>
+
+						<hr className="page-divider" />
+
+						{/* Running Costs */}
+						<Reveal>
+							<div className="sec-eyebrow">{runningCosts.eyebrow}</div>
+							<h2 className="sec-title">{runningCosts.title}</h2>
+						</Reveal>
+
+						<Reveal delay={100}>
+							<p style={{ fontSize: 14, color: "var(--ink-light)", lineHeight: 1.75, marginBottom: 28, maxWidth: 680 }}>
+								{runningCosts.description}
+							</p>
+						</Reveal>
+
+						<Reveal delay={150}>
+							<div className="expense-wrap">
+								<table className="expense-table">
+									<thead>
+										<tr>
+											<th style={{ width: '34%' }}>Service</th>
+											<th style={{ width: '42%' }}>Details</th>
+											<th style={{ width: '24%' }}>Monthly Cost</th>
+										</tr>
+									</thead>
+									<tbody>
+										{runningCosts.rows.map((row, i) => (
+											<tr key={i}>
+												<td>
+													<div className="svc">{row.service}</div>
+													<div className="svc-note">{row.serviceNote}</div>
+												</td>
+												<td className="svc-details">{row.details}</td>
+												<td>
+													<span className={`rc-badge rc-badge-${row.badgeVariant}`}>{row.badge}</span>
+												</td>
+											</tr>
+										))}
+									</tbody>
+								</table>
+							</div>
+						</Reveal>
+
+						<Reveal variant="scale" delay={120}>
+							<div className="summary-box">
+								{runningCosts.summary.map((row, i) => (
+									<div key={i} className={`sum-row${row.isTotal ? ' sum-row-total' : ''}`}>
+										<span className={row.isTotal ? 'sum-total-lbl' : 'sum-lbl'}>{row.label}</span>
+										<span className={row.isTotal ? 'sum-total-val' : row.isFree ? 'sum-free' : 'sum-val'}>{row.value}</span>
+									</div>
+								))}
+							</div>
+						</Reveal>
+
+						{runningCosts.alerts.map((alert, i) => (
+							<Reveal key={i} delay={80 + i * 80}>
+								<div className={`rc-alert rc-alert-${alert.variant}`}>
+									<span className="rc-alert-icon">{alert.icon}</span>
+									<span><strong>{alert.title}</strong> {alert.body}</span>
+								</div>
+							</Reveal>
+						))}
+
+						<hr className="page-divider" />
+
+						{/* All Pages & Screens */}
+						<Reveal>
+							<div className="sec-eyebrow">{allPages.eyebrow}</div>
+							<h2 className="sec-title">{allPages.title}</h2>
+						</Reveal>
+
+						<Reveal delay={120}>
+							<div className="page-card-grid">
+								{allPages.items.map((item, i) => (
+									<div key={i} className="page-card">
+										<div className="pg-num">{item.number}</div>
+										<div className="pg-name">{item.name}</div>
+										<div className="pg-note">{item.note}</div>
+										<span className={`rc-badge rc-badge-${item.badgeVariant}`} style={{ marginTop: 6 }}>{item.badge}</span>
+									</div>
+								))}
+							</div>
+						</Reveal>
+
+						<hr className="page-divider" />
+
+						{/* Email System */}
+						<Reveal>
+							<div className="sec-eyebrow">{emailSystem.eyebrow}</div>
+							<h2 className="sec-title">{emailSystem.title}</h2>
+						</Reveal>
+
+						<Reveal delay={120}>
+							<div className="email-grid">
+								{emailSystem.items.map((item, i) => (
+									<div key={i} className="em-card">
+										<div className="em-title">{item.title}</div>
+										<div className="em-desc">{item.description}</div>
+									</div>
+								))}
+							</div>
+						</Reveal>
+
+						<hr className="page-divider" />
+
+						{/* Delivery Timeline (4 weeks) */}
+						<Reveal>
+							<div className="sec-eyebrow">{deliveryTimeline.eyebrow}</div>
+							<h2 className="sec-title">{deliveryTimeline.title}</h2>
+						</Reveal>
+
+						<div className="week-timeline">
+							{deliveryTimeline.weeks.map((wk, i) => (
+								<Reveal key={i} variant="left" delay={i * 90}>
+									<div className="wk-row">
+										<div className="wk-tag">{wk.week}</div>
+										<div className="wk-box">
+											<div className="wk-phase">{wk.phase}</div>
+											<div className="wk-tasks">{wk.tasks}</div>
+										</div>
+									</div>
+								</Reveal>
+							))}
+						</div>
+
+						<hr className="page-divider" />
+
+						{/* Closing */}
+						<Reveal>
+							<div className="sec-eyebrow">18 — Our Commitment</div>
+						</Reveal>
 					<Reveal variant="scale" delay={120}>
 						<div className="closing-box">
 							<div className="closing-title">Simplicity is the point.<br />The art does the talking.</div>

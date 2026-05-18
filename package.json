@@ -9,6 +9,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "firebase": "^12.13.0",
+    "framer-motion": "^12.38.0",
     "gsap": "^3.12.7",
     "isotope-layout": "^3.0.6",
     "next": "16.1.6",
