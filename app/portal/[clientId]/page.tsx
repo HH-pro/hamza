@@ -329,6 +329,98 @@ function LinkValue({ url }: { url: string }) {
   )
 }
 
+/* ── WebsitePreview: og:image + title + description ──────── */
+interface OgPreview {
+  title: string
+  description: string
+  image: string
+  siteName: string
+  favicon: string
+  finalUrl: string
+}
+function WebsitePreview({ domain, onCopy }: { domain: string; onCopy: () => void }) {
+  const url = `https://${domain}`
+  const [data, setData] = useState<OgPreview | null>(null)
+  const [state, setState] = useState<'loading' | 'ready' | 'error'>('loading')
+  const [imgOk, setImgOk] = useState(true)
+
+  useEffect(() => {
+    let cancelled = false
+    setState('loading')
+    setImgOk(true)
+    fetch(`/api/og-preview?url=${encodeURIComponent(url)}`)
+      .then(r => (r.ok ? r.json() : Promise.reject(r.status)))
+      .then((d: OgPreview) => { if (!cancelled) { setData(d); setState('ready') } })
+      .catch(() => { if (!cancelled) setState('error') })
+    return () => { cancelled = true }
+  }, [url])
+
+  if (state === 'loading') {
+    return (
+      <div className="pcl-og-card pcl-og-loading">
+        <div className="pcl-og-thumb pcl-og-skeleton"/>
+        <div className="pcl-og-body">
+          <div className="pcl-og-skeleton-line pcl-og-skeleton" style={{ width: '60%' }}/>
+          <div className="pcl-og-skeleton-line pcl-og-skeleton" style={{ width: '90%' }}/>
+          <div className="pcl-og-skeleton-line pcl-og-skeleton" style={{ width: '40%' }}/>
+        </div>
+      </div>
+    )
+  }
+
+  if (state === 'error' || !data) {
+    return (
+      <div className="pcl-domain-row">
+        <a href={url} target="_blank" rel="noopener noreferrer" className="pcl-domain-link">
+          {domain}<I.External/>
+        </a>
+        <button className="pcl-copy-btn" onClick={onCopy}>
+          <I.Copy/> Copy URL
+        </button>
+      </div>
+    )
+  }
+
+  return (
+    <a href={data.finalUrl || url} target="_blank" rel="noopener noreferrer" className="pcl-og-card">
+      {data.image && imgOk ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img className="pcl-og-thumb" src={data.image} alt={data.title} loading="lazy" onError={() => setImgOk(false)}/>
+      ) : (
+        <div className="pcl-og-thumb pcl-og-thumb-fallback">
+          {data.favicon ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={data.favicon} alt="" onError={(e) => ((e.currentTarget as HTMLImageElement).style.display = 'none')}/>
+          ) : <I.Globe/>}
+        </div>
+      )}
+      <div className="pcl-og-body">
+        <div className="pcl-og-site">
+          {data.favicon && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img className="pcl-og-favicon" src={data.favicon} alt="" onError={(e) => ((e.currentTarget as HTMLImageElement).style.display = 'none')}/>
+          )}
+          <span>{data.siteName || domain}</span>
+        </div>
+        {data.title && <div className="pcl-og-title">{data.title}</div>}
+        {data.description && <div className="pcl-og-desc">{data.description}</div>}
+        <div className="pcl-og-url">
+          <I.External/>
+          <span>{domain}</span>
+          <button
+            className="pcl-og-copy"
+            onClick={(e) => { e.preventDefault(); e.stopPropagation(); onCopy() }}
+            aria-label="Copy URL"
+            title="Copy URL"
+          >
+            <I.Copy/>
+          </button>
+        </div>
+      </div>
+    </a>
+  )
+}
+
 /* ── ExpiryBadge ─────────────────────────────────────────── */
 function ExpiryBadge({ iso, compact = false }: { iso: string; compact?: boolean }) {
   const days = daysUntil(iso)
@@ -1026,14 +1118,10 @@ export default function ClientPortal() {
                                 {proj.domain && (
                                   <div className="pcl-section">
                                     <SectionHeader icon="🔗" title="Website"/>
-                                    <div className="pcl-domain-row">
-                                      <a href={`https://${proj.domain}`} target="_blank" rel="noopener noreferrer" className="pcl-domain-link">
-                                        {proj.domain}<I.External/>
-                                      </a>
-                                      <button className="pcl-copy-btn" onClick={() => copy(proj.domain, `d-${proj.id}`)}>
-                                        <I.Copy/> Copy URL
-                                      </button>
-                                    </div>
+                                    <WebsitePreview
+                                      domain={proj.domain}
+                                      onCopy={() => copy(proj.domain, `d-${proj.id}`)}
+                                    />
                                   </div>
                                 )}
 
