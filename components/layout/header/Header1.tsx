@@ -19,8 +19,8 @@ export default function Header1({
           scroll ? 'navbar-stick' : ''
         }`}
         style={{
-          position: scroll ? 'fixed' : 'relative',
-          top: scroll ? '0' : 'auto',
+          position: 'sticky',
+          top: 0,
         }}
       >
         {/* OffCanvas trigger */}
