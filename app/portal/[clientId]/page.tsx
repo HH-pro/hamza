@@ -687,10 +687,10 @@ export default function ClientPortal() {
       {stylesheet}
       <div data-theme={theme}>
         {ToastStack}
-        <motion.div className="pcl-page" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.35 }}>
+        <div className="pcl-page">
 
           {/* Header */}
-          <motion.header className={`pcl-header ${scrolled ? 'pcl-header-condensed' : ''}`} initial={{ opacity: 0, y: -40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, ease }}>
+          <header className={`pcl-header ${scrolled ? 'pcl-header-condensed' : ''}`}>
             <div className="pcl-header-inner">
               <motion.div className="pcl-company-avatar" initial={{ scale: 0, rotate: -20, opacity: 0 }} animate={{ scale: 1, rotate: 0, opacity: 1 }} transition={{ delay: 0.1, type: 'spring', damping: 12, stiffness: 200 }}>
                 {getInitials(client?.company || 'C')}
@@ -745,7 +745,7 @@ export default function ClientPortal() {
                 )}
               </motion.div>
             )}
-          </motion.header>
+          </header>
 
           {/* Welcome banner */}
           <AnimatePresence>
@@ -1233,7 +1233,7 @@ export default function ClientPortal() {
             <p className="pcl-footer-hint pcl-no-print">Tip: press <kbd className="pcl-kbd">/</kbd> to search · <kbd className="pcl-kbd">Esc</kbd> to clear</p>
           </motion.footer>
 
-        </motion.div>
+        </div>
       </div>
     </>
   )

@@ -264,6 +264,10 @@ body { margin: 0; }
   background-attachment: fixed;
   display: flex; flex-direction: column;
 }
+/* iOS/mobile Safari janks badly with background-attachment: fixed on scroll */
+@media (max-width: 900px), (pointer: coarse) {
+  .pcl-page { background-attachment: scroll; }
+}
 
 /* ── Header ──────────────────────────────────────────────── */
 .pcl-header {
@@ -361,7 +365,9 @@ body { margin: 0; }
 
 /* ── Toolbar ─────────────────────────────────────────────── */
 .pcl-toolbar {
-  position: sticky; top: 0; z-index: 20;
+  /* Not sticky: header is already sticky at top.
+     Two sticky elements competing for top: 0 caused header to flicker. */
+  position: relative; z-index: 20;
   background: var(--card-soft);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border);
@@ -1052,10 +1058,12 @@ body { margin: 0; }
 }
 @media (max-width: 640px) {
   .pcl-auth-card { padding: 36px 24px; }
+  .pcl-header { padding: 0 16px; }
   .pcl-header-inner {
-    flex-wrap: wrap; padding: 24px 0 20px;
-    gap: 14px;
+    flex-wrap: wrap; padding: 20px 0 16px;
+    gap: 12px;
   }
+  .pcl-header-condensed .pcl-header-inner { padding: 12px 0 10px; }
   .pcl-header-right { order: 3; width: 100%; justify-content: flex-end; }
   .pcl-main { padding: 18px 16px 60px; }
   .pcl-toolbar-inner { padding: 14px 16px; }
@@ -1067,8 +1075,17 @@ body { margin: 0; }
   .pcl-header-info h1 { font-size: 21px; }
   .pcl-custom-item { flex-direction: column; align-items: flex-start; }
   .pcl-custom-label { min-width: 0; }
-  .pcl-stat-strip { grid-template-columns: repeat(2, 1fr); padding-bottom: 20px; }
+  .pcl-stat-strip { grid-template-columns: repeat(2, 1fr); padding-bottom: 16px; gap: 8px; }
   .pcl-stat-num { font-size: 22px; }
+  .pcl-stat-card { padding: 12px 14px; }
+  .pcl-icon-btn { width: 36px; height: 36px; }
+}
+@media (max-width: 400px) {
+  .pcl-header { padding: 0 12px; }
+  .pcl-header-info h1 { font-size: 19px; }
+  .pcl-header-info p { font-size: 12px; }
+  .pcl-company-avatar { width: 46px; height: 46px; font-size: 17px; }
+  .pcl-stat-strip { grid-template-columns: 1fr 1fr; }
 }
 
 /* ── Print ───────────────────────────────────────────────── */
