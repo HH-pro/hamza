@@ -2,6 +2,11 @@
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react'
 import { useParams } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation, Pagination, A11y, Keyboard } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
 import { getClient, getProjects, type Client, type Project } from '@/lib/firestore'
 import { Icons as I } from '@/components/ui/Icons'
 
@@ -325,6 +330,7 @@ export default function ClientPortal() {
   const [welcomeOpen, setWelcomeOpen] = useState(false)
   const [renewalsCollapsed, setRenewalsCollapsed] = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const searchRef = useRef<HTMLInputElement | null>(null)
   const inactivityRef = useRef<number | null>(null)
   const toastIdRef = useRef(1)
@@ -347,6 +353,18 @@ export default function ClientPortal() {
     if (saved === 'light' || saved === 'dark') setTheme(saved)
     else if (window.matchMedia?.('(prefers-color-scheme: dark)').matches) setTheme('dark')
   }, [])
+
+  /* Sidebar collapse bootstrap (desktop, persisted) */
+  useEffect(() => {
+    setSidebarCollapsed(localStorage.getItem('pcl-sidebar-collapsed') === '1')
+  }, [])
+  function toggleSidebarCollapsed() {
+    setSidebarCollapsed(v => {
+      const next = !v
+      localStorage.setItem('pcl-sidebar-collapsed', next ? '1' : '0')
+      return next
+    })
+  }
 
   /* Auth bootstrap */
   useEffect(() => {
@@ -695,7 +713,7 @@ export default function ClientPortal() {
       {stylesheet}
       <div data-theme={theme} className="pcl-root">
         {ToastStack}
-        <div className="pcl-shell">
+        <div className={`pcl-shell ${sidebarCollapsed ? 'pcl-collapsed' : ''}`}>
 
           {/* ── Sidebar ── */}
           <aside className={`pcl-sidebar pcl-no-print ${sidebarOpen ? 'pcl-sidebar-open' : ''}`}>
@@ -727,6 +745,7 @@ export default function ClientPortal() {
                       key={k}
                       className={`pcl-nav-item ${statusFilter === k ? 'pcl-nav-item-on' : ''}`}
                       onClick={() => setStatusFilter(k)}
+                      title={`${lbl} (${c})`}
                     >
                       <span className={`pcl-nav-dot pcl-nav-dot-${k}`}/>
                       <span className="pcl-nav-text">{lbl}</span>
@@ -737,7 +756,7 @@ export default function ClientPortal() {
               )}
 
               {filteredProjects.length > 0 && (
-                <div className="pcl-nav-group">
+                <div className="pcl-nav-group pcl-nav-group-jump">
                   <div className="pcl-nav-label">Jump to project</div>
                   <div className="pcl-nav-projects">
                     {filteredProjects.map(p => (
@@ -781,6 +800,7 @@ export default function ClientPortal() {
           {/* Topbar — sticky, fixed height (shadow only on scroll → no blink) */}
           <header className={`pcl-topbar pcl-no-print ${scrolled ? 'pcl-topbar-scrolled' : ''}`}>
             <button className="pcl-icon-btn pcl-hamburger" onClick={() => setSidebarOpen(true)} aria-label="Open menu"><I.Menu/></button>
+            <button className="pcl-icon-btn pcl-collapse-toggle" onClick={toggleSidebarCollapsed} aria-label={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'} title={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}><I.PanelLeft/></button>
             {projects.length > 0 ? (
               <>
                 <div className="pcl-search">
@@ -956,6 +976,63 @@ export default function ClientPortal() {
                   )}
                 </AnimatePresence>
               </div>
+            </motion.div>
+          )}
+
+          {/* Projects spotlight slider — swipe through projects at a glance */}
+          {filteredProjects.length > 1 && (
+            <motion.div className="pcl-slider pcl-no-print" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12, duration: 0.4, ease }}>
+              <div className="pcl-slider-head">
+                <div>
+                  <h3>Your projects</h3>
+                  <span>Swipe through — tap a card to open its full details</span>
+                </div>
+                <div className="pcl-slider-nav">
+                  <button className="pcl-slider-btn pcl-slider-prev" aria-label="Previous"><span style={{ transform: 'rotate(90deg)', display: 'flex' }}><I.Chevron/></span></button>
+                  <button className="pcl-slider-btn pcl-slider-next" aria-label="Next"><span style={{ transform: 'rotate(-90deg)', display: 'flex' }}><I.Chevron/></span></button>
+                </div>
+              </div>
+              <Swiper
+                modules={[Navigation, Pagination, A11y, Keyboard]}
+                navigation={{ prevEl: '.pcl-slider-prev', nextEl: '.pcl-slider-next' }}
+                pagination={{ clickable: true }}
+                keyboard={{ enabled: true }}
+                spaceBetween={14}
+                slidesPerView={1.08}
+                breakpoints={{ 560: { slidesPerView: 2 }, 1100: { slidesPerView: 3 } }}
+                className="pcl-swiper"
+              >
+                {filteredProjects.map(p => {
+                  const exp = nextExpiryDays(p)
+                  return (
+                    <SwiperSlide key={p.id}>
+                      <button
+                        className={`pcl-slide-card pcl-slide-${p.status}`}
+                        onClick={() => jumpToProject(p.id!)}
+                        title={`Open ${p.name}`}
+                      >
+                        <div className="pcl-slide-top">
+                          <span className={`pcl-status-pill pcl-status-pill-${p.status}`}>
+                            <span className={`pcl-status-dot pcl-status-dot-${p.status}`}/>
+                            {statusLabel[p.status]}
+                          </span>
+                          <span className="pcl-slide-type">{p.type}</span>
+                        </div>
+                        <h4 className="pcl-slide-name">{p.name}</h4>
+                        {p.domain && <span className="pcl-slide-domain">{p.domain}</span>}
+                        <div className="pcl-slide-meta">
+                          {p.techStack?.length > 0 && <span><I.Cpu/>{p.techStack.length} tech</span>}
+                          {p.services?.length > 0 && <span><I.Plug/>{p.services.length} services</span>}
+                          {exp.days !== null && exp.days <= 60 && (
+                            <span className={`pcl-slide-expiry pcl-expiry-${expiryTone(exp.days)}`}><I.Warn/>{exp.label}</span>
+                          )}
+                        </div>
+                        <span className="pcl-slide-cta">View details <I.Arrow/></span>
+                      </button>
+                    </SwiperSlide>
+                  )
+                })}
+              </Swiper>
             </motion.div>
           )}
 

@@ -178,6 +178,7 @@
   background: var(--card);
   border-right: 1px solid var(--border);
   z-index: var(--z-drawer);
+  transition: width .26s var(--ease);
 }
 .pcl-sidebar-head {
   display: flex; align-items: center; gap: 8px;
@@ -272,6 +273,27 @@
 .pcl-topbar-scrolled { box-shadow: 0 6px 24px rgba(16,24,40,.06); border-bottom-color: transparent; }
 [data-theme="dark"] .pcl-topbar-scrolled { box-shadow: 0 8px 28px rgba(0,0,0,.4); }
 .pcl-hamburger { display: none; }
+/* Desktop sidebar collapse toggle (lives in the topbar) */
+.pcl-collapse-toggle { display: flex; }
+
+/* ── Collapsed sidebar rail (desktop only) ── */
+@media (min-width: 1025px) {
+  .pcl-collapsed .pcl-sidebar { width: 78px; }
+  .pcl-collapsed .pcl-header-info,
+  .pcl-collapsed .pcl-nav-label,
+  .pcl-collapsed .pcl-nav-text,
+  .pcl-collapsed .pcl-nav-count,
+  .pcl-collapsed .pcl-nav-proj-name,
+  .pcl-collapsed .pcl-nav-group-jump,
+  .pcl-collapsed .pcl-btn-lock span { display: none; }
+  .pcl-collapsed .pcl-sidebar-head { justify-content: center; padding: 18px 0; }
+  .pcl-collapsed .pcl-sidebar-nav { padding: 14px 8px; align-items: center; }
+  .pcl-collapsed .pcl-nav-group { width: 100%; align-items: center; }
+  .pcl-collapsed .pcl-nav-item { justify-content: center; padding: 0; width: 46px; height: 42px; margin: 0 auto; }
+  .pcl-collapsed .pcl-nav-dot { width: 11px; height: 11px; }
+  .pcl-collapsed .pcl-sidebar-foot { flex-direction: column; gap: 8px; padding: 12px 0; align-items: center; }
+  .pcl-collapsed .pcl-btn-lock { margin: 0; width: 42px; height: 42px; justify-content: center; padding: 0; }
+}
 .pcl-topbar-title { font-size: var(--text-lg); font-weight: 700; color: var(--text); letter-spacing: -.02em; }
 
 .pcl-search { position: relative; flex: 1; max-width: 460px; }
@@ -373,6 +395,55 @@
 .pcl-renewals-days-soon, .pcl-renewals-days-expired { background: var(--red-bg); color: var(--red); border-color: var(--red-border); }
 .pcl-renewals-days-warn { background: var(--amber-bg); color: var(--amber); border-color: var(--amber-border); }
 .pcl-renewals-days-ok { background: var(--green-bg); color: var(--green); border-color: var(--green-border); }
+
+/* ── Projects spotlight slider ── */
+.pcl-slider { padding: 24px 24px 0; width: 100%; }
+.pcl-slider-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.pcl-slider-head h3 { margin: 0 0 2px; font-size: var(--text-xl); font-weight: 800; letter-spacing: -.02em; color: var(--text); }
+.pcl-slider-head span { font-size: var(--text-sm); color: var(--muted); }
+.pcl-slider-nav { display: flex; gap: 8px; flex-shrink: 0; }
+.pcl-slider-btn {
+  width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+  border: 1px solid var(--border); background: var(--card); color: var(--text-soft);
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: background var(--dur-fast), border-color var(--dur-fast), color var(--dur-fast), opacity var(--dur-fast);
+}
+.pcl-slider-btn:hover { background: var(--surface); border-color: var(--border-strong); color: var(--text); }
+.pcl-slider-btn.swiper-button-disabled { opacity: .4; cursor: default; }
+
+.pcl-swiper { padding-bottom: 34px !important; }
+.pcl-swiper .swiper-slide { height: auto; }
+.pcl-swiper .swiper-pagination { bottom: 2px; }
+.pcl-swiper .swiper-pagination-bullet { background: var(--border-strong); opacity: 1; transition: width .2s, background .2s; }
+.pcl-swiper .swiper-pagination-bullet-active { background: var(--accent); width: 22px; border-radius: 5px; }
+
+.pcl-slide-card {
+  width: 100%; height: 100%; text-align: left; cursor: pointer;
+  display: flex; flex-direction: column; gap: 9px;
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 18px; box-shadow: var(--shadow-sm); position: relative; overflow: hidden;
+  font-family: var(--font-sans);
+  transition: transform .18s var(--ease), box-shadow .18s, border-color .18s;
+}
+.pcl-slide-card::before { content: ''; position: absolute; left: 0; top: 0; right: 0; height: 3px; background: var(--accent); }
+.pcl-slide-active::before { background: linear-gradient(90deg, var(--green), #10b981); }
+.pcl-slide-development::before { background: linear-gradient(90deg, var(--amber), #f59e0b); }
+.pcl-slide-maintenance::before { background: linear-gradient(90deg, var(--blue), #3b82f6); }
+.pcl-slide-paused::before { background: linear-gradient(90deg, var(--gray), #9ca3af); }
+.pcl-slide-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--border-strong); }
+.pcl-slide-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.pcl-slide-type { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 3px 9px; }
+.pcl-slide-name { margin: 2px 0 0; font-size: var(--text-lg); font-weight: 700; letter-spacing: -.01em; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pcl-slide-domain { font-size: var(--text-sm); color: var(--accent); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pcl-slide-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 2px; }
+.pcl-slide-meta > span { display: inline-flex; align-items: center; gap: 5px; font-size: var(--text-sm); color: var(--text-soft); font-weight: 500; }
+.pcl-slide-meta svg { width: 14px; height: 14px; color: var(--muted); }
+.pcl-slide-expiry { border: 1px solid; border-radius: var(--radius-pill); padding: 2px 8px; font-size: var(--text-xs); font-weight: 700; }
+.pcl-slide-expiry svg { width: 12px; height: 12px; color: inherit !important; }
+.pcl-slide-cta { margin-top: auto; padding-top: 8px; display: inline-flex; align-items: center; gap: 6px; font-size: var(--text-sm); font-weight: 700; color: var(--accent); }
+.pcl-slide-cta svg { width: 15px; height: 15px; transition: transform var(--dur-fast); }
+.pcl-slide-card:hover .pcl-slide-cta svg { transform: translateX(3px); }
 
 /* ── Main / projects list ── */
 .pcl-main { padding: 24px; width: 100%; flex: 1; }
@@ -565,6 +636,10 @@
   .pcl-sidebar-open { transform: translateX(0); }
   .pcl-sidebar-head .pcl-sidebar-close { display: flex; }
   .pcl-hamburger { display: flex; }
+  /* On mobile the drawer handles open/close; the desktop collapse toggle is hidden */
+  .pcl-collapse-toggle { display: none; }
+  /* Mobile drawer is always full-width even if "collapsed" was set on desktop */
+  .pcl-collapsed .pcl-sidebar { width: var(--sidebar-w); }
 }
 @media (min-width: 1025px) {
   .pcl-overlay { display: none; }
@@ -575,6 +650,8 @@
   .pcl-action-label { display: none; }
   .pcl-stats { padding: 16px 16px 0; grid-template-columns: repeat(2, 1fr); gap: 8px; }
   .pcl-welcome, .pcl-renewals { padding-left: 16px; padding-right: 16px; }
+  .pcl-slider { padding: 16px 16px 0; }
+  .pcl-slider-head h3 { font-size: var(--text-lg); }
   .pcl-main { padding: 16px; }
   .pcl-proj-head { padding: 16px 16px 16px 22px; }
   .pcl-proj-head-right { gap: 6px; }
