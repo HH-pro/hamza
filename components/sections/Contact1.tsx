@@ -1,5 +1,6 @@
 
 import Link from "next/link"
+import ContactForm from "@/components/elements/ContactForm"
 
 export default function Contact1() {
 	return (
@@ -21,9 +22,9 @@ export default function Contact1() {
 								</div>
 								<div className="ps-3">
 									<span className="text-400 fs-5">Phone Number</span>
-									<h6 className="mb-0">+923117836704</h6>
+									<h6 className="mb-0">+92 311 7836704</h6>
 								</div>
-								<Link href="/tel:+1-234-567-8901" className="position-absolute top-0 start-0 w-100 h-100" />
+								<Link href="tel:+923117836704" className="position-absolute top-0 start-0 w-100 h-100" />
 							</div>
 							<div className="d-flex align-items-center mb-4 position-relative d-inline-flex">
 								<div className="bg-white icon-flip position-relative icon-shape icon-xxl border-linear-2 border-2 rounded-4">
@@ -31,9 +32,9 @@ export default function Contact1() {
 								</div>
 								<div className="ps-3">
 									<span className="text-400 fs-">Email</span>
-									<h6 className="mb-0">hamzamanzoor0011@gmail</h6>
+									<h6 className="mb-0">Info@hamzamanzoor.online</h6>
 								</div>
-								<Link href="/mailto:someone@example.com" className="position-absolute top-0 start-0 w-100 h-100" />
+								<Link href="mailto:Info@hamzamanzoor.online" className="position-absolute top-0 start-0 w-100 h-100" />
 							</div>
 							
 							<div className="d-flex align-items-center mb-4 position-relative d-inline-flex">
@@ -51,36 +52,7 @@ export default function Contact1() {
 							<div className="position-relative">
 								<div className="position-relative z-2">
 									<h3>Leave a messge</h3>
-									<form action="#">
-										<div className="row mt-3">
-											<div className="col-md-6 ">
-												<label className="mb-1 mt-3 text-dark" htmlFor="name">Your name <span className="text-primary">*</span></label>
-												<input type="text" className="form-control border rounded-3" id="name" name="name" placeholder="Hamza" aria-label="username" />
-											</div>
-											<div className="col-md-6">
-												<label className="mb-1 mt-3 text-dark" htmlFor="email">Email address <span className="text-primary">*</span></label>
-												<input type="text" className="form-control border rounded-3" id="email" name="email" placeholder="contact.hamza@gmail.com" aria-label="email" />
-											</div>
-											<div className="col-md-6">
-												<label className="mb-1 mt-3 text-dark" htmlFor="phone">Your phone <span className="text-primary">*</span></label>
-												<input type="text" className="form-control border rounded-3" id="phone" name="phone" placeholder="+92 263 7865123" aria-label="phone" />
-											</div>
-											<div className="col-md-6">
-												<label className="mb-1 mt-3 text-dark" htmlFor="subject">Subject <span className="text-primary">*</span></label>
-												<input type="text" className="form-control border rounded-3" id="subject" name="subject" placeholder="I want to contact for...." aria-label="subject" />
-											</div>
-											<div className="col-12">
-												<label className="mb-1 mt-3 text-dark" htmlFor="message">Message <span className="text-primary">*</span></label>
-												<textarea className="form-control border rounded-3 pb-10" id="message" name="message" placeholder="Your message here...." aria-label="With textarea" />
-											</div>
-											<div className="col-12">
-												<button type="submit" className="btn btn-gradient mt-3">
-													Send Message
-													<i className="ri-arrow-right-up-line" />
-												</button>
-											</div>
-										</div>
-									</form>
+									<ContactForm withLabels inputClass="form-control border rounded-3" buttonClass="btn btn-gradient mt-3" />
 								</div>
 								<div className="z-0 bg-primary-dark rectangle-bg z-1 rounded-3" />
 							</div>

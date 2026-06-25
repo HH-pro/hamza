@@ -1,4 +1,5 @@
 
+import ContactForm from "@/components/elements/ContactForm"
 
 export default function Contact2() {
 	return (
@@ -11,31 +12,7 @@ export default function Contact2() {
 							<div className="position-relative">
 								<div className="position-relative z-2">
 									<h3 className="text-primary-2 mb-3">Let’s connect</h3>
-									<form action="#">
-										<div className="row g-3">
-											<div className="col-md-6 ">
-												<input type="text" className="form-control bg-3 border border-1 rounded-3" id="name" name="name" placeholder="Your name" aria-label="username" />
-											</div>
-											<div className="col-md-6">
-												<input type="text" className="form-control bg-3 border border-1 rounded-3" id="phone" name="phone" placeholder="Phone" aria-label="phone" />
-											</div>
-											<div className="col-md-6">
-												<input type="text" className="form-control bg-3 border border-1 rounded-3" id="email" name="email" placeholder="Emaill" aria-label="email" />
-											</div>
-											<div className="col-md-6">
-												<input type="text" className="form-control bg-3 border border-1 rounded-3" id="subject" name="subject" placeholder="Subject" aria-label="subject" />
-											</div>
-											<div className="col-12">
-												<textarea className="form-control bg-3 border border-1 rounded-3" id="message" name="message" placeholder="Message" aria-label="With textarea" defaultValue={""} />
-											</div>
-											<div className="col-12">
-												<button type="submit" className="btn btn-primary-2 rounded-2">
-													Send Message
-													<i className="ri-arrow-right-up-line" />
-												</button>
-											</div>
-										</div>
-									</form>
+									<ContactForm inputClass="form-control bg-3 border border-1 rounded-3" buttonClass="btn btn-primary-2 rounded-2" />
 								</div>
 								<div className="z-0 bg-primary-dark rectangle-bg z-1 rounded-3" />
 							</div>
@@ -61,9 +38,9 @@ export default function Contact2() {
 								</div>
 								<div className="ps-3 h-100">
 									<span className="text-400 fs-6">Email</span>
-									<h6 className="mb-0">contact@william.design</h6>
+									<h6 className="mb-0">Info@hamzamanzoor.online</h6>
 								</div>
-								<a href="mailto:someone@example.com" className="position-absolute top-0 start-0 w-100 h-100" />
+								<a href="mailto:Info@hamzamanzoor.online" className="position-absolute top-0 start-0 w-100 h-100" />
 							</div>
 							<div className="d-flex align-items-center mb-3 position-relative d-inline-flex">
 								<div className="d-inline-block">

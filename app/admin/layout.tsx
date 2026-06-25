@@ -7,7 +7,8 @@ export const metadata: Metadata = {
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="admin-wrap">
+    <div className="admin-wrap" data-theme="dark">
+      <link rel="stylesheet" href="/styles/design-system.css" />
       <link rel="stylesheet" href="/styles/admin.css" />
       {children}
     </div>

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { auth } from '@/lib/firebase'
 import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
 import { useRouter } from 'next/navigation'
+import { Icons as I } from '@/components/ui/Icons'
 
 export default function AdminLogin() {
   const [email, setEmail] = useState('')
@@ -43,9 +44,9 @@ export default function AdminLogin() {
   return (
     <div className="admin-login-page">
       <div className="admin-login-card">
-        <div className="admin-login-icon">⚙</div>
+        <div className="admin-login-logo"><I.Lock/></div>
         <h1>Client Portal</h1>
-        <p>Admin login</p>
+        <p>Sign in to your admin dashboard</p>
         <form onSubmit={handleLogin} className="admin-login-form">
           <div className="admin-login-field">
             <label>Email</label>

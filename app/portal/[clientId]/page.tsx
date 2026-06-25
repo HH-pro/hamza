@@ -3,6 +3,7 @@ import { useState, useEffect, useMemo, useRef, useCallback } from 'react'
 import { useParams } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { getClient, getProjects, type Client, type Project } from '@/lib/firestore'
+import { Icons as I } from '@/components/ui/Icons'
 
 type Theme = 'light' | 'dark'
 type StatusFilter = 'all' | 'active' | 'development' | 'maintenance' | 'paused'
@@ -11,137 +12,6 @@ type ToastTone = 'success' | 'info' | 'warn'
 interface Toast { id: number; text: string; tone: ToastTone }
 
 const AUTO_LOCK_MS = 15 * 60 * 1000
-
-/* ── Icons ────────────────────────────────────────────────── */
-const I = {
-  Sun: () => (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-      <circle cx="12" cy="12" r="5"/>
-      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-    </svg>
-  ),
-  Moon: () => (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-      <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
-    </svg>
-  ),
-  Chevron: () => (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-      <path d="M6 9l6 6 6-6"/>
-    </svg>
-  ),
-  Eye: () => (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
-    </svg>
-  ),
-  EyeOff: () => (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24M1 1l22 22"/>
-    </svg>
-  ),
-  Copy: () => (
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="9" y="9" width="13" height="13" rx="2"/>
-      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-    </svg>
-  ),
-  Check: () => (
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="20 6 9 17 4 12"/>
-    </svg>
-  ),
-  Search: () => (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-    </svg>
-  ),
-  External: () => (
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/>
-    </svg>
-  ),
-  Lock: () => (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
-    </svg>
-  ),
-  Warn: () => (
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
-      <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
-    </svg>
-  ),
-  Print: () => (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/>
-    </svg>
-  ),
-  LogOut: () => (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
-    </svg>
-  ),
-  Expand: () => (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-      <polyline points="6 9 12 15 18 9"/>
-    </svg>
-  ),
-  Collapse: () => (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-      <polyline points="18 15 12 9 6 15"/>
-    </svg>
-  ),
-  X: () => (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-      <path d="M18 6L6 18M6 6l12 12"/>
-    </svg>
-  ),
-  Globe: () => (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
-      <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
-    </svg>
-  ),
-  Server: () => (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2" y="3" width="20" height="7" rx="2"/><rect x="2" y="14" width="20" height="7" rx="2"/>
-      <line x1="6" y1="6.5" x2="6.01" y2="6.5"/><line x1="6" y1="17.5" x2="6.01" y2="17.5"/>
-    </svg>
-  ),
-  Mail: () => (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-      <polyline points="22,6 12,13 2,6"/>
-    </svg>
-  ),
-  Phone: () => (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/>
-    </svg>
-  ),
-  Apple: () => (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M17.05 12.04a4.5 4.5 0 012.16-3.77 4.6 4.6 0 00-3.62-1.96c-1.52-.16-2.97.9-3.74.9-.79 0-1.96-.88-3.23-.86A4.84 4.84 0 004.4 8.87C2.66 11.9 3.95 16.36 5.63 18.8c.83 1.2 1.81 2.54 3.09 2.49 1.24-.05 1.71-.8 3.2-.8 1.5 0 1.92.8 3.23.78 1.33-.02 2.18-1.21 3-2.41a10.6 10.6 0 001.36-2.81 4.36 4.36 0 01-2.46-3.96zM14.61 4.42A4.41 4.41 0 0015.59 1a4.5 4.5 0 00-2.93 1.5 4.2 4.2 0 00-1.03 3.32 3.74 3.74 0 002.98-1.4z"/>
-    </svg>
-  ),
-  Calendar: () => (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/>
-      <line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-    </svg>
-  ),
-  Info: () => (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
-    </svg>
-  ),
-  Arrow: () => (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-    </svg>
-  ),
-}
 
 const ease: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
@@ -251,7 +121,7 @@ const sectionMeta: Record<string, { subtitle: string }> = {
 }
 
 /* ── SectionHeader ───────────────────────────────────────── */
-function SectionHeader({ icon, title }: { icon: string; title: string }) {
+function SectionHeader({ icon, title }: { icon: React.ReactNode; title: string }) {
   const sub = sectionMeta[title]?.subtitle
   return (
     <div className="pcl-section-header">
@@ -454,6 +324,7 @@ export default function ClientPortal() {
   const [scrolled, setScrolled] = useState(false)
   const [welcomeOpen, setWelcomeOpen] = useState(false)
   const [renewalsCollapsed, setRenewalsCollapsed] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
   const searchRef = useRef<HTMLInputElement | null>(null)
   const inactivityRef = useRef<number | null>(null)
   const toastIdRef = useRef(1)
@@ -494,11 +365,19 @@ export default function ClientPortal() {
     setWelcomeOpen(false)
   }
 
-  /* Scroll detection for sticky header */
+  /* Scroll detection — only toggles a subtle shadow on the header.
+     The header height is constant (stats live outside it), so this never
+     changes layout and cannot cause the scroll/reflow blink. */
   useEffect(() => {
     if (step !== 'view') return
-    const onScroll = () => setScrolled(window.scrollY > 80)
-    onScroll()
+    let ticking = false
+    const update = () => { ticking = false; setScrolled(window.scrollY > 8) }
+    const onScroll = () => {
+      if (ticking) return
+      ticking = true
+      window.requestAnimationFrame(update)
+    }
+    update()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [step])
@@ -640,7 +519,21 @@ export default function ClientPortal() {
 
   const renewals = useMemo(() => collectRenewals(projects, 90), [projects])
 
-  const stylesheet = <link rel="stylesheet" href="/styles/portal-client.css" />
+  const stylesheet = (
+    <>
+      <link rel="stylesheet" href="/styles/design-system.css" />
+      <link rel="stylesheet" href="/styles/portal-client.css" />
+    </>
+  )
+
+  /* Jump to a project from the sidebar: expand it, scroll to it, close drawer */
+  const jumpToProject = useCallback((pid: string) => {
+    setExpanded(prev => { const n = new Set(prev); n.add(pid); return n })
+    setSidebarOpen(false)
+    requestAnimationFrame(() => {
+      document.getElementById(`pcl-proj-${pid}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    })
+  }, [])
 
   /* Toasts portal */
   const ToastStack = (
@@ -707,65 +600,88 @@ export default function ClientPortal() {
     <>
       {stylesheet}
       <div data-theme={theme}>
-        <div className="pcl-auth-page">
-          <div className="pcl-orbs" aria-hidden="true">
-            <motion.div className="pcl-orb pcl-orb-1" animate={{ y: [-25, 25, -25], scale: [1, 1.08, 1] }} transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}/>
-            <motion.div className="pcl-orb pcl-orb-2" animate={{ y: [20, -30, 20], x: [-15, 15, -15] }} transition={{ duration: 11, repeat: Infinity, ease: 'easeInOut' }}/>
-            <motion.div className="pcl-orb pcl-orb-3" animate={{ y: [-18, 22, -18], x: [12, -12, 12] }} transition={{ duration: 9.5, repeat: Infinity, ease: 'easeInOut' }}/>
+        <div className="pcl-auth">
+
+          {/* Brand panel (hidden on small screens) */}
+          <div className="pcl-auth-aside" aria-hidden="true">
+            <div className="pcl-orbs">
+              <motion.div className="pcl-orb pcl-orb-1" animate={{ y: [-25, 25, -25], scale: [1, 1.08, 1] }} transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}/>
+              <motion.div className="pcl-orb pcl-orb-2" animate={{ y: [20, -30, 20], x: [-15, 15, -15] }} transition={{ duration: 11, repeat: Infinity, ease: 'easeInOut' }}/>
+              <motion.div className="pcl-orb pcl-orb-3" animate={{ y: [-18, 22, -18], x: [12, -12, 12] }} transition={{ duration: 9.5, repeat: Infinity, ease: 'easeInOut' }}/>
+            </div>
+            <motion.div className="pcl-auth-aside-inner" initial={{ opacity: 0, x: -18 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, ease }}>
+              <div className="pcl-auth-brand">
+                <div className="pcl-auth-logo"><I.Lock/></div>
+                <span>Client Portal</span>
+              </div>
+              <div className="pcl-auth-hero">
+                <h2>Everything about your projects, in one secure place.</h2>
+                <p>Live status, logins, credentials and renewal reminders — organised and always at hand.</p>
+                <ul className="pcl-auth-feats">
+                  <li><span className="pcl-auth-feat-ic"><I.Globe/></span>Live status &amp; one-click links</li>
+                  <li><span className="pcl-auth-feat-ic"><I.Lock/></span>Credentials, safely stored</li>
+                  <li><span className="pcl-auth-feat-ic"><I.Calendar/></span>Domain &amp; hosting renewal reminders</li>
+                </ul>
+              </div>
+              <div className="pcl-auth-aside-foot"><I.Lock/> Confidential — please don&apos;t share this link.</div>
+            </motion.div>
           </div>
 
-          <motion.div className="pcl-auth-card" initial={{ opacity: 0, y: 40, scale: 0.96 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.55, ease }}>
-            <motion.div className="pcl-auth-logo" initial={{ scale: 0, rotate: -20 }} animate={{ scale: 1, rotate: 0 }} transition={{ delay: 0.2, type: 'spring', damping: 10, stiffness: 180 }}>
-              <I.Lock/>
-            </motion.div>
+          {/* Sign-in panel */}
+          <div className="pcl-auth-main">
+            <motion.div className="pcl-auth-card" initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease }}>
+              <motion.div className="pcl-auth-card-logo" initial={{ scale: 0.6, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.1, type: 'spring', damping: 11, stiffness: 180 }}>
+                <I.Lock/>
+              </motion.div>
 
-            <motion.h1 initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.28, duration: 0.45, ease }}>
-              Client Portal
-            </motion.h1>
+              <h1>Welcome back</h1>
+              <p>Enter your password to access your projects</p>
 
-            <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35, duration: 0.4, ease }}>
-              Enter your password to access your projects
-            </motion.p>
+              <form className="pcl-auth-form" onSubmit={handlePassword}>
+                <div className="pcl-field">
+                  <label className="pcl-field-label" htmlFor="pcl-pwd">Password</label>
+                  <div className="pcl-pwd-wrap">
+                    <span className="pcl-field-ic"><I.Lock/></span>
+                    <input
+                      id="pcl-pwd"
+                      type={showPwd ? 'text' : 'password'}
+                      value={password}
+                      onChange={e => setPassword(e.target.value)}
+                      placeholder="Enter your password…"
+                      required autoFocus autoComplete="current-password"
+                    />
+                    <button type="button" className="pcl-pwd-toggle" onClick={() => setShowPwd(v => !v)} aria-label={showPwd ? 'Hide password' : 'Show password'}>
+                      {showPwd ? <I.EyeOff/> : <I.Eye/>}
+                    </button>
+                  </div>
+                </div>
 
-            <motion.form className="pcl-auth-form" onSubmit={handlePassword} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.42, duration: 0.4, ease }}>
-              <div className="pcl-pwd-wrap">
-                <input
-                  type={showPwd ? 'text' : 'password'}
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
-                  placeholder="Enter your password…"
-                  required autoFocus autoComplete="current-password"
-                />
-                <button type="button" className="pcl-pwd-toggle" onClick={() => setShowPwd(v => !v)} aria-label="Toggle visibility">
-                  {showPwd ? <I.EyeOff/> : <I.Eye/>}
-                </button>
-              </div>
-
-              <AnimatePresence>
-                {pwdError && (
-                  <motion.div className="pcl-auth-error" initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.28 }}>
-                    <motion.div style={{ display: 'flex', alignItems: 'center', gap: 8 }} animate={{ x: [-8, 8, -6, 6, -3, 3, 0] }} transition={{ duration: 0.5 }}>
-                      <I.Warn/>
-                      {pwdError}
+                <AnimatePresence>
+                  {pwdError && (
+                    <motion.div className="pcl-auth-error" initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.28 }}>
+                      <motion.div style={{ display: 'flex', alignItems: 'center', gap: 8 }} animate={{ x: [-8, 8, -6, 6, -3, 3, 0] }} transition={{ duration: 0.5 }}>
+                        <I.Warn/>
+                        {pwdError}
+                      </motion.div>
                     </motion.div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                  )}
+                </AnimatePresence>
 
-              <motion.button type="submit" className="pcl-auth-submit" disabled={verifying} whileHover={!verifying ? { scale: 1.02, y: -1 } : {}} whileTap={!verifying ? { scale: 0.98 } : {}}>
-                {verifying
-                  ? <span className="pcl-btn-loading"><span className="pcl-btn-spinner"/>Verifying…</span>
-                  : 'Access Portal →'
-                }
-              </motion.button>
-            </motion.form>
+                <motion.button type="submit" className="pcl-auth-submit" disabled={verifying} whileHover={!verifying ? { y: -1 } : {}} whileTap={!verifying ? { scale: 0.98 } : {}}>
+                  {verifying
+                    ? <span className="pcl-btn-loading"><span className="pcl-btn-spinner"/>Verifying…</span>
+                    : <>Access Portal <I.Arrow/></>
+                  }
+                </motion.button>
+              </form>
 
-            <motion.p className="pcl-auth-note" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.58, duration: 0.5 }}>
-              <I.Lock/> <span>This portal contains confidential project information.</span>
-            </motion.p>
-          </motion.div>
+              <p className="pcl-auth-note">
+                <I.Lock/> <span>This portal contains confidential project information.</span>
+              </p>
+            </motion.div>
+          </div>
 
-          <motion.button className="pcl-theme-float" initial={{ opacity: 0, scale: 0.7 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.5, type: 'spring', damping: 15 }} onClick={toggleTheme} whileHover={{ scale: 1.12 }} whileTap={{ scale: 0.92 }} aria-label="Toggle theme">
+          <motion.button className="pcl-theme-float" initial={{ opacity: 0, scale: 0.7 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.4, type: 'spring', damping: 15 }} onClick={toggleTheme} whileHover={{ scale: 1.12 }} whileTap={{ scale: 0.92 }} aria-label="Toggle theme">
             {isDark ? <I.Sun/> : <I.Moon/>}
           </motion.button>
         </div>
@@ -777,46 +693,162 @@ export default function ClientPortal() {
   return (
     <>
       {stylesheet}
-      <div data-theme={theme}>
+      <div data-theme={theme} className="pcl-root">
         {ToastStack}
-        <div className="pcl-page">
+        <div className="pcl-shell">
 
-          {/* Header */}
-          <header className={`pcl-header ${scrolled ? 'pcl-header-condensed' : ''}`}>
-            <div className="pcl-header-inner">
-              <motion.div className="pcl-company-avatar" initial={{ scale: 0, rotate: -20, opacity: 0 }} animate={{ scale: 1, rotate: 0, opacity: 1 }} transition={{ delay: 0.1, type: 'spring', damping: 12, stiffness: 200 }}>
-                {getInitials(client?.company || 'C')}
-              </motion.div>
-              <motion.div className="pcl-header-info" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.15, duration: 0.5, ease }}>
-                <h1>{client?.company}</h1>
-                <p>{client?.name} · Client Project Portal</p>
-              </motion.div>
-              <motion.div className="pcl-header-right" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2, duration: 0.5, ease }}>
-                <motion.button className="pcl-icon-btn pcl-no-print" onClick={printPortal} aria-label="Print portal" title="Print"
-                  initial={{ scale: 0.7, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.36, type: 'spring', damping: 12 }}
-                  whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.92 }}>
-                  <I.Print/>
-                </motion.button>
-                <motion.button className="pcl-icon-btn pcl-no-print" onClick={lockNow} aria-label="Lock portal" title="Lock portal"
-                  initial={{ scale: 0.7, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.4, type: 'spring', damping: 12 }}
-                  whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.92 }}>
-                  <I.LogOut/>
-                </motion.button>
-                <motion.button className="pcl-icon-btn pcl-no-print" onClick={toggleTheme} aria-label="Toggle theme" title="Toggle theme"
-                  initial={{ scale: 0.7, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.44, type: 'spring', damping: 12 }}
-                  whileHover={{ scale: 1.12, rotate: 12 }} whileTap={{ scale: 0.9 }}>
-                  <AnimatePresence mode="wait">
-                    <motion.span key={isDark ? 'sun' : 'moon'} initial={{ opacity: 0, rotate: -90, scale: 0.7 }} animate={{ opacity: 1, rotate: 0, scale: 1 }} exit={{ opacity: 0, rotate: 90, scale: 0.7 }} transition={{ duration: 0.22 }} style={{ display: 'flex' }}>
-                      {isDark ? <I.Sun/> : <I.Moon/>}
-                    </motion.span>
-                  </AnimatePresence>
-                </motion.button>
-              </motion.div>
+          {/* ── Sidebar ── */}
+          <aside className={`pcl-sidebar pcl-no-print ${sidebarOpen ? 'pcl-sidebar-open' : ''}`}>
+            <div className="pcl-sidebar-head">
+              <div className="pcl-brand">
+                <div className="pcl-company-avatar">{getInitials(client?.company || 'C')}</div>
+                <div className="pcl-header-info">
+                  <h1>{client?.company}</h1>
+                  <p>{client?.name}</p>
+                </div>
+              </div>
+              <button className="pcl-icon-btn pcl-sidebar-close" onClick={() => setSidebarOpen(false)} aria-label="Close menu">
+                <I.X/>
+              </button>
             </div>
 
-            {/* Stat strip */}
-            {projects.length > 0 && (
-              <motion.div className="pcl-stat-strip" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.45, ease }}>
+            <nav className="pcl-sidebar-nav">
+              {projects.length > 0 && (
+                <div className="pcl-nav-group">
+                  <div className="pcl-nav-label">Filter by status</div>
+                  {([
+                    ['all', 'All projects', projects.length],
+                    ['active', 'Live', activeCount],
+                    ['development', 'In development', devCount],
+                    ['maintenance', 'Maintenance', maintCount],
+                    ['paused', 'Paused', pausedCount],
+                  ] as [StatusFilter, string, number][]).filter(([k, , c]) => k === 'all' || c > 0).map(([k, lbl, c]) => (
+                    <button
+                      key={k}
+                      className={`pcl-nav-item ${statusFilter === k ? 'pcl-nav-item-on' : ''}`}
+                      onClick={() => setStatusFilter(k)}
+                    >
+                      <span className={`pcl-nav-dot pcl-nav-dot-${k}`}/>
+                      <span className="pcl-nav-text">{lbl}</span>
+                      <span className="pcl-nav-count">{c}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {filteredProjects.length > 0 && (
+                <div className="pcl-nav-group">
+                  <div className="pcl-nav-label">Jump to project</div>
+                  <div className="pcl-nav-projects">
+                    {filteredProjects.map(p => (
+                      <button key={p.id} className="pcl-nav-proj" onClick={() => jumpToProject(p.id!)} title={p.name}>
+                        <span className={`pcl-status-dot pcl-status-dot-${p.status}`}/>
+                        <span className="pcl-nav-proj-name">{p.name}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </nav>
+
+            <div className="pcl-sidebar-foot">
+              <button className="pcl-icon-btn" onClick={toggleTheme} aria-label="Toggle theme" title="Toggle theme">
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.span key={isDark ? 'sun' : 'moon'} initial={{ opacity: 0, rotate: -90, scale: 0.7 }} animate={{ opacity: 1, rotate: 0, scale: 1 }} exit={{ opacity: 0, rotate: 90, scale: 0.7 }} transition={{ duration: 0.2 }} style={{ display: 'flex' }}>
+                    {isDark ? <I.Sun/> : <I.Moon/>}
+                  </motion.span>
+                </AnimatePresence>
+              </button>
+              <button className="pcl-icon-btn" onClick={printPortal} aria-label="Print portal" title="Print"><I.Print/></button>
+              <button className="pcl-btn-lock" onClick={lockNow} title="Lock portal"><I.LogOut/><span>Lock</span></button>
+            </div>
+          </aside>
+
+          {/* Mobile drawer overlay */}
+          <AnimatePresence>
+            {sidebarOpen && (
+              <motion.div
+                className="pcl-overlay pcl-no-print"
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}
+                onClick={() => setSidebarOpen(false)}
+              />
+            )}
+          </AnimatePresence>
+
+          {/* ── Main column ── */}
+          <div className="pcl-main-col">
+
+          {/* Topbar — sticky, fixed height (shadow only on scroll → no blink) */}
+          <header className={`pcl-topbar pcl-no-print ${scrolled ? 'pcl-topbar-scrolled' : ''}`}>
+            <button className="pcl-icon-btn pcl-hamburger" onClick={() => setSidebarOpen(true)} aria-label="Open menu"><I.Menu/></button>
+            {projects.length > 0 ? (
+              <>
+                <div className="pcl-search">
+                  <I.Search/>
+                  <input
+                    ref={searchRef}
+                    type="text"
+                    value={search}
+                    onChange={e => setSearch(e.target.value)}
+                    placeholder="Search projects, domains, tech…"
+                  />
+                  <kbd className="pcl-kbd">/</kbd>
+                </div>
+                <div className="pcl-topbar-actions">
+                  <div className="pcl-sort">
+                    <button className="pcl-sort-btn" onClick={() => setSortOpen(v => !v)}>
+                      Sort: <strong>{sortBy === 'newest' ? 'Newest' : sortBy === 'name' ? 'Name' : 'Status'}</strong>
+                      <I.Chevron/>
+                    </button>
+                    <AnimatePresence>
+                      {sortOpen && (
+                        <>
+                          <div className="pcl-sort-scrim" onClick={() => setSortOpen(false)}/>
+                          <motion.div
+                            className="pcl-sort-menu"
+                            initial={{ opacity: 0, y: -6, scale: 0.98 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: -6, scale: 0.98 }}
+                            transition={{ duration: 0.18 }}
+                          >
+                            {([['newest', 'Newest first'], ['name', 'Name A–Z'], ['status', 'Status']] as [SortKey, string][]).map(([k, lbl]) => (
+                              <button
+                                key={k}
+                                className={`pcl-sort-item ${sortBy === k ? 'pcl-sort-item-on' : ''}`}
+                                onClick={() => { setSortBy(k); setSortOpen(false) }}
+                              >
+                                {sortBy === k && <I.Check/>}
+                                <span>{lbl}</span>
+                              </button>
+                            ))}
+                          </motion.div>
+                        </>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                  {filteredProjects.length > 0 && (
+                    <button
+                      className="pcl-action-btn"
+                      onClick={expanded.size === filteredProjects.length ? collapseAll : expandAll}
+                      title={expanded.size === filteredProjects.length ? 'Collapse all' : 'Expand all'}
+                    >
+                      {expanded.size === filteredProjects.length ? <I.Collapse/> : <I.Expand/>}
+                      <span className="pcl-action-label">{expanded.size === filteredProjects.length ? 'Collapse all' : 'Expand all'}</span>
+                    </button>
+                  )}
+                </div>
+              </>
+            ) : (
+              <div className="pcl-topbar-title">Client Portal</div>
+            )}
+          </header>
+
+          <div className="pcl-content">
+
+          {/* Stats */}
+          {projects.length > 0 && (
+            <motion.div className="pcl-stats" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease }}>
+              <div className="pcl-stats-inner">
                 <div className="pcl-stat-card">
                   <div className="pcl-stat-num">{projects.length}</div>
                   <div className="pcl-stat-lbl">Total projects</div>
@@ -835,9 +867,9 @@ export default function ClientPortal() {
                     <div className="pcl-stat-lbl">Expiring ≤ 30d</div>
                   </div>
                 )}
-              </motion.div>
-            )}
-          </header>
+              </div>
+            </motion.div>
+          )}
 
           {/* Welcome banner */}
           <AnimatePresence>
@@ -927,96 +959,6 @@ export default function ClientPortal() {
             </motion.div>
           )}
 
-          {/* Toolbar */}
-          {projects.length > 0 && (
-            <motion.div className="pcl-toolbar pcl-no-print" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35, duration: 0.45, ease }}>
-              <div className="pcl-toolbar-inner">
-                <div className="pcl-search">
-                  <I.Search/>
-                  <input
-                    ref={searchRef}
-                    type="text"
-                    value={search}
-                    onChange={e => setSearch(e.target.value)}
-                    placeholder="Search projects, domains, tech…"
-                  />
-                  <kbd className="pcl-kbd">/</kbd>
-                </div>
-
-                <div className="pcl-filter-row">
-                  {([
-                    ['all', `All · ${projects.length}`],
-                    ['active', `Live · ${activeCount}`],
-                    ['development', `Dev · ${devCount}`],
-                    ['maintenance', `Maint · ${maintCount}`],
-                    ['paused', `Paused · ${pausedCount}`],
-                  ] as [StatusFilter, string][]).filter(([k]) => {
-                    if (k === 'all') return true
-                    if (k === 'active') return activeCount > 0
-                    if (k === 'development') return devCount > 0
-                    if (k === 'maintenance') return maintCount > 0
-                    if (k === 'paused') return pausedCount > 0
-                    return false
-                  }).map(([k, lbl]) => (
-                    <button
-                      key={k}
-                      className={`pcl-chip ${statusFilter === k ? 'pcl-chip-on' : ''} pcl-chip-${k}`}
-                      onClick={() => setStatusFilter(k)}
-                    >
-                      {k !== 'all' && <span className={`pcl-chip-dot pcl-chip-dot-${k}`}/>}
-                      {lbl}
-                    </button>
-                  ))}
-                </div>
-
-                <div className="pcl-toolbar-actions">
-                  <div className="pcl-sort">
-                    <button className="pcl-sort-btn" onClick={() => setSortOpen(v => !v)}>
-                      Sort: <strong>{sortBy === 'newest' ? 'Newest' : sortBy === 'name' ? 'Name' : 'Status'}</strong>
-                      <I.Chevron/>
-                    </button>
-                    <AnimatePresence>
-                      {sortOpen && (
-                        <>
-                          <div className="pcl-sort-scrim" onClick={() => setSortOpen(false)}/>
-                          <motion.div
-                            className="pcl-sort-menu"
-                            initial={{ opacity: 0, y: -6, scale: 0.98 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            exit={{ opacity: 0, y: -6, scale: 0.98 }}
-                            transition={{ duration: 0.18 }}
-                          >
-                            {([['newest', 'Newest first'], ['name', 'Name A–Z'], ['status', 'Status']] as [SortKey, string][]).map(([k, lbl]) => (
-                              <button
-                                key={k}
-                                className={`pcl-sort-item ${sortBy === k ? 'pcl-sort-item-on' : ''}`}
-                                onClick={() => { setSortBy(k); setSortOpen(false) }}
-                              >
-                                {sortBy === k && <I.Check/>}
-                                <span>{lbl}</span>
-                              </button>
-                            ))}
-                          </motion.div>
-                        </>
-                      )}
-                    </AnimatePresence>
-                  </div>
-
-                  {filteredProjects.length > 0 && (
-                    <button
-                      className="pcl-action-btn"
-                      onClick={expanded.size === filteredProjects.length ? collapseAll : expandAll}
-                      title={expanded.size === filteredProjects.length ? 'Collapse all' : 'Expand all'}
-                    >
-                      {expanded.size === filteredProjects.length ? <I.Collapse/> : <I.Expand/>}
-                      <span>{expanded.size === filteredProjects.length ? 'Collapse all' : 'Expand all'}</span>
-                    </button>
-                  )}
-                </div>
-              </div>
-            </motion.div>
-          )}
-
           {/* Projects */}
           <main className="pcl-main">
             <AnimatePresence mode="wait">
@@ -1084,7 +1026,7 @@ export default function ClientPortal() {
                                 {/* Quick Access — one-tap logins */}
                                 {(proj.domain || proj.hosting?.loginUrl || proj.domainInfo?.loginUrl || proj.emailHosting?.loginUrl || proj.appStores?.playStoreUrl || proj.appStores?.appStoreUrl) && (
                                   <div className="pcl-section">
-                                    <SectionHeader icon="⚡" title="Quick Access"/>
+                                    <SectionHeader icon={<I.Zap/>} title="Quick Access"/>
                                     <div className="pcl-qa-grid">
                                       {proj.domain && (
                                         <QuickActionCard tone="website" href={`https://${proj.domain}`} icon={<I.Globe/>}
@@ -1117,7 +1059,7 @@ export default function ClientPortal() {
                                 {/* Website */}
                                 {proj.domain && (
                                   <div className="pcl-section">
-                                    <SectionHeader icon="🔗" title="Website"/>
+                                    <SectionHeader icon={<I.Link2/>} title="Website"/>
                                     <WebsitePreview
                                       domain={proj.domain}
                                       onCopy={() => copy(proj.domain, `d-${proj.id}`)}
@@ -1128,7 +1070,7 @@ export default function ClientPortal() {
                                 {/* Domain Registrar */}
                                 {(proj.domainInfo?.registrar || proj.domainInfo?.loginUrl) && (
                                   <div className="pcl-section">
-                                    <SectionHeader icon="🌍" title="Domain Registrar"/>
+                                    <SectionHeader icon={<I.Globe/>} title="Domain Registrar"/>
                                     <div className="pcl-info-grid">
                                       {proj.domainInfo.registrar && <div className="pcl-info-item"><span>Registrar</span><strong>{proj.domainInfo.registrar}</strong></div>}
                                       {proj.domainInfo.expiryDate && <div className="pcl-info-item"><span>Expiry Date</span><strong>{formatDate(proj.domainInfo.expiryDate)}<ExpiryBadge iso={proj.domainInfo.expiryDate} compact/></strong></div>}
@@ -1143,7 +1085,7 @@ export default function ClientPortal() {
                                 {/* Web Hosting */}
                                 {(proj.hosting?.provider || proj.hosting?.loginUrl) && (
                                   <div className="pcl-section">
-                                    <SectionHeader icon="🌐" title="Web Hosting"/>
+                                    <SectionHeader icon={<I.Server/>} title="Web Hosting"/>
                                     <div className="pcl-info-grid">
                                       {proj.hosting.provider && <div className="pcl-info-item"><span>Provider</span><strong>{proj.hosting.provider}</strong></div>}
                                       {proj.hosting.plan && <div className="pcl-info-item"><span>Plan</span><strong>{proj.hosting.plan}</strong></div>}
@@ -1159,7 +1101,7 @@ export default function ClientPortal() {
                                 {/* App Stores */}
                                 {(proj.appStores?.playStoreUrl || proj.appStores?.appStoreUrl || proj.appStores?.playStoreAccount) && (
                                   <div className="pcl-section">
-                                    <SectionHeader icon="📱" title="App Stores"/>
+                                    <SectionHeader icon={<I.Phone/>} title="App Stores"/>
                                     <div className="pcl-info-grid">
                                       {proj.appStores.playStoreUrl && <div className="pcl-info-item pcl-info-full"><span>Google Play Store</span><strong><LinkValue url={proj.appStores.playStoreUrl}/></strong></div>}
                                       {proj.appStores.playStoreAccount && <div className="pcl-info-item"><span>Play Console Account</span><strong><CredValue value={proj.appStores.playStoreAccount} masked={false} copyKey={`gpa-${proj.id}`} copy={copy} revealed={revealed} toggleReveal={toggleReveal}/></strong></div>}
@@ -1174,7 +1116,7 @@ export default function ClientPortal() {
                                 {/* Database */}
                                 {(proj.database?.type || proj.database?.provider) && (
                                   <div className="pcl-section">
-                                    <SectionHeader icon="🗄️" title="Database"/>
+                                    <SectionHeader icon={<I.Database/>} title="Database"/>
                                     <div className="pcl-info-grid">
                                       {proj.database.type && <div className="pcl-info-item"><span>Type</span><strong>{proj.database.type}</strong></div>}
                                       {proj.database.provider && <div className="pcl-info-item"><span>Provider</span><strong>{proj.database.provider}</strong></div>}
@@ -1186,7 +1128,7 @@ export default function ClientPortal() {
                                 {/* Email Hosting */}
                                 {(proj.emailHosting?.provider || proj.emailHosting?.loginUrl) && (
                                   <div className="pcl-section">
-                                    <SectionHeader icon="📧" title="Email Hosting"/>
+                                    <SectionHeader icon={<I.Mail/>} title="Email Hosting"/>
                                     <div className="pcl-info-grid">
                                       {proj.emailHosting.provider && <div className="pcl-info-item"><span>Provider</span><strong>{proj.emailHosting.provider}</strong></div>}
                                       {proj.emailHosting.plan && <div className="pcl-info-item"><span>Plan</span><strong>{proj.emailHosting.plan}</strong></div>}
@@ -1202,7 +1144,7 @@ export default function ClientPortal() {
                                 {/* Tech Stack */}
                                 {proj.techStack?.length > 0 && (
                                   <div className="pcl-section">
-                                    <SectionHeader icon="⚡" title="Tech Stack"/>
+                                    <SectionHeader icon={<I.Cpu/>} title="Tech Stack"/>
                                     <div className="pcl-tech-tags">
                                       {proj.techStack.map(t => <span key={t} className="pcl-tech-tag">{t}</span>)}
                                     </div>
@@ -1212,7 +1154,7 @@ export default function ClientPortal() {
                                 {/* Social Media */}
                                 {proj.socialAccounts?.length > 0 && (
                                   <div className="pcl-section">
-                                    <SectionHeader icon="📲" title="Social Media"/>
+                                    <SectionHeader icon={<I.Share2/>} title="Social Media"/>
                                     {proj.socialAccounts.map((s, i) => (
                                       <div key={i} className="pcl-email-row">
                                         <div className="pcl-email-left">
@@ -1234,7 +1176,7 @@ export default function ClientPortal() {
                                 {/* Services & APIs */}
                                 {proj.services?.length > 0 && (
                                   <div className="pcl-section">
-                                    <SectionHeader icon="🔌" title="Services & APIs"/>
+                                    <SectionHeader icon={<I.Plug/>} title="Services & APIs"/>
                                     <div className="pcl-services-list">
                                       {proj.services.map((s, i) => (
                                         <div key={i} className="pcl-service-card">
@@ -1257,7 +1199,7 @@ export default function ClientPortal() {
                                 {/* Business Emails */}
                                 {proj.businessEmails?.length > 0 && (
                                   <div className="pcl-section">
-                                    <SectionHeader icon="✉️" title="Business Email Accounts"/>
+                                    <SectionHeader icon={<I.AtSign/>} title="Business Email Accounts"/>
                                     {proj.businessEmails.map((em, i) => (
                                       <div key={i} className="pcl-email-row">
                                         <div className="pcl-email-left">
@@ -1278,7 +1220,7 @@ export default function ClientPortal() {
                                 {/* Custom Fields */}
                                 {proj.customFields?.length > 0 && (
                                   <div className="pcl-section">
-                                    <SectionHeader icon="✨" title="Additional Information"/>
+                                    <SectionHeader icon={<I.Sparkles/>} title="Additional Information"/>
                                     <div className="pcl-custom-grid">
                                       {proj.customFields.map((field, i) => (
                                         <div key={i} className="pcl-custom-item">
@@ -1299,7 +1241,7 @@ export default function ClientPortal() {
                                 {/* Notes */}
                                 {proj.notes && (
                                   <div className="pcl-section">
-                                    <SectionHeader icon="📝" title="Notes"/>
+                                    <SectionHeader icon={<I.FileText/>} title="Notes"/>
                                     <div className="pcl-notes">{proj.notes}</div>
                                   </div>
                                 )}
@@ -1321,7 +1263,9 @@ export default function ClientPortal() {
             <p className="pcl-footer-hint pcl-no-print">Tip: press <kbd className="pcl-kbd">/</kbd> to search · <kbd className="pcl-kbd">Esc</kbd> to clear</p>
           </motion.footer>
 
-        </div>
+          </div>{/* /pcl-content */}
+          </div>{/* /pcl-main-col */}
+        </div>{/* /pcl-shell */}
       </div>
     </>
   )
