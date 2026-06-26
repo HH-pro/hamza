@@ -7,8 +7,11 @@ import { Navigation, Pagination, A11y, Keyboard } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
-import { getClient, getProjects, type Client, type Project } from '@/lib/firestore'
+import { getClient, getProjects, deleteProject, type Client, type Project } from '@/lib/firestore'
+import { auth } from '@/lib/firebase'
+import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { Icons as I } from '@/components/ui/Icons'
+import ProjectEditor from '@/components/portal/ProjectEditor'
 
 type Theme = 'light' | 'dark'
 type StatusFilter = 'all' | 'active' | 'development' | 'maintenance' | 'paused'
@@ -331,6 +334,16 @@ export default function ClientPortal() {
   const [renewalsCollapsed, setRenewalsCollapsed] = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  /* Owner (edit) mode */
+  const [owner, setOwner] = useState(false)
+  const [ownerModal, setOwnerModal] = useState(false)
+  const [ownerEmail, setOwnerEmail] = useState('')
+  const [ownerPass, setOwnerPass] = useState('')
+  const [ownerBusy, setOwnerBusy] = useState(false)
+  const [ownerError, setOwnerError] = useState('')
+  const [editorProject, setEditorProject] = useState<Project | null>(null)
+  const [editorOpen, setEditorOpen] = useState(false)
+  const [deletingId, setDeletingId] = useState<string | null>(null)
   const searchRef = useRef<HTMLInputElement | null>(null)
   const inactivityRef = useRef<number | null>(null)
   const toastIdRef = useRef(1)
@@ -346,6 +359,50 @@ export default function ClientPortal() {
     if (!c) { setStep('error'); return }
     setClient(c); setProjects(p); setStep('view')
   }, [clientId])
+
+  const refreshProjects = useCallback(async () => {
+    setProjects(await getProjects(clientId))
+  }, [clientId])
+
+  /* Owner auth — reflects an existing Firebase admin session */
+  useEffect(() => onAuthStateChanged(auth, u => setOwner(!!u)), [])
+
+  async function ownerSignIn(e: React.FormEvent) {
+    e.preventDefault()
+    setOwnerBusy(true); setOwnerError('')
+    try {
+      await signInWithEmailAndPassword(auth, ownerEmail.trim(), ownerPass)
+      setOwnerModal(false); setOwnerPass(''); setOwnerEmail('')
+      pushToast('Owner mode unlocked — you can now edit projects')
+    } catch {
+      setOwnerError('Wrong email or password.')
+    } finally { setOwnerBusy(false) }
+  }
+
+  async function ownerSignOut() {
+    await signOut(auth)
+    setEditorOpen(false)
+    pushToast('Owner mode locked', 'info')
+  }
+
+  function openAddProject() {
+    setEditorProject(null); setEditorOpen(true); setSidebarOpen(false)
+  }
+  function openEditProject(p: Project) {
+    setEditorProject(p); setEditorOpen(true)
+  }
+  async function handleDeleteProject(p: Project) {
+    if (!p.id) return
+    if (!window.confirm(`Delete project “${p.name}”? This cannot be undone.`)) return
+    setDeletingId(p.id)
+    try {
+      await deleteProject(clientId, p.id)
+      await refreshProjects()
+      pushToast(`“${p.name}” deleted`, 'info')
+    } catch {
+      pushToast('Could not delete — owner session may have expired', 'warn')
+    } finally { setDeletingId(null) }
+  }
 
   /* Theme bootstrap */
   useEffect(() => {
@@ -770,6 +827,25 @@ export default function ClientPortal() {
               )}
             </nav>
 
+            {/* Owner mode banner */}
+            <div className="pcl-owner-bar">
+              {owner ? (
+                <>
+                  <button className="pcl-owner-add" onClick={openAddProject} title="Add a new project">
+                    <I.Plus/><span>Add project</span>
+                  </button>
+                  <div className="pcl-owner-status">
+                    <span className="pcl-owner-pill"><span className="pcl-owner-dot"/>Owner mode</span>
+                    <button className="pcl-owner-signout" onClick={ownerSignOut} title="Lock owner mode">Sign out</button>
+                  </div>
+                </>
+              ) : (
+                <button className="pcl-owner-signin" onClick={() => setOwnerModal(true)} title="Sign in to edit projects">
+                  <I.Lock/><span>Owner sign-in</span>
+                </button>
+              )}
+            </div>
+
             <div className="pcl-sidebar-foot">
               <button className="pcl-icon-btn" onClick={toggleTheme} aria-label="Toggle theme" title="Toggle theme">
                 <AnimatePresence mode="wait" initial={false}>
@@ -1042,10 +1118,12 @@ export default function ClientPortal() {
               {filteredProjects.length === 0 ? (
                 <motion.div key="empty" className="pcl-empty" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.35 }}>
                   <div className="pcl-empty-icon">{search || statusFilter !== 'all' ? '🔍' : '📭'}</div>
-                  <p>{search || statusFilter !== 'all' ? 'No projects match your filters.' : 'No projects yet. Please contact your team.'}</p>
-                  {(search || statusFilter !== 'all') && (
+                  <p>{search || statusFilter !== 'all' ? 'No projects match your filters.' : owner ? 'No projects yet. Add the first one.' : 'No projects yet. Please contact your team.'}</p>
+                  {(search || statusFilter !== 'all') ? (
                     <button className="pcl-action-btn" onClick={() => { setSearch(''); setStatusFilter('all') }}>Clear filters</button>
-                  )}
+                  ) : owner ? (
+                    <button className="pcl-action-btn pcl-action-primary" onClick={openAddProject}><I.Plus/> Add project</button>
+                  ) : null}
                 </motion.div>
               ) : (
                 <motion.div key="list" className="pcl-projects" variants={listContainer} initial="hidden" animate="visible">
@@ -1075,6 +1153,14 @@ export default function ClientPortal() {
                             </div>
                           </div>
                           <div className="pcl-proj-head-right">
+                            {owner && (
+                              <div className="pcl-proj-owner-actions" onClick={e => e.stopPropagation()}>
+                                <button className="pcl-owner-icon-btn" onClick={() => openEditProject(proj)} title="Edit project" aria-label="Edit project"><I.Pencil/></button>
+                                <button className="pcl-owner-icon-btn pcl-owner-icon-danger" onClick={() => handleDeleteProject(proj)} disabled={deletingId === proj.id} title="Delete project" aria-label="Delete project">
+                                  {deletingId === proj.id ? <span className="pcl-btn-spinner"/> : <I.Trash/>}
+                                </button>
+                              </div>
+                            )}
                             <span className="pcl-badge-type">{proj.type}</span>
                             <span className="pcl-badge-status" style={{ color: statusColor[proj.status], borderColor: statusColor[proj.status] + '40' }}>
                               <span className={`pcl-status-dot pcl-status-dot-${proj.status}`} style={{ width: 6, height: 6 }}/>
@@ -1343,6 +1429,48 @@ export default function ClientPortal() {
           </div>{/* /pcl-content */}
           </div>{/* /pcl-main-col */}
         </div>{/* /pcl-shell */}
+
+        {/* ── Owner sign-in modal ── */}
+        <AnimatePresence>
+          {ownerModal && (
+            <motion.div className="pe-overlay" onMouseDown={() => setOwnerModal(false)} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.18 }}>
+              <motion.div className="pcl-owner-modal" onMouseDown={e => e.stopPropagation()} initial={{ opacity: 0, y: 18, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 10, scale: 0.98 }} transition={{ duration: 0.26, ease }}>
+                <div className="pcl-owner-modal-logo"><I.Lock/></div>
+                <h3>Owner sign-in</h3>
+                <p>Only the account owner can add or edit projects. Clients with the portal password stay read-only.</p>
+                <form onSubmit={ownerSignIn} className="pcl-owner-form">
+                  <label className="pe-field">
+                    <span>Admin email</span>
+                    <input type="email" value={ownerEmail} onChange={e => setOwnerEmail(e.target.value)} placeholder="you@email.com" autoFocus required/>
+                  </label>
+                  <label className="pe-field">
+                    <span>Admin password</span>
+                    <input type="password" value={ownerPass} onChange={e => setOwnerPass(e.target.value)} placeholder="••••••••" required/>
+                  </label>
+                  {ownerError && <div className="pe-error"><I.Warn/> {ownerError}</div>}
+                  <div className="pcl-owner-form-actions">
+                    <button type="button" className="pe-btn-cancel" onClick={() => setOwnerModal(false)} disabled={ownerBusy}>Cancel</button>
+                    <button type="submit" className="pe-btn-save" disabled={ownerBusy}>
+                      {ownerBusy ? <><span className="pe-spin"/> Signing in…</> : <>Unlock editing <I.Arrow/></>}
+                    </button>
+                  </div>
+                </form>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* ── Project editor ── */}
+        <AnimatePresence>
+          {editorOpen && owner && (
+            <ProjectEditor
+              clientId={clientId}
+              editing={editorProject}
+              onClose={() => setEditorOpen(false)}
+              onSaved={async (msg) => { setEditorOpen(false); await refreshProjects(); pushToast(msg) }}
+            />
+          )}
+        </AnimatePresence>
       </div>
     </>
   )
