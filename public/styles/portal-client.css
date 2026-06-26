@@ -273,12 +273,13 @@
 .pcl-topbar-scrolled { box-shadow: 0 6px 24px rgba(16,24,40,.06); border-bottom-color: transparent; }
 [data-theme="dark"] .pcl-topbar-scrolled { box-shadow: 0 8px 28px rgba(0,0,0,.4); }
 .pcl-hamburger { display: none; }
-/* Desktop sidebar collapse toggle (lives in the topbar) */
-.pcl-collapse-toggle { display: flex; }
+/* Sidebar collapse toggle now lives inside the sidebar header (desktop only) */
+.pcl-sidebar-collapse { display: flex; }
+.pcl-sidebar-collapse:hover { color: var(--accent); border-color: var(--accent-mid); background: var(--accent-light); }
 
 /* ── Collapsed sidebar rail (desktop only) ── */
 @media (min-width: 1025px) {
-  .pcl-collapsed .pcl-sidebar { width: 78px; }
+  .pcl-collapsed .pcl-sidebar { width: 76px; }
   .pcl-collapsed .pcl-header-info,
   .pcl-collapsed .pcl-nav-label,
   .pcl-collapsed .pcl-nav-text,
@@ -286,13 +287,23 @@
   .pcl-collapsed .pcl-nav-proj-name,
   .pcl-collapsed .pcl-nav-group-jump,
   .pcl-collapsed .pcl-btn-lock span { display: none; }
-  .pcl-collapsed .pcl-sidebar-head { justify-content: center; padding: 18px 0; }
-  .pcl-collapsed .pcl-sidebar-nav { padding: 14px 8px; align-items: center; }
-  .pcl-collapsed .pcl-nav-group { width: 100%; align-items: center; }
-  .pcl-collapsed .pcl-nav-item { justify-content: center; padding: 0; width: 46px; height: 42px; margin: 0 auto; }
+
+  /* Header → avatar stacked above the expand toggle, both centered */
+  .pcl-collapsed .pcl-sidebar-head { flex-direction: column; gap: 12px; padding: 16px 0; }
+  .pcl-collapsed .pcl-brand { flex: none; justify-content: center; gap: 0; }
+
+  /* Filter items become centered, square icon buttons */
+  .pcl-collapsed .pcl-sidebar-nav { padding: 16px 0; align-items: center; gap: 16px; }
+  .pcl-collapsed .pcl-nav-group { width: 100%; align-items: center; gap: 6px; }
+  .pcl-collapsed .pcl-nav-item { width: 46px; height: 46px; padding: 0; margin: 0 auto; justify-content: center; border-radius: 13px; }
+  .pcl-collapsed .pcl-nav-item:hover { background: var(--surface); }
+  .pcl-collapsed .pcl-nav-item-on { background: var(--accent-light); }
+  .pcl-collapsed .pcl-nav-item-on::before { display: none; }
   .pcl-collapsed .pcl-nav-dot { width: 11px; height: 11px; }
+
+  /* Foot → vertical stack of icon buttons */
   .pcl-collapsed .pcl-sidebar-foot { flex-direction: column; gap: 8px; padding: 12px 0; align-items: center; }
-  .pcl-collapsed .pcl-btn-lock { margin: 0; width: 42px; height: 42px; justify-content: center; padding: 0; }
+  .pcl-collapsed .pcl-btn-lock { margin: 0; width: 46px; height: 46px; justify-content: center; padding: 0; }
 }
 .pcl-topbar-title { font-size: var(--text-lg); font-weight: 700; color: var(--text); letter-spacing: -.02em; }
 
@@ -636,10 +647,11 @@
   .pcl-sidebar-open { transform: translateX(0); }
   .pcl-sidebar-head .pcl-sidebar-close { display: flex; }
   .pcl-hamburger { display: flex; }
-  /* On mobile the drawer handles open/close; the desktop collapse toggle is hidden */
-  .pcl-collapse-toggle { display: none; }
+  /* On mobile the drawer handles open/close; the collapse toggle is hidden */
+  .pcl-sidebar-collapse { display: none; }
   /* Mobile drawer is always full-width even if "collapsed" was set on desktop */
-  .pcl-collapsed .pcl-sidebar { width: var(--sidebar-w); }
+  .pcl-collapsed .pcl-sidebar { width: min(86vw, 320px); }
+  .pcl-sidebar { width: min(86vw, 320px); }
 }
 @media (min-width: 1025px) {
   .pcl-overlay { display: none; }
@@ -702,7 +714,7 @@
 /* ============================================================
    SIDEBAR POLISH (professional refresh)
    ============================================================ */
-.pcl-sidebar { box-shadow: inset -1px 0 0 var(--border); }
+.pcl-sidebar { border-right: 1px solid var(--border-strong); box-shadow: 1px 0 0 var(--border); }
 .pcl-sidebar-head {
   background:
     linear-gradient(180deg, color-mix(in srgb, var(--accent) 5%, transparent), transparent);

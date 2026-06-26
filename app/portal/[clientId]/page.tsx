@@ -782,6 +782,16 @@ export default function ClientPortal() {
                   <p>{client?.name}</p>
                 </div>
               </div>
+              <button
+                className="pcl-icon-btn pcl-sidebar-collapse"
+                onClick={toggleSidebarCollapsed}
+                aria-label={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+                title={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+              >
+                <span className="pcl-collapse-ic" style={{ display: 'flex', transition: 'transform .26s var(--ease)', transform: sidebarCollapsed ? 'rotate(180deg)' : 'none' }}>
+                  <I.PanelLeft/>
+                </span>
+              </button>
               <button className="pcl-icon-btn pcl-sidebar-close" onClick={() => setSidebarOpen(false)} aria-label="Close menu">
                 <I.X/>
               </button>
@@ -876,7 +886,6 @@ export default function ClientPortal() {
           {/* Topbar — sticky, fixed height (shadow only on scroll → no blink) */}
           <header className={`pcl-topbar pcl-no-print ${scrolled ? 'pcl-topbar-scrolled' : ''}`}>
             <button className="pcl-icon-btn pcl-hamburger" onClick={() => setSidebarOpen(true)} aria-label="Open menu"><I.Menu/></button>
-            <button className="pcl-icon-btn pcl-collapse-toggle" onClick={toggleSidebarCollapsed} aria-label={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'} title={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}><I.PanelLeft/></button>
             {projects.length > 0 ? (
               <>
                 <div className="pcl-search">
