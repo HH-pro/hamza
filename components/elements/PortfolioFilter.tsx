@@ -279,6 +279,66 @@ export default function PortfolioFilter() {
 							</div>
 						</div>
 					</div>
+					{/* Project - GlazeMe (Mobile) */}
+					<div className="filter-item col-lg-6 col-12 mobile">
+						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
+							<div className="text-center">
+								<img
+									className="rounded-3 zoom-img mx-auto"
+									src="/assets/imgs/projects/projects-1/glazeme.jpeg"
+									alt="GlazeMe"
+									style={{ width: "220px", height: "auto", maxWidth: "100%" }}
+								/>
+							</div>
+							<div className="d-flex align-items-center mt-4">
+								<div className="project-card-content">
+									<h3 className="fw-semibold">GlazeMe</h3>
+									<p className="mb-0">iOS • AI Glaze Generation &amp; Gifting App</p>
+								</div>
+								<a
+									href="#"
+									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
+									onClick={(e) => {
+										e.preventDefault();
+										alert('App store link coming soon!');
+									}}
+								>
+									<i className="ri-arrow-right-up-line" />
+								</a>
+							</div>
+						</div>
+					</div>
+
+					{/* Project - MadeInPK (Mobile) */}
+					<div className="filter-item col-lg-6 col-12 mobile">
+						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
+							<div className="text-center">
+								<img
+									className="rounded-3 zoom-img mx-auto"
+									src="/assets/imgs/projects/projects-1/madeinpk.jpeg"
+									alt="MadeInPK"
+									style={{ width: "220px", height: "auto", maxWidth: "100%" }}
+								/>
+							</div>
+							<div className="d-flex align-items-center mt-4">
+								<div className="project-card-content">
+									<h3 className="fw-semibold">MadeInPK</h3>
+									<p className="mb-0">iOS &amp; Android • B2B Textile Trading Marketplace</p>
+								</div>
+								<a
+									href="#"
+									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
+									onClick={(e) => {
+										e.preventDefault();
+										alert('App store link coming soon!');
+									}}
+								>
+									<i className="ri-arrow-right-up-line" />
+								</a>
+							</div>
+						</div>
+					</div>
+
 					{/* Project 9 - Food Order App (Flutter) */}
 					<div className="filter-item col-lg-6 col-12 mobile flutter">
 						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">

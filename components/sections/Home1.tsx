@@ -3,7 +3,7 @@ import Image from "next/image"
 
 export default function Home1() {
 	return (
-		<section className="section-hero-1 position-relative pt-200 pb-120 overflow-hidden">
+		<section className="section-hero-1 position-relative pt-70 pb-120 overflow-hidden">
 			<div className="container position-relative z-3">
 				<div className="row align-items-center">
 					{/* Left Content - Text Section */}
@@ -30,6 +30,7 @@ export default function Home1() {
 							href="/assets/resume.pdf"
 							className="btn btn-gradient me-2"
 							target="_blank"
+							download="Hamza-Resume.pdf"
 						>
 							Download CV
 							<i className="ri-download-line ms-2" />

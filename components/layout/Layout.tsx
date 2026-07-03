@@ -4,6 +4,7 @@ import AddClassBody from '../elements/AddClassBody'
 import BackToTop from '../elements/BackToTop'
 import DataBg from '../elements/DataBg'
 import ImageHoverEffects from '../elements/ImageHoverEffects'
+import WhatsAppButton from '../elements/WhatsAppButton'
 import Breadcrumb from './Breadcrumb'
 import MobileMenu from './MobileMenu'
 import Footer1 from './footer/Footer1'
@@ -102,6 +103,7 @@ export default function Layout({ headerStyle, footerStyle, breadcrumbTitle, chil
       {footerStyle == 3 ? <Footer3 /> : null}
 
       <BackToTop target="#top" />
+      <WhatsAppButton />
     </>
   )
 }

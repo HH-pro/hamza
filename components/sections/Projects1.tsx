@@ -3,7 +3,7 @@
 import Link from "next/link"
 import dynamic from 'next/dynamic'
 
-const PortfolioFilter = dynamic(() => import('../elements/PortfolioFilter'), {
+const PortfolioHighlights = dynamic(() => import('../elements/PortfolioHighlights'), {
 	ssr: false,
 	loading: () => <div className="text-center py-5"><div className="spinner-border text-primary" role="status"><span className="visually-hidden">Loading...</span></div></div>
 })
@@ -32,7 +32,7 @@ export default function Projects1() {
 				</div>
 			</div>
 			<div className="bg-900 fillter-project position-relative" data-background="assets/imgs/projects/projects-1/background.png">
-				<PortfolioFilter/>
+				<PortfolioHighlights/>
 			</div>
 			<div className="container overflow-hidden">
 				<div className="row justify-content-center position-relative button-project pb-160 bg-900 pt-1">
