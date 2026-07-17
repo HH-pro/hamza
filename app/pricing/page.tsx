@@ -1,6 +1,16 @@
 
 import Layout from "@/components/layout/Layout"
 import Link from "next/link"
+import { pageMetadata } from "@/lib/seo"
+
+export const metadata = pageMetadata({
+	title: "Pricing",
+	description:
+		"Simple, transparent pricing for websites, web apps and mobile apps. Plans starting at $49 — pick the package that fits your project and budget.",
+	path: "/pricing",
+	tag: "Pricing",
+})
+
 export default function Pricing() {
 
 	return (

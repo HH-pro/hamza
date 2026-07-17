@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/seo"
 import Layout from "@/components/layout/Layout"
 import Blog2 from "@/components/sections/Blog2"
 import Contact2 from '@/components/sections/Contact2'
@@ -9,6 +10,15 @@ import Projects2 from "@/components/sections/Projects2"
 import Service2 from "@/components/sections/Service2"
 import Skills2 from "@/components/sections/Skills2"
 import Static2 from "@/components/sections/Static2"
+
+export const metadata = pageMetadata({
+	title: "Hamza Manzoor — Full Stack Developer",
+	description:
+		"Alternate home layout for Hamza Manzoor's portfolio — full stack web & mobile development, UI/UX and AI/ML.",
+	path: "/index-2",
+	index: false,
+})
+
 export default function HomePage2() {
 
 	return (

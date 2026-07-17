@@ -1,4 +1,13 @@
 import Layout from "@/components/layout/Layout"
+import { pageMetadata } from "@/lib/seo"
+
+export const metadata = pageMetadata({
+	title: "Services",
+	description:
+		"Full-stack web & mobile development, UI/UX design, and AI/ML solutions. See how Hamza helps teams ship scalable, polished products end to end.",
+	path: "/services",
+	tag: "Services",
+})
 
 export default function Services() {
 	return (

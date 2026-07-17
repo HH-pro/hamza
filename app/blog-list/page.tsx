@@ -1,6 +1,15 @@
 
 import Layout from "@/components/layout/Layout"
 import Link from "next/link"
+import { pageMetadata } from "@/lib/seo"
+
+export const metadata = pageMetadata({
+	title: "Blog",
+	description: "Blog listing by Hamza Manzoor.",
+	path: "/blog-list",
+	index: false,
+})
+
 export default function BlogList() {
 
 	return (

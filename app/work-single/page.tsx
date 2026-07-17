@@ -1,6 +1,15 @@
 
 import Layout from "@/components/layout/Layout"
 import Link from "next/link"
+import { pageMetadata } from "@/lib/seo"
+
+export const metadata = pageMetadata({
+	title: "Case Study",
+	description: "A single project case study by Hamza Manzoor.",
+	path: "/work-single",
+	index: false,
+})
+
 export default function WorkSingle() {
 
 	return (

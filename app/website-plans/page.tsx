@@ -1,5 +1,14 @@
 import Layout from "@/components/layout/Layout"
 import Link from "next/link"
+import { pageMetadata } from "@/lib/seo"
+
+export const metadata = pageMetadata({
+	title: "Website Plans",
+	description:
+		"Ready-made website packages with clear scope, timelines and pricing. Find the right plan for your business site, landing page or web app.",
+	path: "/website-plans",
+	tag: "Plans",
+})
 
 type Plan = {
 	projectName: string

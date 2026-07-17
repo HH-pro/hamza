@@ -9,11 +9,13 @@ import Skills1 from "@/components/sections/Skills1"
 import Static1 from "@/components/sections/Static1"
 import Resume1 from "@/components/sections/Resume1"
 import Testimonials1 from "@/components/sections/Testimonials1"
+import { HomeJsonLd } from "@/components/seo/JsonLd"
 import Link from "next/link"
 export default function Home() {
 
 	return (
 		<>
+			<HomeJsonLd />
 			<Layout headerStyle={1} footerStyle={1}>
 				<Home1 />
 				{/* <Static1 /> */}
