@@ -1,12 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import dynamic from 'next/dynamic'
-
-const PortfolioHighlights = dynamic(() => import('../elements/PortfolioHighlights'), {
-	ssr: false,
-	loading: () => <div className="text-center py-5"><div className="spinner-border text-primary" role="status"><span className="visually-hidden">Loading...</span></div></div>
-})
+import PortfolioHighlights from "../elements/PortfolioHighlights"
 
 export default function Projects1() {
 	return (

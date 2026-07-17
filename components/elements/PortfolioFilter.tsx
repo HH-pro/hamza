@@ -1,466 +1,92 @@
 'use client'
-import Isotope from "isotope-layout"
-import Link from "next/link"
-import { useCallback, useEffect, useRef, useState } from "react"
+
+import { useMemo, useState } from "react"
+import { categories, categoryLabel, projects, resolveImg, type Project } from "@/lib/projects"
+import ProjectLightbox from "./ProjectLightbox"
 
 export default function PortfolioFilter() {
-	// Isotope
-	const isotope = useRef<Isotope | null>(null)
-	const [filterKey, setFilterKey] = useState<string>("*")
+	const [filter, setFilter] = useState<(typeof categories)[number]["key"]>("all")
+	const [active, setActive] = useState<Project | null>(null)
 
-	useEffect(() => {
-		const timeout = setTimeout(() => {
-			isotope.current = new Isotope(".masonry-active", {
-				itemSelector: ".filter-item",
-				percentPosition: true,
-				masonry: {
-					columnWidth: ".filter-item",
-				},
-			})
-		}, 1000)
+	const visible = useMemo(
+		() => (filter === "all" ? projects : projects.filter((p) => p.category === filter)),
+		[filter],
+	)
 
-		return () => clearTimeout(timeout)
-	}, [])
-
-	useEffect(() => {
-		if (isotope.current) {
-			isotope.current.arrange({ filter: filterKey === "*" ? "*" : `.${filterKey}` })
-		}
-	}, [filterKey])
-
-	const handleFilterKeyChange = useCallback((key: string) => () => {
-		setFilterKey(key)
-	}, [])
-
-	const activeBtn = (value: string) =>
-		value === filterKey
-			? "active btn btn-md btn-filter mb-2 me-2 text-uppercase"
-			: "btn btn-md btn-filter mb-2 me-2 text-uppercase"
+	const countFor = (key: (typeof categories)[number]["key"]) =>
+		key === "all" ? projects.length : projects.filter((p) => p.category === key).length
 
 	return (
-		<>
-			<div className="container">
-				<div className="text-start">
-					<div className="button-group filter-button-group filter-menu-active">
-						<button className={activeBtn("*")} onClick={handleFilterKeyChange("*")}>
-							All Projects
+		<div className="container">
+			{/* Filter bar */}
+			<div className="text-center">
+				<div className="button-group filter-button-group filter-menu-active d-inline-flex flex-wrap justify-content-center">
+					{categories.map((c) => (
+						<button
+							key={c.key}
+							className={`btn btn-md btn-filter mb-2 me-2 text-uppercase${filter === c.key ? " active" : ""}`}
+							onClick={() => setFilter(c.key)}
+						>
+							{c.label}
+							<span className="pf-count">{countFor(c.key)}</span>
 						</button>
-						<button className={activeBtn("web")} onClick={handleFilterKeyChange("web")}>
-							Web
-						</button>
-						<button className={activeBtn("mobile")} onClick={handleFilterKeyChange("mobile")}>
-							Mobile Apps
-						</button>
-						<button className={activeBtn("flutter")} onClick={handleFilterKeyChange("flutter")}>
-							Flutter
-						</button>
-						<button className={activeBtn("wordpress")} onClick={handleFilterKeyChange("wordpress")}>
-							WordPress
-						</button>
-					</div>
-				</div>
-
-				<div className="row masonry-active justify-content-between mt-6">
-					<div className="grid-sizer" />
-
-					
-
-					{/* Project 2 - Visuals Blaze (Web) */}
-					<div className="filter-item col-lg-6 col-12 web">
-						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
-							<a href="https://visualsblaze.com" target="_blank" rel="noopener noreferrer">
-								<img
-									className="rounded-3 w-100 zoom-img"
-									src="/assets/imgs/projects/projects-1/2.png"
-									alt="Visuals Blaze"
-								/>
-							</a>
-							<div className="d-flex align-items-center mt-4">
-								<div className="project-card-content">
-									<h3 className="fw-semibold">Portfolio Website</h3>
-									<p>Visuals Blaze</p>
-								</div>
-								<a
-									href="https://visualsblaze.com/"
-									target="_blank"
-									rel="noopener noreferrer"
-									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
-								>
-									<i className="ri-arrow-right-up-line" />
-								</a>
-							</div>
-						</div>
-					</div>
-
-					{/* Project 3 - Wecinema (Web) */}
-					<div className="filter-item col-lg-6 col-12 web">
-						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
-							<a href="https://wecinema.co" target="_blank" rel="noopener noreferrer">
-								<img
-									className="rounded-3 w-100 zoom-img"
-									src="/assets/imgs/projects/projects-1/1.png"
-									alt="Wecinema"
-								/>
-							</a>
-							<div className="d-flex align-items-center mt-4">
-								<div className="project-card-content">
-									<h3 className="fw-semibold">Bussiness Website</h3>
-									<p>Wecinema</p>
-								</div>
-								<a
-									href="https://wecinema.co/"
-									target="_blank"
-									rel="noopener noreferrer"
-									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
-								>
-									<i className="ri-arrow-right-up-line" />
-								</a>
-							</div>
-						</div>
-					</div>
-
-					{/* Project 4 - Voting Buddy (Web) */}
-					<div className="filter-item col-lg-6 col-12 web">
-						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
-							<a href="https://www.votingbuddy.com" target="_blank" rel="noopener noreferrer">
-								<img
-									className="rounded-3 w-100 zoom-img"
-									src="/assets/imgs/projects/projects-1/7.png"
-									alt="Voting Buddy"
-								/>
-							</a>
-							<div className="d-flex align-items-center mt-4">
-								<div className="project-card-content">
-									<h3 className="fw-semibold">Quiz Website</h3>
-									<p>Voting Buddy</p>
-								</div>
-								<a
-									href="https://www.votingbuddy.com/"
-									target="_blank"
-									rel="noopener noreferrer"
-									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
-								>
-									<i className="ri-arrow-right-up-line" />
-								</a>
-							</div>
-						</div>
-					</div>
-
-					{/* Project 5 - Bright Funded Traders (Web) */}
-					<div className="filter-item col-lg-6 col-12 web">
-						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
-							<a href="https://brightfundedtraders.com/" target="_blank" rel="noopener noreferrer">
-								<img
-									className="rounded-3 w-100 zoom-img"
-									src="/assets/imgs/projects/projects-1/9.png"
-									alt="Bright Funded Traders"
-								/>
-							</a>
-							<div className="d-flex align-items-center mt-4">
-								<div className="project-card-content">
-									<h3 className="fw-semibold">Trading Website</h3>
-									<p>Bright Funded Traders</p>
-								</div>
-								<a
-									href="https://brightfundedtraders.com/"
-									target="_blank"
-									rel="noopener noreferrer"
-									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
-								>
-									<i className="ri-arrow-right-up-line" />
-								</a>
-							</div>
-						</div>
-					</div>
-
-					{/* Project 6 - Quantum Funding Traders (Web) */}
-					<div className="filter-item col-lg-6 col-12 web">
-						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
-							<a href="https://quantumfundingtraders.com/" target="_blank" rel="noopener noreferrer">
-								<img
-									className="rounded-3 w-100 zoom-img"
-									src="/assets/imgs/projects/projects-1/5.png"
-									alt="Quantum Funding Traders"
-								/>
-							</a>
-							<div className="d-flex align-items-center mt-4">
-								<div className="project-card-content">
-									<h3 className="fw-semibold">Trading Website</h3>
-									<p>Quantum Funding Traders</p>
-								</div>
-								<a
-									href="https://quantumfundingtraders.com/"
-									target="_blank"
-									rel="noopener noreferrer"
-									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
-								>
-									<i className="ri-arrow-right-up-line" />
-								</a>
-							</div>
-						</div>
-					</div>
-
-					{/* Project 7 - Betto Lettings (WordPress) */}
-					<div className="filter-item col-lg-6 col-12 wordpress">
-						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
-							<a href="https://bettolettings.co.uk/" target="_blank" rel="noopener noreferrer">
-								<img
-									className="rounded-3 w-100 zoom-img"
-									src="/assets/imgs/projects/projects-1/6.png"
-									alt="Betto Lettings"
-								/>
-							</a>
-							<div className="d-flex align-items-center mt-4">
-								<div className="project-card-content">
-									<h3 className="fw-semibold">Property Lettings</h3>
-									<p>Betto Lettings • WordPress</p>
-								</div>
-								<a
-									href="https://bettolettings.co.uk/"
-									target="_blank"
-									rel="noopener noreferrer"
-									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
-								>
-									<i className="ri-arrow-right-up-line" />
-								</a>
-							</div>
-						</div>
-					</div>
-
-					{/* Project 8 - Risby Homes (WordPress) */}
-					<div className="filter-item col-lg-6 col-12 wordpress">
-						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
-							<a href="https://risbyhomes.co.uk/" target="_blank" rel="noopener noreferrer">
-								<img
-									className="rounded-3 w-100 zoom-img"
-									src="/assets/imgs/projects/projects-1/3.png"
-									alt="Risby Homes"
-								/>
-							</a>
-							<div className="d-flex align-items-center mt-4">
-								<div className="project-card-content">
-									<h3 className="fw-semibold">Property Development</h3>
-									<p>Risby Homes • WordPress</p>
-								</div>
-								<a
-									href="https://risbyhomes.co.uk/"
-									target="_blank"
-									rel="noopener noreferrer"
-									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
-								>
-									<i className="ri-arrow-right-up-line" />
-								</a>
-							</div>
-						</div>
-					</div>
-{/* Project 1 - Xiaomi Store (Web) */}
-					<div className="filter-item col-lg-6 col-12 web">
-						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
-							<a href="https://xiaomi.kg/" target="_blank" rel="noopener noreferrer">
-								<img
-									className="rounded-3 w-100 zoom-img"
-									src="/assets/imgs/projects/projects-1/8.png"
-									alt="Xiaomi Store"
-								/>
-							</a>
-							<div className="d-flex align-items-center mt-4">
-								<div className="project-card-content">
-									<h3 className="fw-semibold">Ecommerce Store</h3>
-									<p>Xiaomi.kg</p>
-								</div>
-								<a
-									href="https://xiaomi.kg/"
-									target="_blank"
-									rel="noopener noreferrer"
-									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
-								>
-									<i className="ri-arrow-right-up-line" />
-								</a>
-							</div>
-						</div>
-					</div>
-					{/* Project - GlazeMe (Mobile) */}
-					<div className="filter-item col-lg-6 col-12 mobile">
-						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
-							<div className="text-center">
-								<img
-									className="rounded-3 zoom-img mx-auto"
-									src="/assets/imgs/projects/projects-1/glazeme.jpeg"
-									alt="GlazeMe"
-									style={{ width: "220px", height: "auto", maxWidth: "100%" }}
-								/>
-							</div>
-							<div className="d-flex align-items-center mt-4">
-								<div className="project-card-content">
-									<h3 className="fw-semibold">GlazeMe</h3>
-									<p className="mb-0">iOS • AI Glaze Generation &amp; Gifting App</p>
-								</div>
-								<a
-									href="#"
-									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
-									onClick={(e) => {
-										e.preventDefault();
-										alert('App store link coming soon!');
-									}}
-								>
-									<i className="ri-arrow-right-up-line" />
-								</a>
-							</div>
-						</div>
-					</div>
-
-					{/* Project - MadeInPK (Mobile) */}
-					<div className="filter-item col-lg-6 col-12 mobile">
-						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
-							<div className="text-center">
-								<img
-									className="rounded-3 zoom-img mx-auto"
-									src="/assets/imgs/projects/projects-1/madeinpk.jpeg"
-									alt="MadeInPK"
-									style={{ width: "220px", height: "auto", maxWidth: "100%" }}
-								/>
-							</div>
-							<div className="d-flex align-items-center mt-4">
-								<div className="project-card-content">
-									<h3 className="fw-semibold">MadeInPK</h3>
-									<p className="mb-0">iOS &amp; Android • B2B Textile Trading Marketplace</p>
-								</div>
-								<a
-									href="#"
-									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
-									onClick={(e) => {
-										e.preventDefault();
-										alert('App store link coming soon!');
-									}}
-								>
-									<i className="ri-arrow-right-up-line" />
-								</a>
-							</div>
-						</div>
-					</div>
-
-					{/* Project 9 - Food Order App (Flutter) */}
-					<div className="filter-item col-lg-6 col-12 mobile flutter">
-						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
-							<div className="text-center">
-								<img
-									className="rounded-3 zoom-img mx-auto"
-									src="/assets/imgs/projects/projects-1/order.jpeg"
-									alt="Food Order App"
-									style={{ width: "220px", height: "auto", maxWidth: "100%" }}
-								/>
-							</div>
-							<div className="d-flex align-items-center mt-4">
-								<div className="project-card-content">
-									<h3 className="fw-semibold">Food Order App</h3>
-									<p className="mb-0">Flutter • Restaurant App</p>
-								</div>
-								<a
-									href="#"
-									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
-									onClick={(e) => {
-										e.preventDefault();
-										alert('App store link coming soon!');
-									}}
-								>
-									<i className="ri-arrow-right-up-line" />
-								</a>
-							</div>
-						</div>
-					</div>
-
-					{/* Project 10 - FacmeQuiz iOS App (Mobile) */}
-					<div className="filter-item col-lg-6 col-12 mobile">
-						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
-							<div className="text-center">
-								<img
-									className="rounded-3 zoom-img mx-auto"
-									src="/assets/imgs/projects/projects-1/faceme.jpeg"
-									alt="FacmeQuiz iOS App"
-									style={{ width: "220px", height: "auto", maxWidth: "100%" }}
-								/>
-							</div>
-							<div className="d-flex align-items-center mt-4">
-								<div className="project-card-content">
-									<h3 className="fw-semibold">FacmeQuiz</h3>
-									<p className="mb-0">iOS Quiz App</p>
-								</div>
-								<a
-									href="#"
-									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
-									onClick={(e) => {
-										e.preventDefault();
-										alert('App store link coming soon!');
-									}}
-								>
-									<i className="ri-arrow-right-up-line" />
-								</a>
-							</div>
-						</div>
-					</div>
-
-					{/* Project 11 - Free Chat Freedom App (Mobile) */}
-					<div className="filter-item col-lg-6 col-12 mobile">
-						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
-							<div className="text-center">
-								<img
-									className="rounded-3 zoom-img mx-auto"
-									src="/assets/imgs/projects/projects-1/chat.jpeg"
-									alt="Free Chat Freedom App"
-									style={{ width: "220px", height: "auto", maxWidth: "100%" }}
-								/>
-							</div>
-							<div className="d-flex align-items-center mt-4">
-								<div className="project-card-content">
-									<h3 className="fw-semibold">Free Chat Freedom</h3>
-									<p className="mb-0">Messaging App</p>
-								</div>
-								<a
-									href="#"
-									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
-									onClick={(e) => {
-										e.preventDefault();
-										alert('App store link coming soon!');
-									}}
-								>
-									<i className="ri-arrow-right-up-line" />
-								</a>
-							</div>
-						</div>
-					</div>
-
-					{/* Project 12 - Employee Wordplaze App (Mobile) */}
-					<div className="filter-item col-lg-6 col-12 mobile">
-						<div className="project-item rounded-4 overflow-hidden position-relative p-md-4 p-3 bg-white">
-							<div className="text-center">
-								<img
-									className="rounded-3 zoom-img mx-auto"
-									src="/assets/imgs/projects/projects-1/work.jpeg"
-									alt="Employee Wordplaze App"
-									style={{ width: "220px", height: "auto", maxWidth: "100%" }}
-								/>
-							</div>
-							<div className="d-flex align-items-center mt-4">
-								<div className="project-card-content">
-									<h3 className="fw-semibold">Employee Wordplaze</h3>
-									<p className="mb-0">Business App</p>
-								</div>
-								<a
-									href="#"
-									className="project-card-icon icon-shape ms-auto icon-md rounded-circle"
-									onClick={(e) => {
-										e.preventDefault();
-										alert('App store link coming soon!');
-									}}
-								>
-									<i className="ri-arrow-right-up-line" />
-								</a>
-							</div>
-						</div>
-					</div>
-
+					))}
 				</div>
 			</div>
-		</>
+
+			{/* Grid */}
+			<div className="row mt-6">
+				{visible.map((p) => (
+					<div key={p.slug} className="col-lg-4 col-md-6 col-12 mb-4">
+						<div className="project-item pf-card rounded-4 overflow-hidden position-relative p-3 bg-white h-100">
+							<button
+								type="button"
+								className="pf-card-media rounded-3 overflow-hidden w-100 border-0 p-0"
+								onClick={() => setActive(p)}
+								aria-label={`Open ${p.title} gallery`}
+							>
+								<img className="rounded-3 w-100 zoom-img" src={resolveImg(p.cover)} alt={p.title} loading="lazy" />
+								<span className="pf-card-badge">{categoryLabel[p.category]}</span>
+								<span className="pf-card-overlay">
+									<span className="pf-card-view">
+										<i className="ri-gallery-line" />
+										View gallery{p.gallery.length > 1 ? ` · ${p.gallery.length}` : ""}
+									</span>
+								</span>
+							</button>
+
+							<div className="d-flex align-items-start mt-4">
+								<div className="project-card-content pe-2">
+									<h3 className="fw-semibold mb-1">{p.title}</h3>
+									<p className="mb-2">{p.tagline}</p>
+									<div className="pf-tags">
+										{p.tags.map((t) => (
+											<span key={t} className="pf-tag">
+												{t}
+											</span>
+										))}
+									</div>
+								</div>
+								{p.url && (
+									<a
+										href={p.url}
+										target="_blank"
+										rel="noopener noreferrer"
+										className="project-card-icon icon-shape ms-auto icon-md rounded-circle flex-shrink-0"
+										aria-label={`Visit ${p.title}`}
+									>
+										<i className="ri-arrow-right-up-line" />
+									</a>
+								)}
+							</div>
+						</div>
+					</div>
+				))}
+			</div>
+
+			{visible.length === 0 && <p className="text-center text-300 py-6">No projects in this category yet.</p>}
+
+			{active && <ProjectLightbox project={active} onClose={() => setActive(null)} />}
+		</div>
 	)
 }

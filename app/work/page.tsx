@@ -1,11 +1,6 @@
 'use client'
 import Layout from "@/components/layout/Layout"
-import dynamic from 'next/dynamic'
-
-const PortfolioFilter = dynamic(() => import('@/components/elements/PortfolioFilter'), {
-	ssr: false,
-	loading: () => <div className="text-center py-5"><div className="spinner-border text-primary" role="status"><span className="visually-hidden">Loading...</span></div></div>
-})
+import PortfolioFilter from "@/components/elements/PortfolioFilter"
 
 export default function Work() {
 	return (
@@ -22,9 +17,23 @@ export default function Work() {
 											Explore <span className="text-300">My Latest Work</span>
 										</h3>
 										<p className="text-300 fs-5">
-											Dive into my portfolio and discover the technical expertise and innovative solutions behind each design. 
+											Dive into my portfolio and discover the technical expertise and innovative solutions behind each design.
 											Experience how I transform ideas into seamless, functional, and visually engaging websites and applications.
 										</p>
+										<div className="pf-stats mt-5">
+											<div className="pf-stat">
+												<span className="pf-stat-num">19+</span>
+												<span className="pf-stat-label">Projects Delivered</span>
+											</div>
+											<div className="pf-stat">
+												<span className="pf-stat-num">15+</span>
+												<span className="pf-stat-label">Happy Clients</span>
+											</div>
+											<div className="pf-stat">
+												<span className="pf-stat-num">4+</span>
+												<span className="pf-stat-label">Years Experience</span>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
