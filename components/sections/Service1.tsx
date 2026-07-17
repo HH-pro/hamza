@@ -34,7 +34,7 @@ export default function Service1() {
 							<div className="single-service-card-1 tg-img-reveal-item w-100 border-top border-900 p-3 border-bottom" data-fx={1} data-img="assets/imgs/services/services-1/img-4.png">
 								<div className="service-card-details d-lg-flex align-items-center">
 									<h3 className="service-card-title w-lg-50 w-100 mb-0">
-										<Link href="/work-single">
+										<Link href="/work">
 											Web Development
 										</Link>
 									</h3>

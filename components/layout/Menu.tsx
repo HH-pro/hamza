@@ -27,12 +27,6 @@ export default function Menu() {
 						Plans
 					</Link>
 				</li>
-				{/* <li className="nav-item">
-					<Link href="/pricing" className={pathname === "/pricing" ? "nav-link active" : "nav-link"}>
-						Pricing
-					</Link>
-				</li> */}
-				
 				<li className="nav-item">
 					<Link href="/#contact" className={pathname === "#contact" ? "nav-link active" : "nav-link"}>
 						Contact

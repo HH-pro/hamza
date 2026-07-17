@@ -7,7 +7,7 @@ import "../public/assets/css/main.css"
 
 
 import type { Metadata } from "next"
-import { Urbanist, Playfair_Display, DM_Mono, Inter, JetBrains_Mono } from "next/font/google"
+import { Urbanist, Playfair_Display, DM_Mono } from "next/font/google"
 import { SITE, ogImageUrl } from "@/lib/seo"
 
 const urbanist = Urbanist({
@@ -28,18 +28,6 @@ const dmMono = DM_Mono({
 	variable: "--dmMono",
 	display: 'swap',
 })
-// Premium SaaS UI typography for the client portal + admin (design-system.css consumes these)
-const inter = Inter({
-	subsets: ['latin'],
-	variable: "--font-inter",
-	display: 'swap',
-})
-const jetbrainsMono = JetBrains_Mono({
-	subsets: ['latin'],
-	variable: "--font-jbmono",
-	display: 'swap',
-})
-
 export const metadata: Metadata = {
 	metadataBase: new URL(SITE.url),
 	title: {
@@ -101,7 +89,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" data-bs-theme="light">
-			<body className={`${urbanist.variable} ${playfair_display.variable} ${dmMono.variable} ${inter.variable} ${jetbrainsMono.variable}`}>{children}</body>
+			<body className={`${urbanist.variable} ${playfair_display.variable} ${dmMono.variable}`}>{children}</body>
 		</html>
 	)
 }
