@@ -14473,6 +14473,7 @@ strong {
   flex-wrap: wrap;
   justify-content: center;
   gap: 14px;
+  margin-bottom: 56px;
 }
 .pf-stat {
   flex: 1 1 150px;
@@ -14503,6 +14504,7 @@ strong {
 @media (max-width: 575px) {
   .pf-stats {
     gap: 10px;
+    margin-bottom: 36px;
   }
   .pf-stat {
     flex: 1 1 92px;
