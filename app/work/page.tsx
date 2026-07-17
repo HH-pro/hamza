@@ -7,7 +7,7 @@ export default function Work() {
 		<>
 			<Layout headerStyle={1} footerStyle={1}>
 				<div>
-					<section className="section-work pt-120 pb-150">
+					<section className="section-work">
 						<div className="container">
 							<div className="row">
 								<div className="col-lg-8 mx-lg-auto">

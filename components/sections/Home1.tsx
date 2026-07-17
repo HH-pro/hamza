@@ -11,7 +11,20 @@ export default function Home1() {
 						<span className="text-dark">👋 Hi there, I'm Hamza</span>
 
 						{/* Main Heading */}
-						<h2 className="ds-3 mb-3">Full Stack Developer</h2>
+						<h2 className="ds-3 mb-2">Full Stack Developer</h2>
+
+						{/* Role / Founder */}
+						<p className="fs-5 fw-semibold text-primary mb-3">
+							Founder of{" "}
+							<a
+								href="https://zynhive.com"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="text-primary text-decoration-underline"
+							>
+								ZynHive
+							</a>
+						</p>
 
 						{/* Professional Summary */}
 						<p className="text-300 mb-6">

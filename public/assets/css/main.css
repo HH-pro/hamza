@@ -14450,6 +14450,24 @@ strong {
   }
 }
 /* ===== Portfolio upgrade (grid, cards, stats, lightbox) ===== */
+/* Responsive section padding (replaces fixed pt-120/pb-150 utilities) */
+.section-work {
+  padding-top: 120px;
+  padding-bottom: 120px;
+}
+@media (max-width: 991px) {
+  .section-work {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+}
+@media (max-width: 575px) {
+  .section-work {
+    padding-top: 56px;
+    padding-bottom: 64px;
+  }
+}
+
 .pf-stats {
   display: flex;
   flex-wrap: wrap;
@@ -14457,7 +14475,8 @@ strong {
   gap: 14px;
 }
 .pf-stat {
-  min-width: 150px;
+  flex: 1 1 150px;
+  max-width: 220px;
   padding: 18px 22px;
   border-radius: 16px;
   background: rgba(109, 77, 242, 0.06);
@@ -14479,6 +14498,22 @@ strong {
 .pf-stat-label {
   font-size: 14px;
   color: var(--tc-neutral-200);
+  text-align: center;
+}
+@media (max-width: 575px) {
+  .pf-stats {
+    gap: 10px;
+  }
+  .pf-stat {
+    flex: 1 1 92px;
+    padding: 14px 10px;
+  }
+  .pf-stat-num {
+    font-size: 24px;
+  }
+  .pf-stat-label {
+    font-size: 12px;
+  }
 }
 
 .pf-count {
