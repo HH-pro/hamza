@@ -65,7 +65,7 @@ export const projects: Project[] = [
 		url: "https://glazeme.com",
 		cover: 7,
 		gallery: [7, 8, 9, 10, 11, 47, 48, 49, 50, 51, 52],
-		featured: false,
+		featured: true,
 		description:
 			"An iOS social app that turns AI-generated compliments into real-money gifts, complete with wallet, top-ups and a companion website.",
 	},
@@ -199,6 +199,7 @@ export const projects: Project[] = [
 		category: "web",
 		tags: ["Next.js", "Fintech"],
 		url: "https://quantumfundingtraders.com",
+		featured: true,
 		cover: 77,
 		gallery: [77, 78, 79, 80, 81],
 		description: "A funded-trader platform with challenges, dashboards and a high-impact marketing site.",

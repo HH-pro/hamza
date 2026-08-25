@@ -1,61 +1,49 @@
+import { services, pillars } from "@/lib/services"
+import SectionHead from "@/components/hm/SectionHead"
 
-import Link from "next/link"
-
+/** Home page: the three pillars, then the service list. */
 export default function Service1() {
 	return (
-		<>
+		<section className="hm-section hm-section--ruled" id="services">
+			<div className="hm-wrap">
+				<SectionHead
+					eyebrow="What end-to-end means"
+					title={
+						<>
+							Four roles, <span className="hm-accent">one person</span>
+						</>
+					}
+					lede="An agency puts a designer, two developers and a project manager between you and the product. Most of the budget goes to the coordination between them."
+					action={{ label: "All services", href: "/services" }}
+				/>
 
-			<section className="section-service-1 pt-120 pb-120">
-				<div className="container">
-					<div className="row align-items-end">
-						<div className="col-lg-7 me-auto">
-							<h3 className="ds-3 mt-3 mb-3 text-primary">What do I offer?</h3>
-							<span className="fs-5 fw-medium text-200">My journey started with a fascination for Web Development and technology,
-								<br />
-								leading me to specialize in Software Deeveloper
-							</span>
+				<div className="hm-pillars" data-reveal data-reveal-stagger>
+					{pillars.map((p) => (
+						<div className="hm-pillar" key={p.title}>
+							<i className={`${p.icon} hm-pillar__icon`} aria-hidden="true" />
+							<h3 className="hm-h3">{p.title}</h3>
+							<p>{p.body}</p>
 						</div>
-						<div className="col-lg-auto">
-							<Link href="/#contact" className="btn btn-gradient mt-lg-0 mt-5 ms-lg-auto">
-								Get a Quote
-								<i className="ri-arrow-right-up-line" />
-							</Link>
-						</div>
-					</div>
-					<div className="row mt-6 justify-content-between">
-						
-						<div className="col-12">
-							
-						</div>
-						<div className="col-12">
-							
-						</div>
-						<div className="col-12">
-							<div className="single-service-card-1 tg-img-reveal-item w-100 border-top border-900 p-3 border-bottom" data-fx={1} data-img="assets/imgs/services/services-1/img-4.png">
-								<div className="service-card-details d-lg-flex align-items-center">
-									<h3 className="service-card-title w-lg-50 w-100 mb-0">
-										<Link href="/work">
-											Web Development
-										</Link>
-									</h3>
-									<Link href="/services" className="d-md-flex d-block ps-lg-10 align-items-center justify-content-end w-100">
-										<p className="service-card-text my-3">
-											Crafting responsive and engaging websites that align with your <br />
-											brand and business goals.
-										</p>
-										<div className="service-card-icon icon-shape ms-auto icon-md rounded-circle border">
-											<i className="ri-arrow-right-up-line" />
-										</div>
-									</Link>
-								</div>
-								
-							</div>
-							
-						</div>
-					</div>
+					))}
 				</div>
-			</section>
 
-		</>
+				<div className="hm-services hm-mt" data-reveal data-reveal-stagger>
+					{services.map((s) => (
+						<article className="hm-service" key={s.slug}>
+							<div>
+								<div className="hm-service__title">
+									<i className={s.icon} aria-hidden="true" />
+									<h3 className="hm-h3">{s.title}</h3>
+								</div>
+								<p className="hm-service__outcome">{s.outcome}</p>
+							</div>
+							<div>
+								<p className="hm-body">{s.body}</p>
+							</div>
+						</article>
+					))}
+				</div>
+			</div>
+		</section>
 	)
 }

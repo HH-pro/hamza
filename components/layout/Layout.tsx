@@ -4,9 +4,9 @@ import AddClassBody from '../elements/AddClassBody'
 import BackToTop from '../elements/BackToTop'
 import DataBg from '../elements/DataBg'
 import ImageHoverEffects from '../elements/ImageHoverEffects'
+import Reveal from '../elements/Reveal'
 import WhatsAppButton from '../elements/WhatsAppButton'
 import Breadcrumb from './Breadcrumb'
-import MobileMenu from './MobileMenu'
 import Footer1 from './footer/Footer1'
 import Header1 from "./header/Header1"
 
@@ -32,10 +32,6 @@ export default function Layout({ headerStyle, footerStyle, breadcrumbTitle, chil
   // Search
   const [isSearch, setSearch] = useState<boolean>(false)
   const handleSearch = (): void => setSearch(!isSearch)
-
-  // OffCanvas
-  const [isOffCanvas, setOffCanvas] = useState<boolean>(false)
-  const handleOffCanvas = (): void => setOffCanvas(!isOffCanvas)
 
   // Initialize WOW.js
   useEffect(() => {
@@ -77,12 +73,10 @@ export default function Layout({ headerStyle, footerStyle, breadcrumbTitle, chil
       <AddClassBody />
       <DataBg />
       <ImageHoverEffects />
+      <Reveal />
 
       {/* Header */}
-      <Header1 scroll={scroll} isMobileMenu={isMobileMenu} handleMobileMenu={handleMobileMenu} isOffCanvas={isOffCanvas} handleOffCanvas={handleOffCanvas} />
-
-      {/* Mobile Menu */}
-      <MobileMenu isMobileMenu={isMobileMenu} handleMobileMenu={handleMobileMenu} />
+      <Header1 scroll={scroll} isMobileMenu={isMobileMenu} handleMobileMenu={handleMobileMenu} />
 
       <main className="main">
         {breadcrumbTitle && <Breadcrumb breadcrumbTitle={breadcrumbTitle} />}

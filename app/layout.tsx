@@ -4,6 +4,7 @@ import "../public/assets/css/vendors/carouselTicker.css"
 import "../public/assets/css/vendors/magnific-popup.css"
 import "../public/assets/fonts/remixicon/remixicon.css"
 import "../public/assets/css/main.css"
+import "../public/assets/css/hm.css"
 
 
 import type { Metadata } from "next"
@@ -89,7 +90,15 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" data-bs-theme="light">
-			<body className={`${urbanist.variable} ${playfair_display.variable} ${dmMono.variable}`}>{children}</body>
+			<body className={`hm ${urbanist.variable} ${playfair_display.variable} ${dmMono.variable}`}>
+				<script
+					dangerouslySetInnerHTML={{
+						__html:
+							"try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.body.classList.add('reveal-ready')}}catch(e){}",
+					}}
+				/>
+				{children}
+			</body>
 		</html>
 	)
 }

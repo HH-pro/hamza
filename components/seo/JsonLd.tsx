@@ -1,4 +1,5 @@
 import { SITE, absoluteUrl } from "@/lib/seo"
+import { FAQS } from "@/lib/proof"
 
 /** Renders a JSON-LD <script> block. Safe for Server Components. */
 export function JsonLd({ data }: { data: Record<string, unknown> | Record<string, unknown>[] }) {
@@ -21,16 +22,19 @@ export function HomeJsonLd() {
 			name: SITE.name,
 			url: SITE.url,
 			image: absoluteUrl("/assets/imgs/hero/hero-1/profile.png"),
-			jobTitle: "Full Stack Developer",
+			jobTitle: "Product Engineer",
 			description: SITE.description,
 			knowsAbout: [
+				"End-to-end product development",
 				"Web Development",
 				"Mobile App Development",
 				"UI/UX Design",
-				"Artificial Intelligence",
-				"Machine Learning",
+				"AI integration",
 				"React",
 				"Next.js",
+				"React Native",
+				"Flutter",
+				"SwiftUI",
 			],
 		},
 		{
@@ -50,7 +54,7 @@ export function HomeJsonLd() {
 			name: `${SITE.name} — Web & App Development`,
 			url: SITE.url,
 			description:
-				"Freelance full-stack web & mobile development, UI/UX design and AI/ML solutions.",
+				"End-to-end product builds — design, web app, mobile app and backend delivered by one person, from scope through launch.",
 			provider: { "@id": `${SITE.url}/#person` },
 			areaServed: "Worldwide",
 			serviceType: [
@@ -62,4 +66,25 @@ export function HomeJsonLd() {
 		},
 	]
 	return <JsonLd data={graph} />
+}
+
+/**
+ * FAQPage schema built from the same FAQ array the page renders, so the
+ * markup and the visible answers can never drift apart.
+ */
+export function FaqJsonLd() {
+	return (
+		<JsonLd
+			data={{
+				"@context": "https://schema.org",
+				"@type": "FAQPage",
+				"@id": `${SITE.url}/#faq`,
+				mainEntity: FAQS.map((f) => ({
+					"@type": "Question",
+					name: f.q,
+					acceptedAnswer: { "@type": "Answer", text: f.a },
+				})),
+			}}
+		/>
+	)
 }

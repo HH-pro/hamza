@@ -1,50 +1,51 @@
 'use client'
 import Layout from "@/components/layout/Layout"
 import PortfolioFilter from "@/components/elements/PortfolioFilter"
+import Metrics from "@/components/hm/Metrics"
+import { projects } from "@/lib/projects"
+import { liveProjects, PROJECTS_DELIVERED } from "@/lib/proof"
+import ClosingCTA from "@/components/hm/ClosingCTA"
 
 export default function Work() {
 	return (
-		<>
-			<Layout headerStyle={1} footerStyle={1}>
-				<div>
-					<section className="section-work">
-						<div className="container">
-							<div className="row">
-								<div className="col-lg-8 mx-lg-auto">
-									<div className="text-center">
-										<span className="btn btn-gradient d-inline-block text-uppercase">Recent Work</span>
-										<h3 className="ds-3 mt-3 mb-4 text-dark">
-											Explore <span className="text-300">My Latest Work</span>
-										</h3>
-										<p className="text-300 fs-5">
-											Dive into my portfolio and discover the technical expertise and innovative solutions behind each design.
-											Experience how I transform ideas into seamless, functional, and visually engaging websites and applications.
-										</p>
-										<div className="pf-stats mt-5">
-											<div className="pf-stat">
-												<span className="pf-stat-num">19+</span>
-												<span className="pf-stat-label">Projects Delivered</span>
-											</div>
-											<div className="pf-stat">
-												<span className="pf-stat-num">15+</span>
-												<span className="pf-stat-label">Happy Clients</span>
-											</div>
-											<div className="pf-stat">
-												<span className="pf-stat-num">4+</span>
-												<span className="pf-stat-label">Years Experience</span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+		<Layout headerStyle={1} footerStyle={1}>
+			<section className="hm-section hm-section--tight">
+				<div className="hm-wrap">
+					<div className="hm-narrow">
+						<span className="hm-eyebrow">Portfolio</span>
+						<h1 className="hm-h1">
+							{PROJECTS_DELIVERED} projects delivered,{" "}
+							<span className="hm-accent">{liveProjects.length} you can open right now</span>
+						</h1>
+						<p className="hm-lede">
+							B2B marketplaces, fintech platforms, App Store games and AI assistants —
+							designed, built and launched end-to-end. The {projects.length} below are
+							the ones worth documenting; open any card for the full screen gallery,
+							or click a title to visit the real thing.
+						</p>
+					</div>
 
-						<div className="fillter-project position-relative" data-background="assets/imgs/projects/projects-1/background.png">
-							<PortfolioFilter />
-						</div>
-					</section>
+					<div className="hm-mt">
+						<Metrics />
+					</div>
 				</div>
-			</Layout>
-		</>
+			</section>
+
+			<section className="hm-section hm-section--tight hm-section--sunk">
+				<div className="hm-wrap">
+					<PortfolioFilter />
+				</div>
+			</section>
+
+			<ClosingCTA
+				title={
+					<>
+						Want something like these, <span className="hm-accent">but yours</span>?
+					</>
+				}
+				body="Every project here started with one call about what the smallest launchable version looked like."
+				secondary={{ label: "See pricing", href: "/website-plans" }}
+			/>
+		</Layout>
 	)
 }

@@ -1,41 +1,75 @@
 import Link from 'next/link'
+import { CONTACT } from '@/lib/proof'
+import { services } from '@/lib/services'
 
 export default function Footer1() {
 	return (
-		<>
-			<footer>
-				<div className="section-footer position-relative pt-60 pb-60 bg-secondary-1">
-					<div className="container position-relative z-1">
-						<div className="text-center">
-							<Link className="d-flex main-logo align-items-center d-inline-flex" href="/">
-								<img src="/assets/imgs/footer-1/logo.svg" alt="infinia" />
-								<span className="fs-4 ms-2 text-white-keep">Hamza.Manzoor</span>
-							</Link>
-							<div className="navigation text-white-keep d-none d-md-flex align-items-center justify-content-center flex-wrap gap-4 my-4">
-								<Link  href="/" className="text-white-keep fs-5">
-									Home
-								</Link>
-								<Link href="/services" className="text-white-keep fs-5">
-									Services
-								</Link>
-								<Link href="/work" className="text-white-keep fs-5">
-									Portfolio
-								</Link>
-								
-								
-								<Link href="/#contact" className="text-white-keep fs-5">
-									Contact
-								</Link>
-							</div>
-						</div>
-						<div className="row text-center py-4">
-							<span className="fs-6 text-white-keep">© {new Date().getFullYear()} All Rights Reserved by <span><Link href="/#" className="text-primary">Hamza.Manzoor</Link></span>
-							</span></div>
+		<footer className="hm-footer">
+			<div className="hm-wrap">
+				<div className="hm-footer__grid">
+					<div>
+						<Link className="hm-footer__brand" href="/">
+							Hamza Manzoor
+						</Link>
+						<p className="hm-footer__pitch">
+							Design, web, mobile and backend — built and launched by one person.
+						</p>
+						<a className="hm-footer__mail" href={`mailto:${CONTACT.email}`}>
+							{CONTACT.email}
+						</a>
 					</div>
-					<div className="position-absolute top-0 start-0 w-100 h-100 z-0" data-background="assets/imgs/footer-1/background.png " />
-				</div>
-			</footer>
 
-		</>
+					<div>
+						<h2 className="hm-footer__label">Site</h2>
+						<ul className="hm-footer__list">
+							<li><Link href="/">Home</Link></li>
+							<li><Link href="/services">Services</Link></li>
+							<li><Link href="/work">Portfolio</Link></li>
+							<li><Link href="/website-plans">Plans &amp; pricing</Link></li>
+							<li><Link href="/#faq">FAQ</Link></li>
+							<li><Link href="/#contact">Contact</Link></li>
+						</ul>
+					</div>
+
+					<div>
+						<h2 className="hm-footer__label">Services</h2>
+						<ul className="hm-footer__list">
+							{services.map((s) => (
+								<li key={s.slug}>
+									<Link href={`/services#${s.slug}`}>{s.title}</Link>
+								</li>
+							))}
+						</ul>
+					</div>
+
+					<div>
+						<h2 className="hm-footer__label">Elsewhere</h2>
+						<ul className="hm-footer__list">
+							<li>
+								<a href="https://zynhive.com" target="_blank" rel="noopener noreferrer">
+									ZynHive ↗
+								</a>
+							</li>
+							<li>
+								<a href={CONTACT.whatsapp} target="_blank" rel="noopener noreferrer">
+									WhatsApp ↗
+								</a>
+							</li>
+							<li><a href={CONTACT.phoneHref}>{CONTACT.phone}</a></li>
+							<li>
+								<a href={CONTACT.mapsUrl} target="_blank" rel="noopener noreferrer">
+									{CONTACT.location}
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div className="hm-footer__base">
+					<span>© {new Date().getFullYear()} Hamza Manzoor</span>
+					<span>Built with Next.js — the same stack I build client work in.</span>
+				</div>
+			</div>
+		</footer>
 	)
 }

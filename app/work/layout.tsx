@@ -6,6 +6,7 @@ export const metadata = pageMetadata({
 		"Selected projects and case studies by Hamza Manzoor — web apps, mobile apps and product design work shipped for clients across industries.",
 	path: "/work",
 	tag: "Portfolio",
+	ogTitle: "50+ projects delivered. 12 you can open right now.",
 })
 
 export default function WorkLayout({ children }: { children: React.ReactNode }) {

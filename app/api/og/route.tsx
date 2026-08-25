@@ -6,25 +6,29 @@ import { SITE } from "@/lib/seo"
 export const runtime = "nodejs"
 export const revalidate = 86400
 
-const FONT_DIR = join(process.cwd(), "public/assets/fonts/satoshi/fonts")
+const SATOSHI_DIR = join(process.cwd(), "public/assets/fonts/satoshi/fonts")
+const OG_DIR = join(process.cwd(), "public/assets/fonts/og")
 
-async function loadFont(file: string) {
-	return readFile(join(FONT_DIR, file))
-}
-
+/**
+ * Social card. Mirrors the site's own identity rather than inventing a second
+ * one: light ground, violet accent, and the Playfair-italic half of the
+ * wordmark — so the preview and the page a visitor lands on look related.
+ */
 export async function GET(req: Request) {
 	const { searchParams } = new URL(req.url)
 	const title = (searchParams.get("title") || SITE.title).slice(0, 120)
 	const tag = (searchParams.get("tag") || "").slice(0, 40)
-	const subtitle = (searchParams.get("subtitle") || SITE.description).slice(0, 160)
+	const subtitle = (searchParams.get("subtitle") || SITE.description).slice(0, 170)
 
-	const [bold, regular, medium] = await Promise.all([
-		loadFont("Satoshi-Bold.ttf"),
-		loadFont("Satoshi-Regular.ttf"),
-		loadFont("Satoshi-Medium.ttf"),
+	const [bold, regular, medium, playfair] = await Promise.all([
+		readFile(join(SATOSHI_DIR, "Satoshi-Bold.ttf")),
+		readFile(join(SATOSHI_DIR, "Satoshi-Regular.ttf")),
+		readFile(join(SATOSHI_DIR, "Satoshi-Medium.ttf")),
+		readFile(join(OG_DIR, "PlayfairDisplay-Italic.ttf")),
 	])
 
 	const domain = SITE.url.replace(/^https?:\/\//, "")
+	const titleSize = title.length > 70 ? 56 : title.length > 44 ? 66 : 78
 
 	return new ImageResponse(
 		(
@@ -33,100 +37,115 @@ export async function GET(req: Request) {
 					width: "1200px",
 					height: "630px",
 					display: "flex",
-					flexDirection: "column",
-					justifyContent: "space-between",
-					padding: "72px",
-					backgroundColor: "#0B0B12",
-					backgroundImage:
-						"radial-gradient(circle at 82% -10%, #312e81 0%, rgba(49,46,129,0) 55%), radial-gradient(circle at 0% 120%, #1e1b4b 0%, rgba(30,27,75,0) 50%)",
+					backgroundColor: "#FBFAFD",
 					fontFamily: "Satoshi",
-					color: "#ffffff",
-					position: "relative",
+					color: "#12121A",
 				}}
 			>
-				{/* top row: brand mark + eyebrow */}
-				<div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-					<div style={{ display: "flex", alignItems: "center", gap: "18px" }}>
-						<div
-							style={{
-								width: "64px",
-								height: "64px",
-								borderRadius: "16px",
-								background: "linear-gradient(135deg, #6366f1, #4338ca)",
-								display: "flex",
-								alignItems: "center",
-								justifyContent: "center",
-								fontSize: "38px",
-								fontWeight: 700,
-								boxShadow: "0 8px 32px rgba(99,102,241,0.45)",
-							}}
-						>
-							H
-						</div>
-						<div style={{ display: "flex", flexDirection: "column" }}>
-							<span style={{ fontSize: "26px", fontWeight: 700, letterSpacing: "-0.5px" }}>
-								{SITE.brand}
+				{/* Accent spine */}
+				<div style={{ display: "flex", width: "14px", height: "630px", backgroundColor: "#6D4DF2" }} />
+
+				<div
+					style={{
+						display: "flex",
+						flexDirection: "column",
+						justifyContent: "space-between",
+						padding: "64px 68px",
+						flex: 1,
+					}}
+				>
+					{/* Wordmark + tag */}
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "space-between",
+							width: "100%",
+						}}
+					>
+						<div style={{ display: "flex", alignItems: "baseline" }}>
+							<span style={{ fontSize: "30px", fontWeight: 700, letterSpacing: "-0.8px" }}>
+								Hamza
 							</span>
-							<span style={{ fontSize: "18px", color: "#a5b4fc" }}>Full Stack Developer</span>
+							<span
+								style={{
+									fontFamily: "Playfair",
+									fontSize: "31px",
+									color: "#6D4DF2",
+									marginLeft: "4px",
+								}}
+							>
+								Manzoor
+							</span>
 						</div>
+
+						{tag ? (
+							<div
+								style={{
+									display: "flex",
+									alignItems: "center",
+									fontSize: "17px",
+									fontWeight: 500,
+									letterSpacing: "1.6px",
+									textTransform: "uppercase",
+									color: "#5334DD",
+									padding: "9px 18px",
+									borderRadius: "6px",
+									backgroundColor: "#EFEBFE",
+								}}
+							>
+								{tag}
+							</div>
+						) : (
+							<div style={{ display: "flex" }} />
+						)}
 					</div>
-					{tag ? (
+
+					{/* Headline */}
+					<div style={{ display: "flex", flexDirection: "column", maxWidth: "980px" }}>
 						<div
 							style={{
 								display: "flex",
-								alignItems: "center",
-								fontSize: "20px",
-								fontWeight: 500,
-								color: "#c7d2fe",
-								padding: "10px 22px",
-								borderRadius: "999px",
-								border: "1px solid rgba(165,180,252,0.35)",
-								background: "rgba(99,102,241,0.12)",
+								fontSize: `${titleSize}px`,
+								fontWeight: 700,
+								lineHeight: 1.06,
+								letterSpacing: "-2.2px",
+								color: "#12121A",
 							}}
 						>
-							{tag}
+							{title}
 						</div>
-					) : (
-						<div style={{ display: "flex" }} />
-					)}
-				</div>
+						<div
+							style={{
+								display: "flex",
+								marginTop: "22px",
+								fontSize: "25px",
+								lineHeight: 1.45,
+								fontWeight: 400,
+								color: "#43435A",
+								maxWidth: "880px",
+							}}
+						>
+							{subtitle}
+						</div>
+					</div>
 
-				{/* headline block */}
-				<div style={{ display: "flex", flexDirection: "column", gap: "24px", maxWidth: "1000px" }}>
+					{/* Footer */}
 					<div
 						style={{
 							display: "flex",
-							fontSize: title.length > 48 ? "64px" : "78px",
-							fontWeight: 700,
-							lineHeight: 1.05,
-							letterSpacing: "-2px",
-							background: "linear-gradient(90deg, #ffffff 0%, #c7d2fe 100%)",
-							backgroundClip: "text",
-							color: "transparent",
+							alignItems: "center",
+							justifyContent: "space-between",
+							width: "100%",
+							paddingTop: "26px",
+							borderTop: "1px solid #E6E3F1",
 						}}
 					>
-						{title}
+						<span style={{ fontSize: "21px", fontWeight: 500, color: "#12121A" }}>{domain}</span>
+						<span style={{ fontSize: "19px", color: "#70708A" }}>
+							Design · Web · Mobile · Backend
+						</span>
 					</div>
-					<div
-						style={{
-							display: "flex",
-							fontSize: "28px",
-							lineHeight: 1.4,
-							fontWeight: 400,
-							color: "#c3c8d4",
-							maxWidth: "920px",
-						}}
-					>
-						{subtitle}
-					</div>
-				</div>
-
-				{/* footer */}
-				<div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-					<span style={{ fontSize: "24px", fontWeight: 500, color: "#e5e7eb" }}>{domain}</span>
-					<span style={{ fontSize: "20px", color: "#818cf8" }}>
-						Web · Mobile · UI/UX · AI/ML
-					</span>
 				</div>
 			</div>
 		),
@@ -137,6 +156,7 @@ export async function GET(req: Request) {
 				{ name: "Satoshi", data: bold, weight: 700, style: "normal" },
 				{ name: "Satoshi", data: medium, weight: 500, style: "normal" },
 				{ name: "Satoshi", data: regular, weight: 400, style: "normal" },
+				{ name: "Playfair", data: playfair, weight: 500, style: "normal" },
 			],
 			headers: {
 				"Cache-Control": "public, immutable, no-transform, max-age=86400",

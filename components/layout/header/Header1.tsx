@@ -1,79 +1,184 @@
 'use client'
-import ThemeSwitch from '@/components/elements/ThemeSwitch'
+
 import Link from 'next/link'
-import Menu from '../Menu'
-import MobileMenu from '../MobileMenu'
-import OffCanvas from '../OffCanvas'
+import { usePathname } from 'next/navigation'
+import { useEffect, useRef, useState } from 'react'
+import ThemeSwitch from '@/components/elements/ThemeSwitch'
+import { projects, resolveImg } from '@/lib/projects'
+import { caseStudies } from '@/lib/caseStudies'
 
-export default function Header1({
-  scroll,
-  isMobileMenu,
-  handleMobileMenu,
-  isOffCanvas,
-  handleOffCanvas,
-}: any) {
+export default function Header1({ isMobileMenu, handleMobileMenu }: any) {
+  const pathname = usePathname()
+  const [openDrop, setOpenDrop] = useState(false)
+  const dropRef = useRef<HTMLLIElement | null>(null)
+
+  // Close everything on route change.
+  useEffect(() => {
+    setOpenDrop(false)
+    if (isMobileMenu) handleMobileMenu()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname])
+
+  // Escape closes; outside click closes the dropdown.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return
+      setOpenDrop(false)
+      if (isMobileMenu) handleMobileMenu()
+    }
+    const onClick = (e: MouseEvent) => {
+      if (dropRef.current && !dropRef.current.contains(e.target as Node)) setOpenDrop(false)
+    }
+    document.addEventListener('keydown', onKey)
+    document.addEventListener('mousedown', onClick)
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.removeEventListener('mousedown', onClick)
+    }
+  }, [isMobileMenu, handleMobileMenu])
+
   return (
-    <header>
-      <nav
-        className={`navbar navbar-expand-lg navbar-light w-100 flex-nowrap z-999 p-0 ${
-          scroll ? 'navbar-stick' : ''
-        }`}
-        style={{
-          position: 'sticky',
-          top: 0,
-        }}
-      >
-        {/* OffCanvas trigger */}
-        <button
-          className="navbar-menu p-4 text-center square-100 menu-tigger icon_80 icon-shape d-none d-md-flex border-0 bg-transparent shadow-none"
-          onClick={handleOffCanvas}
-          aria-label="Toggle OffCanvas"
-          style={{ outline: 'none' }}
-        >
-          <i className="ri-menu-2-line" />
-        </button>
-
-        <div className="container py-3 px-0">
-          {/* Logo */}
-          <Link
-            className="navbar-brand d-flex main-logo align-items-center ms-lg-0 ms-md-5 ms-3"
-            href="/"
-          >
-            <img src="/assets/imgs/template/favicon.svg" alt="infinia" />
-            <span className="fs-4 ms-2">Hamza Manzoor</span>
+    <header className="hm-header">
+      <div className="hm-nav">
+        <div className="hm-nav__inner">
+          <Link href="/" className="hm-brand" aria-label="Hamza Manzoor — home">
+            <span className="hm-logo-mark" aria-hidden="true" />
+            <span className="hm-brand__text">
+              Hamza<span className="hm-brand__accent">Manzoor</span>
+            </span>
           </Link>
 
-          {/* Desktop Menu */}
-          <div className="d-none d-lg-flex">
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
-              <Menu />
-            </div>
-          </div>
+          {/* Desktop menu */}
+          <nav className="hm-nav__menu" aria-label="Main">
+            <ul className="hm-nav__list">
+              <li
+                className="hm-nav__has-drop"
+                ref={dropRef}
+                onMouseEnter={() => setOpenDrop(true)}
+                onMouseLeave={() => setOpenDrop(false)}
+              >
+                <button
+                  type="button"
+                  className={`hm-nav__link hm-nav__droptoggle${openDrop ? ' is-open' : ''}`}
+                  onClick={() => setOpenDrop((v) => !v)}
+                  aria-expanded={openDrop}
+                  aria-haspopup="true"
+                >
+                  <span>Case Studies</span>
+                  <svg
+                    className="hm-chev"
+                    width="10"
+                    height="6"
+                    viewBox="0 0 10 6"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M1 1L5 5L9 1"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
 
-          <div className="navbar-social d-flex align-items-center pe-3">
-            {/* Mobile Burger Icon */}
-            <div
-              className="burger-icon border rounded-3 ms-3"
+                <div className={`hm-dropdown${openDrop ? ' is-open' : ''}`}>
+                  <p className="hm-dropdown__label">Selected builds</p>
+                  <div className="hm-dropdown__grid">
+                    {caseStudies.map((c) => (
+                      <Link
+                        href={`/case-studies/${c.slug}`}
+                        className="hm-dropdown__card"
+                        key={c.slug}
+                      >
+                        <span className="hm-dropdown__thumb">
+                          <img src={resolveImg(c.gallery[0])} alt="" loading="lazy" />
+                        </span>
+                        <span className="hm-dropdown__body">
+                          <span className="hm-dropdown__title">{c.navLabel}</span>
+                          <span className="hm-dropdown__tag">{c.kind}</span>
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                  <Link href="/work" className="hm-dropdown__all">
+                    View all {projects.length} projects
+                    <i className="ri-arrow-right-line" aria-hidden="true" />
+                  </Link>
+                </div>
+              </li>
+
+              <li>
+                <Link
+                  href="/work"
+                  className={`hm-nav__link${pathname === '/work' ? ' is-active' : ''}`}
+                  aria-current={pathname === '/work' ? 'page' : undefined}
+                >
+                  Portfolio
+                </Link>
+              </li>
+            </ul>
+
+            <ThemeSwitch />
+
+            <Link href="/#contact" className="hm-nav__cta">
+              Book a Call
+            </Link>
+          </nav>
+
+          {/* Mobile controls */}
+          <div className="hm-nav__mobile">
+            <ThemeSwitch />
+            <button
+              type="button"
+              className={`hm-burger${isMobileMenu ? ' is-open' : ''}`}
               onClick={handleMobileMenu}
+              aria-label={isMobileMenu ? 'Close menu' : 'Open menu'}
+              aria-expanded={isMobileMenu}
+              aria-controls="hm-mobile-panel"
             >
-              <span className="burger-icon-top" />
-              <span className="burger-icon-mid" />
-              <span className="burger-icon-bottom" />
-            </div>
+              <span />
+              <span />
+              <span />
+            </button>
           </div>
         </div>
 
-        <ThemeSwitch />
-      </nav>
+        {/* Mobile panel */}
+        <div
+          id="hm-mobile-panel"
+          className={`hm-nav__panel${isMobileMenu ? ' is-open' : ''}`}
+          hidden={!isMobileMenu}
+        >
+          <p className="hm-dropdown__label">Case studies</p>
+          <ul className="hm-nav__panel-list">
+            {caseStudies.map((c) => (
+              <li key={c.slug}>
+                <Link
+                  href={`/case-studies/${c.slug}`}
+                  className="hm-nav__link"
+                  onClick={handleMobileMenu}
+                >
+                  {c.navLabel}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link href="/work" className="hm-nav__link" onClick={handleMobileMenu}>
+                Portfolio
+              </Link>
+            </li>
+          </ul>
+          <Link href="/#contact" className="hm-nav__cta" onClick={handleMobileMenu}>
+            Book a Call
+          </Link>
+        </div>
+      </div>
 
-      {/* OffCanvas Menu */}
-      <OffCanvas isOffCanvas={isOffCanvas} handleOffCanvas={handleOffCanvas} />
-
-      {/* Mobile Menu */}
-      <MobileMenu
-        isMobileMenu={isMobileMenu}
-        handleMobileMenu={handleMobileMenu}
-      />
+      {isMobileMenu && (
+        <div className="hm-nav__scrim" onClick={handleMobileMenu} aria-hidden="true" />
+      )}
     </header>
   )
 }
