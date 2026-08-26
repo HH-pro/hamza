@@ -73,7 +73,8 @@ export const metadata: Metadata = {
 		card: "summary_large_image",
 		title: SITE.title,
 		description: SITE.description,
-		creator: SITE.twitter,
+		// Omitted entirely while SITE.twitter is null — see the note there.
+		...(SITE.twitter ? { creator: SITE.twitter } : {}),
 		images: [ogImageUrl()],
 	},
 	icons: {

@@ -180,7 +180,7 @@ export const FAQS: Faq[] = [
 	},
 	{
 		q: "What does it cost?",
-		a: "Fixed-price website builds start at $199 and are listed on the Plans page. Full product builds — anything with accounts, payments, or a mobile app — are quoted per project after the scoping call, and typically land between $1,500 and $8,000 depending on how much ships in v1.",
+		a: "Fixed-price website builds start at $499 and are listed on the Plans page. Full product builds — anything with accounts, payments, or a mobile app — are quoted per project after the scoping call, and typically land between $4,000 and $20,000 depending on how much ships in v1. You get that number after one call, not three.",
 	},
 	{
 		q: "Do you work with existing codebases?",

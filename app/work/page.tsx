@@ -33,6 +33,9 @@ export default function Work() {
 
 			<section className="hm-section hm-section--tight hm-section--sunk">
 				<div className="hm-wrap">
+					{/* The grid's project titles are h3. Without this the outline went
+					    h1 -> h3, which reads to a crawler as a missing section. */}
+					<h2 className="hm-sr">All projects</h2>
 					<PortfolioFilter />
 				</div>
 			</section>

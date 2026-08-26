@@ -9,6 +9,7 @@ import Testimonials from "@/components/hm/Testimonials"
 import FaqList from "@/components/hm/FaqList"
 import ClosingCTA from "@/components/hm/ClosingCTA"
 import Metrics from "@/components/hm/Metrics"
+import { ServicesJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd"
 
 export const metadata = pageMetadata({
 	title: "Services",
@@ -26,6 +27,8 @@ const proofFor = (slugs: string[]) =>
 export default function Services() {
 	return (
 		<Layout headerStyle={1} footerStyle={1}>
+			<ServicesJsonLd />
+			<BreadcrumbJsonLd trail={[{ name: "Services", path: "/services" }]} />
 			<section className="hm-section hm-section--tight">
 				<div className="hm-wrap">
 					<div className="hm-narrow">

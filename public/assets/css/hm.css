@@ -77,6 +77,21 @@ body.hm {
 	margin-inline: auto;
 	padding-inline: 1.5rem;
 }
+
+/* Available to assistive tech and to a crawler's outline, invisible on screen.
+   Used where a section genuinely has a heading but showing it would just
+   repeat the h1 sitting a few hundred pixels above it. */
+.hm-sr {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
 .hm-narrow { max-width: 48rem; }
 
 /* --------------------------------------------------------------------------
@@ -893,6 +908,13 @@ body.hm {
 	border-radius: 3px;
 	align-self: flex-start;
 	margin-bottom: 1rem;
+}
+/* The three non-featured cards keep the flag in the flow so all four titles
+   sit on one line, but it holds space rather than making a claim. Without
+   this rule the modifier did nothing and every tier claimed "most chosen". */
+.hm-plan__flag--ghost {
+	visibility: hidden;
+	background: none;
 }
 .hm-plan__price {
 	font-size: 2.1rem;

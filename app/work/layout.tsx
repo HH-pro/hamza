@@ -1,4 +1,5 @@
 import { pageMetadata } from "@/lib/seo"
+import { WorkJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd"
 
 export const metadata = pageMetadata({
 	title: "Work",
@@ -10,5 +11,13 @@ export const metadata = pageMetadata({
 })
 
 export default function WorkLayout({ children }: { children: React.ReactNode }) {
-	return children
+	// The page itself is a client component, so the structured data lives here
+	// where it can be rendered on the server and reach a crawler in the HTML.
+	return (
+		<>
+			<WorkJsonLd />
+			<BreadcrumbJsonLd trail={[{ name: "Work", path: "/work" }]} />
+			{children}
+		</>
+	)
 }

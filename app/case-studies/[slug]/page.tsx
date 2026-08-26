@@ -4,7 +4,7 @@ import type { Metadata } from "next"
 import Layout from "@/components/layout/Layout"
 import ClosingCTA from "@/components/hm/ClosingCTA"
 import Testimonials from "@/components/hm/Testimonials"
-import { JsonLd } from "@/components/seo/JsonLd"
+import { CaseStudyJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd"
 import { pageMetadata, absoluteUrl } from "@/lib/seo"
 import { caseStudies, getCaseStudy, getCaseStudyProject } from "@/lib/caseStudies"
 import { resolveImg } from "@/lib/projects"
@@ -45,17 +45,20 @@ export default async function CaseStudyPage({
 
 	return (
 		<Layout headerStyle={1} footerStyle={1}>
-			<JsonLd
-				data={{
-					"@context": "https://schema.org",
-					"@type": "Article",
-					headline: cs.title,
-					description: cs.summary,
-					image: absoluteUrl(resolveImg(cs.gallery[0])),
-					author: { "@type": "Person", name: SITE.name, url: SITE.url },
-					publisher: { "@type": "Person", name: SITE.name },
-					mainEntityOfPage: absoluteUrl(`/case-studies/${cs.slug}`),
-				}}
+			<CaseStudyJsonLd
+				slug={cs.slug}
+				title={cs.title}
+				summary={cs.summary}
+				image={resolveImg(cs.gallery[0])}
+				year={cs.year}
+				stack={cs.stack}
+				projectUrl={project?.url}
+			/>
+			<BreadcrumbJsonLd
+				trail={[
+					{ name: "Work", path: "/work" },
+					{ name: cs.navLabel, path: `/case-studies/${cs.slug}` },
+				]}
 			/>
 
 			{/* Hero */}
