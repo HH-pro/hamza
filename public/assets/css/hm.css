@@ -238,9 +238,16 @@ body.hm {
    -------------------------------------------------------------------------- */
 
 .hm-hero {
-	/* Tight at the top — the sticky bar already provides separation, so a large
-	   pad here just pushes the headline below the fold. */
-	padding-block: clamp(1.75rem, 3vw, 3rem) clamp(3rem, 6vw, 5.5rem);
+	/* One screen, exactly. The bar is sticky and reserves its own space, so the
+	   hero's share of the first viewport is the viewport minus the bar. svh
+	   rather than vh so a collapsing mobile URL bar doesn't resize the section
+	   mid-scroll; the vh line above it is the fallback for anything older. */
+	--hm-navh: 3.6rem;
+	min-height: calc(100vh - var(--hm-navh));
+	min-height: calc(100svh - var(--hm-navh));
+	display: grid;
+	align-content: center;
+	padding-block: clamp(1.5rem, 4vh, 3.5rem);
 	background: var(--hm-ground);
 	position: relative;
 	overflow: hidden;
@@ -281,6 +288,28 @@ body.hm {
 	}
 }
 
+/* Height-aware rhythm. Every vertical step in the hero carries a vh term, so
+   on a short laptop screen the section gives up spacing — and the headline
+   gives up size — rather than pushing the portrait frame past the fold. The
+   rem bounds keep it from collapsing on a phone or ballooning on a monitor. */
+.hm-hero .hm-h1 {
+	font-size: clamp(2.5rem, min(6.4vw, 8.4vh), 4.4rem);
+}
+.hm-hero .hm-lede {
+	margin-top: clamp(0.9rem, 2.2vh, 1.35rem);
+}
+.hm-hero .hm-actions {
+	margin-top: clamp(1.25rem, 3.2vh, 2.1rem);
+}
+.hm-hero .hm-reassure {
+	margin-top: clamp(0.65rem, 1.6vh, 0.9rem);
+}
+/* The tech-stack row: last thing in the column, and the one the frame's
+   bottom edge lines up with. */
+.hm-hero__stack {
+	margin: clamp(1.1rem, 3.4vh, 2.25rem) 0 0;
+}
+
 .hm-status {
 	display: inline-flex;
 	align-items: center;
@@ -294,7 +323,7 @@ body.hm {
 	border: 1px solid color-mix(in srgb, var(--hm-good) 22%, transparent);
 	border-radius: 100px;
 	padding: 0.4rem 0.85rem;
-	margin-bottom: 1.4rem;
+	margin-bottom: clamp(0.85rem, 2vh, 1.4rem);
 }
 .hm-status__dot {
 	width: 6px;
@@ -325,7 +354,10 @@ body.hm {
 	position: relative;
 	justify-self: end;
 	width: 100%;
-	max-width: 27rem;
+	/* The frame is 4:5, so capping its width caps its height. Tying that cap to
+	   the viewport height is what keeps the whole frame on the first screen. */
+	max-width: min(27rem, 52vh);
+	max-width: min(27rem, 52svh);
 }
 @media (max-width: 900px) {
 	.hm-hero__figure {

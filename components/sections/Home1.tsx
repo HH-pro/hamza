@@ -46,7 +46,7 @@ export default function Home1() {
 							30-minute call &middot; no commitment &middot; you leave with a real number
 						</p>
 
-						<p className="hm-mono" style={{ marginTop: "2.25rem", marginBottom: 0 }}>
+						<p className="hm-mono hm-hero__stack">
 							React &middot; Next.js &middot; React Native &middot; Flutter &middot; Node
 							&middot; SwiftUI &middot; AI integration
 						</p>
