@@ -230,24 +230,55 @@ body.hm {
 
 /* --------------------------------------------------------------------------
    Hero
+   --------------------------------------------------------------------------
+   The portrait is an RGBA cutout with a flat crop across the shoulders. Left
+   floating on the page ground that crop reads as a mistake, so the subject now
+   sits inside a framed panel and is anchored to its bottom edge — the cut line
+   lands on the frame's edge, where a photograph is expected to end.
    -------------------------------------------------------------------------- */
 
 .hm-hero {
 	/* Tight at the top — the sticky bar already provides separation, so a large
 	   pad here just pushes the headline below the fold. */
-	padding-block: clamp(1.25rem, 2.5vw, 2.25rem) clamp(3rem, 6vw, 5rem);
+	padding-block: clamp(1.75rem, 3vw, 3rem) clamp(3rem, 6vw, 5.5rem);
 	background: var(--hm-ground);
+	position: relative;
+	overflow: hidden;
+	isolation: isolate;
 }
+
+/* Two washes of accent light, weighted to the portrait side. Kept far below
+   the text so contrast on the headline is untouched. */
+.hm-hero::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	background:
+		radial-gradient(52rem 34rem at 82% 8%, rgba(109, 77, 242, 0.11), transparent 62%),
+		radial-gradient(38rem 26rem at 6% 96%, rgba(109, 77, 242, 0.06), transparent 60%);
+	pointer-events: none;
+}
+[data-bs-theme="dark"] .hm-hero::before {
+	background:
+		radial-gradient(52rem 34rem at 82% 8%, rgba(155, 133, 255, 0.16), transparent 62%),
+		radial-gradient(38rem 26rem at 6% 96%, rgba(155, 133, 255, 0.08), transparent 60%);
+}
+
 .hm-hero__grid {
 	display: grid;
-	grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+	grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
 	gap: clamp(2.5rem, 5vw, 4.5rem);
-	/* Top-aligned: centring pushed the portrait well below the headline,
-	   since the text column is much taller. */
-	align-items: start;
+	/* Bottom-aligned: the frame's lower edge lands on the same line as the
+	   tech-stack row, so the two columns share a baseline instead of the
+	   shorter one floating in the middle of the taller one. */
+	align-items: end;
 }
 @media (max-width: 900px) {
-	.hm-hero__grid { grid-template-columns: minmax(0, 1fr); }
+	.hm-hero__grid {
+		grid-template-columns: minmax(0, 1fr);
+		gap: 2.75rem;
+	}
 }
 
 .hm-status {
@@ -260,8 +291,9 @@ body.hm {
 	text-transform: uppercase;
 	color: var(--hm-good);
 	background: var(--hm-good-soft);
+	border: 1px solid color-mix(in srgb, var(--hm-good) 22%, transparent);
 	border-radius: 100px;
-	padding: 0.4rem 0.8rem;
+	padding: 0.4rem 0.85rem;
 	margin-bottom: 1.4rem;
 }
 .hm-status__dot {
@@ -270,24 +302,159 @@ body.hm {
 	border-radius: 50%;
 	background: var(--hm-good);
 	flex: none;
+	position: relative;
 }
+/* A slow pulse — the pill claims availability, so let it look live. */
+.hm-status__dot::after {
+	content: "";
+	position: absolute;
+	inset: -4px;
+	border-radius: 50%;
+	border: 1px solid var(--hm-good);
+	opacity: 0;
+	animation: hmPulse 2.6s ease-out infinite;
+}
+@keyframes hmPulse {
+	0% { transform: scale(0.6); opacity: 0.7; }
+	70%, 100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* -- Portrait frame ------------------------------------------------------ */
 
 .hm-hero__figure {
 	position: relative;
-	border-radius: 14px;
-	overflow: hidden;
-	background: var(--hm-sunk);
-	/* Matches the 500x500 source, so nothing is cropped. */
-	aspect-ratio: 1 / 1;
-	box-shadow: var(--hm-shadow-lift);
-	/* Optically level with the status pill rather than the very top edge. */
-	margin-top: 0.35rem;
-}
-.hm-hero__figure img {
+	justify-self: end;
 	width: 100%;
-	height: 100%;
-	object-fit: cover;
+	max-width: 27rem;
+}
+@media (max-width: 900px) {
+	.hm-hero__figure {
+		justify-self: start;
+		max-width: 20rem;
+	}
+}
+
+/* The offset outline behind the panel: one flat rule, no drop shadow, so it
+   reads as a deliberate frame rather than a template glow. */
+.hm-hero__figure::before {
+	content: "";
+	position: absolute;
+	inset: 1.35rem -1.35rem -1.35rem 1.35rem;
+	border: 1px solid var(--hm-rule);
+	border-radius: 20px;
+	z-index: 0;
+	pointer-events: none;
+}
+
+.hm-hero__panel {
+	position: relative;
+	z-index: 1;
+	border-radius: 20px;
+	overflow: hidden;
+	aspect-ratio: 4 / 5;
+	border: 1px solid var(--hm-rule);
+	background: linear-gradient(
+		165deg,
+		var(--hm-accent-soft) 0%,
+		var(--hm-sunk) 46%,
+		var(--hm-surface) 100%
+	);
+	box-shadow: var(--hm-shadow-lift);
+}
+
+/* Soft light behind the head, so the subject separates from the panel. */
+.hm-hero__panel::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: radial-gradient(
+		18rem 16rem at 50% 26%,
+		rgba(109, 77, 242, 0.16),
+		transparent 68%
+	);
+}
+/* Dark: the gradient runs the other way — lightest at the bottom, where the
+   near-black sweater sits, so the shoulders don't dissolve into the panel. */
+[data-bs-theme="dark"] .hm-hero__panel {
+	background: linear-gradient(
+		165deg,
+		color-mix(in srgb, var(--hm-accent) 7%, var(--hm-surface)) 0%,
+		color-mix(in srgb, var(--hm-accent) 17%, var(--hm-surface)) 52%,
+		color-mix(in srgb, var(--hm-accent) 28%, var(--hm-surface)) 100%
+	);
+}
+
+[data-bs-theme="dark"] .hm-hero__panel::before {
+	background: radial-gradient(
+		18rem 16rem at 50% 26%,
+		rgba(155, 133, 255, 0.22),
+		transparent 68%
+	);
+}
+
+/* A faint baseline grid — texture at close range, invisible at a glance. */
+.hm-hero__panel::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background-image:
+		linear-gradient(to right, var(--hm-rule) 1px, transparent 1px),
+		linear-gradient(to bottom, var(--hm-rule) 1px, transparent 1px);
+	background-size: 2rem 2rem;
+	opacity: 0.6;
+	-webkit-mask-image: linear-gradient(to bottom, #000, transparent 72%);
+	mask-image: linear-gradient(to bottom, #000, transparent 72%);
+}
+
+.hm-hero__panel img {
+	position: absolute;
+	z-index: 1;
+	/* Anchored bottom: the cutout's flat shoulder crop lands on the frame edge,
+	   where a photograph is expected to end. Slightly wider than the frame so
+	   the subject fills it; the surplus is clipped by the panel's overflow. */
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 110%;
+	height: auto;
 	display: block;
+}
+
+/* -- Credential chip over the frame -------------------------------------- */
+
+.hm-hero__chip {
+	position: absolute;
+	z-index: 2;
+	left: -1.25rem;
+	bottom: 1.75rem;
+	display: flex;
+	align-items: center;
+	gap: 0.7rem;
+	padding: 0.7rem 1rem;
+	border-radius: 12px;
+	background: var(--hm-surface);
+	border: 1px solid var(--hm-rule);
+	box-shadow: var(--hm-shadow-lift);
+}
+@media (max-width: 900px) {
+	.hm-hero__chip { left: auto; right: -1rem; bottom: 1.25rem; }
+}
+.hm-hero__chip-value {
+	font-family: var(--urbanist), system-ui, sans-serif;
+	font-size: 1.35rem;
+	font-weight: 700;
+	line-height: 1;
+	letter-spacing: -0.02em;
+	color: var(--hm-accent);
+}
+.hm-hero__chip-label {
+	font-family: var(--dmMono), ui-monospace, monospace;
+	font-size: 0.66rem;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	line-height: 1.35;
+	color: var(--hm-mute);
+	max-width: 7.5rem;
 }
 
 /* --------------------------------------------------------------------------
@@ -1857,15 +2024,15 @@ body.reveal-ready [data-reveal-stagger].is-in > *:nth-child(n + 7) { transition-
 	from { opacity: 0; transform: translateY(22px); }
 	to { opacity: 1; transform: none; }
 }
-body.reveal-ready .hm-hero__grid > div > * {
+body.reveal-ready .hm-hero__grid > div:not(.hm-hero__figure) > * {
 	animation: hmRise 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
-body.reveal-ready .hm-hero__grid > div > *:nth-child(1) { animation-delay: 0.05s; }
-body.reveal-ready .hm-hero__grid > div > *:nth-child(2) { animation-delay: 0.13s; }
-body.reveal-ready .hm-hero__grid > div > *:nth-child(3) { animation-delay: 0.21s; }
-body.reveal-ready .hm-hero__grid > div > *:nth-child(4) { animation-delay: 0.29s; }
-body.reveal-ready .hm-hero__grid > div > *:nth-child(5) { animation-delay: 0.37s; }
-body.reveal-ready .hm-hero__grid > div > *:nth-child(6) { animation-delay: 0.45s; }
+body.reveal-ready .hm-hero__grid > div:not(.hm-hero__figure) > *:nth-child(1) { animation-delay: 0.05s; }
+body.reveal-ready .hm-hero__grid > div:not(.hm-hero__figure) > *:nth-child(2) { animation-delay: 0.13s; }
+body.reveal-ready .hm-hero__grid > div:not(.hm-hero__figure) > *:nth-child(3) { animation-delay: 0.21s; }
+body.reveal-ready .hm-hero__grid > div:not(.hm-hero__figure) > *:nth-child(4) { animation-delay: 0.29s; }
+body.reveal-ready .hm-hero__grid > div:not(.hm-hero__figure) > *:nth-child(5) { animation-delay: 0.37s; }
+body.reveal-ready .hm-hero__grid > div:not(.hm-hero__figure) > *:nth-child(6) { animation-delay: 0.45s; }
 body.reveal-ready .hm-hero__figure {
 	animation: hmRise 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.18s both;
 }
@@ -1900,34 +2067,19 @@ body.reveal-ready .hm-hero__figure {
 @media (prefers-reduced-motion: reduce) {
 	body.reveal-ready [data-reveal],
 	body.reveal-ready [data-reveal-stagger] > *,
-	body.reveal-ready .hm-hero__grid > div > *,
-	body.reveal-ready .hm-hero__figure {
+	body.reveal-ready .hm-hero__grid > div:not(.hm-hero__figure) > *,
+	body.reveal-ready .hm-hero__figure,
+	.hm-status__dot::after {
 		opacity: 1 !important;
 		transform: none !important;
 		animation: none !important;
 		transition: none !important;
 	}
+	.hm-status__dot::after { display: none; }
 	.hm-chev,
 	.hm-card__media img,
 	.hm-marks__list a,
 	.hm-nav__list > li > .hm-nav__link::after { transition: none; }
-}
-
-/* --------------------------------------------------------------------------
-   Hero image — no panel behind it.
-   The source PNG is RGBA, so with the tinted background and shadow removed
-   the subject sits directly on the page ground.
-   -------------------------------------------------------------------------- */
-
-.hm-hero__figure {
-	background: none;
-	box-shadow: none;
-	border-radius: 0;
-	overflow: visible;
-}
-.hm-hero__figure img {
-	object-fit: contain;
-	object-position: top center;
 }
 
 /* --------------------------------------------------------------------------

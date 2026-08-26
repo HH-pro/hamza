@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
-import { CONTACT } from "@/lib/proof"
+import { CONTACT, PROJECTS_DELIVERED } from "@/lib/proof"
 
 export default function Home1() {
 	return (
@@ -53,14 +53,22 @@ export default function Home1() {
 					</div>
 
 					<div className="hm-hero__figure">
-						<Image
-							src="/assets/imgs/hero/hero-1/profile.png"
-							alt="Hamza Manzoor"
-							width={500}
-							height={500}
-							priority
-							sizes="(max-width: 900px) 100vw, 34vw"
-						/>
+						<div className="hm-hero__panel">
+							<Image
+								src="/assets/imgs/hero/hero-1/profile.png"
+								alt="Hamza Manzoor"
+								width={500}
+								height={500}
+								priority
+								sizes="(max-width: 900px) 20rem, 26rem"
+							/>
+						</div>
+
+						{/* Real figure — see PROJECTS_DELIVERED in lib/proof.ts. */}
+						<div className="hm-hero__chip">
+							<span className="hm-hero__chip-value">{PROJECTS_DELIVERED}</span>
+							<span className="hm-hero__chip-label">Projects delivered</span>
+						</div>
 					</div>
 				</div>
 			</div>
