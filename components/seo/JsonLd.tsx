@@ -1,7 +1,7 @@
 import { SITE, absoluteUrl } from "@/lib/seo"
 import { FAQS, CONTACT, PROJECTS_DELIVERED, liveProjects } from "@/lib/proof"
 import { services } from "@/lib/services"
-import { plans, CUSTOM_BUILD_RANGE } from "@/lib/plans"
+import { plans, CUSTOM_BUILD_RANGE, MAINTENANCE } from "@/lib/plans"
 import { projects, projectImg, categoryLabel } from "@/lib/projects"
 
 /**
@@ -342,6 +342,74 @@ export function WorkJsonLd() {
  * a mismatch between the two as a reason to drop the rich result entirely.
  */
 export function PlansJsonLd() {
+	/** One-off build tiers. */
+	const tierOffers: Record<string, unknown>[] = plans.map((plan, i) => ({
+		"@type": "Offer",
+		"@id": `${SITE.url}/website-plans#plan-${i + 1}`,
+		position: i + 1,
+		name: plan.projectName,
+		description: plan.details,
+		price: plan.priceValue,
+		priceCurrency: "USD",
+		// "+" tiers are a floor, not a fixed price. Say which it is.
+		...(plan.price.endsWith("+")
+			? {
+					priceSpecification: {
+						"@type": "PriceSpecification",
+						minPrice: plan.priceValue,
+						priceCurrency: "USD",
+					},
+				}
+			: {}),
+		availability: "https://schema.org/InStock",
+		seller: { "@id": ID.person },
+		itemOffered: {
+			"@type": "Service",
+			name: plan.projectName,
+			description: plan.details,
+			serviceType: "Web Development",
+			provider: { "@id": ID.person },
+		},
+		eligibleCustomerType: plan.tagline,
+	}))
+
+	/**
+	 * The retainer. A UnitPriceSpecification billed per MON is what marks this
+	 * as recurring — a bare `price: 300` alongside the one-off tiers would be
+	 * read as $300 total, which undersells it by an order of magnitude.
+	 */
+	const careOffer: Record<string, unknown> = {
+		"@type": "Offer",
+		"@id": `${SITE.url}/website-plans#care-plan`,
+		position: plans.length + 1,
+		name: MAINTENANCE.name,
+		description: MAINTENANCE.details,
+		priceCurrency: "USD",
+		priceSpecification: {
+			"@type": "UnitPriceSpecification",
+			price: MAINTENANCE.priceValue,
+			priceCurrency: "USD",
+			billingDuration: 1,
+			billingIncrement: 1,
+			unitCode: "MON",
+			referenceQuantity: {
+				"@type": "QuantitativeValue",
+				value: 1,
+				unitCode: "MON",
+			},
+		},
+		availability: "https://schema.org/InStock",
+		seller: { "@id": ID.person },
+		itemOffered: {
+			"@type": "Service",
+			name: MAINTENANCE.name,
+			description: MAINTENANCE.details,
+			serviceType: "Website maintenance",
+			provider: { "@id": ID.person },
+		},
+		eligibleCustomerType: MAINTENANCE.tagline,
+	}
+
 	return (
 		<JsonLd
 			data={{
@@ -352,7 +420,7 @@ export function PlansJsonLd() {
 						"@id": `${SITE.url}/website-plans#webpage`,
 						url: absoluteUrl("/website-plans"),
 						name: "Website Plans & Pricing",
-						description: `Fixed-price website packages from $${plans[0].priceValue}, with scope, timeline and cost stated up front.`,
+						description: `Fixed-price website packages from $${plans[0].priceValue}, with scope, timeline and cost stated up front. Optional ${MAINTENANCE.name} at $${MAINTENANCE.priceValue}/month.`,
 						isPartOf: { "@id": ID.website },
 						inLanguage: "en",
 					},
@@ -362,36 +430,8 @@ export function PlansJsonLd() {
 						name: "Website packages",
 						url: absoluteUrl("/website-plans"),
 						provider: { "@id": ID.person },
-						numberOfItems: plans.length,
-						itemListElement: plans.map((plan, i) => ({
-							"@type": "Offer",
-							"@id": `${SITE.url}/website-plans#plan-${i + 1}`,
-							position: i + 1,
-							name: plan.projectName,
-							description: plan.details,
-							price: plan.priceValue,
-							priceCurrency: "USD",
-							// "+" tiers are a floor, not a fixed price. Say which it is.
-							...(plan.price.endsWith("+")
-								? {
-										priceSpecification: {
-											"@type": "PriceSpecification",
-											minPrice: plan.priceValue,
-											priceCurrency: "USD",
-										},
-									}
-								: {}),
-							availability: "https://schema.org/InStock",
-							seller: { "@id": ID.person },
-							itemOffered: {
-								"@type": "Service",
-								name: plan.projectName,
-								description: plan.details,
-								serviceType: "Web Development",
-								provider: { "@id": ID.person },
-							},
-							eligibleCustomerType: plan.tagline,
-						})),
+						numberOfItems: tierOffers.length + 1,
+						itemListElement: [...tierOffers, careOffer],
 					},
 				],
 			}}

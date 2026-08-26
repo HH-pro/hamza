@@ -947,6 +947,92 @@ body.hm {
 .hm-plan .hm-btn { justify-content: center; width: 100%; }
 
 /* --------------------------------------------------------------------------
+   Care plan — the recurring line.
+
+   Deliberately NOT a fifth card. The four tiers are one-off builds and read
+   as a set; a monthly retainer is a different kind of thing, so it gets a
+   different object — a wide two-column panel that sits under the grid rather
+   than inside it.
+   -------------------------------------------------------------------------- */
+
+.hm-care {
+	display: grid;
+	grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+	gap: clamp(1.75rem, 4vw, 3.25rem);
+	align-items: start;
+	background: var(--hm-surface);
+	border: 1px solid var(--hm-rule);
+	border-radius: 8px;
+	padding: clamp(1.6rem, 3vw, 2.25rem);
+}
+@media (max-width: 780px) {
+	.hm-care { grid-template-columns: minmax(0, 1fr); gap: 1.75rem; }
+}
+
+.hm-care__flag {
+	font-family: var(--dmMono), ui-monospace, monospace;
+	font-size: 0.64rem;
+	letter-spacing: 0.11em;
+	text-transform: uppercase;
+	color: var(--hm-good);
+	background: var(--hm-good-soft);
+	border: 1px solid color-mix(in srgb, var(--hm-good) 22%, transparent);
+	padding: 0.26rem 0.6rem;
+	border-radius: 3px;
+	display: inline-block;
+	margin-bottom: 1rem;
+}
+.hm-care__price {
+	font-size: 2.4rem;
+	font-weight: 700;
+	letter-spacing: -0.03em;
+	color: var(--hm-ink);
+	margin: 0.75rem 0 0.25rem;
+	line-height: 1;
+	font-variant-numeric: tabular-nums;
+}
+/* The interval rides with the number: "$300" alone reads as a one-off. */
+.hm-care__per {
+	font-size: 1rem;
+	font-weight: 500;
+	color: var(--hm-mute);
+	letter-spacing: 0;
+}
+.hm-care__for { font-size: 0.9rem; color: var(--hm-mute); margin: 0 0 1.25rem; }
+.hm-care__terms {
+	font-size: 0.85rem;
+	color: var(--hm-mute);
+	margin: 1.1rem 0 0;
+	line-height: 1.55;
+}
+
+.hm-care__list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+	gap: 0.1rem 1.75rem;
+}
+.hm-care__list li {
+	position: relative;
+	padding: 0.4rem 0 0.4rem 1.6rem;
+	font-size: 0.925rem;
+	line-height: 1.55;
+	color: var(--hm-ink-soft);
+}
+.hm-care__list li::before {
+	content: "\eb7b"; /* remixicon ri-check-line */
+	font-family: "remixicon";
+	position: absolute;
+	left: 0;
+	top: 0.4rem;
+	font-size: 0.95rem;
+	line-height: 1.55;
+	color: var(--hm-good);
+}
+
+/* --------------------------------------------------------------------------
    Services
    -------------------------------------------------------------------------- */
 

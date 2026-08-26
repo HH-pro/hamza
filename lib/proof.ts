@@ -183,6 +183,10 @@ export const FAQS: Faq[] = [
 		a: "Fixed-price website builds start at $499 and are listed on the Plans page. Full product builds — anything with accounts, payments, or a mobile app — are quoted per project after the scoping call, and typically land between $4,000 and $20,000 depending on how much ships in v1. You get that number after one call, not three.",
 	},
 	{
+		q: "Do you offer ongoing maintenance after launch?",
+		a: "Yes — the Care Plan is $300 a month and it's optional on every tier. It covers hosting, domain and SSL renewals, monthly security and dependency updates, uptime monitoring, weekly offsite backups, a monthly Core Web Vitals and Search Console check, and up to four hours of content or design changes. It's month to month, so you can cancel any time. Plenty of clients don't take it and just email me when something needs doing — that's fine too, it's billed hourly instead.",
+	},
+	{
 		q: "Do you work with existing codebases?",
 		a: "Yes, and it's often the better first engagement. Picking up someone else's project tells you more about how I work than a greenfield build does.",
 	},

@@ -1,7 +1,7 @@
 import Layout from "@/components/layout/Layout"
 import Link from "next/link"
 import { pageMetadata } from "@/lib/seo"
-import { plans } from "@/lib/plans"
+import { plans, MAINTENANCE } from "@/lib/plans"
 import SectionHead from "@/components/hm/SectionHead"
 import FaqList from "@/components/hm/FaqList"
 import Testimonials from "@/components/hm/Testimonials"
@@ -33,7 +33,8 @@ export default function WebsitePlans() {
 						<p className="hm-lede">
 							Most developers make you book a call to find out what anything costs.
 							These four tiers cover the majority of website work, with scope and
-							timeline stated up front. Product builds are quoted per project.
+							timeline stated up front, plus a monthly care plan if you want me to
+							keep it running. Product builds are quoted per project.
 						</p>
 					</div>
 				</div>
@@ -79,10 +80,44 @@ export default function WebsitePlans() {
 						))}
 					</div>
 
-					<p className="hm-mono hm-center hm-mt-sm" style={{ marginBottom: 0 }}>
+					<p className="hm-mono hm-center hm-mt-sm">
 						All tiers include the build, launch, and the support window listed.
 						Hosting beyond year one is billed at cost.
 					</p>
+
+					{/* The recurring line. Sits under the grid, not inside it — a
+					    retainer is a different kind of thing from a one-off build. */}
+					<div className="hm-care hm-mt" data-reveal>
+						<div>
+							<span className="hm-care__flag">Optional, ongoing</span>
+							<h2 className="hm-h3">{MAINTENANCE.name}</h2>
+							<p className="hm-care__price">
+								{MAINTENANCE.price}
+								<span className="hm-care__per"> /month</span>
+							</p>
+							<p className="hm-care__for">{MAINTENANCE.tagline}</p>
+							<p className="hm-body" style={{ fontSize: ".92rem" }}>
+								{MAINTENANCE.details}
+							</p>
+							<p className="hm-care__terms">{MAINTENANCE.terms}</p>
+						</div>
+
+						<div>
+							<ul className="hm-care__list">
+								{MAINTENANCE.features.map((f) => (
+									<li key={f}>{f}</li>
+								))}
+							</ul>
+							<Link
+								href="/#contact"
+								className="hm-btn hm-btn--ghost hm-mt-sm"
+								style={{ marginTop: "1.75rem" }}
+							>
+								Add the care plan
+								<i className="ri-arrow-right-line" aria-hidden="true" />
+							</Link>
+						</div>
+					</div>
 				</div>
 			</section>
 

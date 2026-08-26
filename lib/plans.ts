@@ -25,6 +25,38 @@ export type Plan = {
 /** Bespoke product builds sit outside the fixed tiers. */
 export const CUSTOM_BUILD_RANGE = { min: 4000, max: 20000, currency: "USD" } as const
 
+/**
+ * The care plan — the only recurring line on the site.
+ *
+ * ⚠️ The price is Hamza's. The SCOPE below is a sensible default written to be
+ * edited, not shipped blind: it commits to a monthly change allowance and a
+ * same-working-day reply, and those are promises a real person has to keep.
+ * Read it through and cut anything you wouldn't want held to.
+ *
+ * Rendered on /website-plans, emitted as a recurring Offer in the plans
+ * schema, and listed in /llms.txt — all from here.
+ */
+export const MAINTENANCE = {
+	name: "Care Plan",
+	tagline: "Ongoing maintenance, after launch",
+	price: "$300",
+	priceValue: 300,
+	billing: "per month",
+	details:
+		"A site is a thing you own, not a thing you buy once. This keeps it patched, backed up, fast and current — and gives you somewhere to send changes without a new quote every time.",
+	features: [
+		"Hosting, domain and SSL renewals managed",
+		"Dependency and security updates applied monthly",
+		"Uptime monitoring — I find out before you do",
+		"Weekly offsite backups, restored on request",
+		"Up to 4 hours of content or design changes a month",
+		"Monthly Core Web Vitals and Search Console check",
+		"Priority reply, same working day",
+	],
+	/** Stated plainly because the objection to any retainer is lock-in. */
+	terms: "Optional on every tier. Month to month — cancel any time, no notice period.",
+} as const
+
 export const plans: Plan[] = [
 	{
 		projectName: "Starter Business Site",

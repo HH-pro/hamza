@@ -9,7 +9,7 @@ import {
 	PROCESS,
 } from "@/lib/proof"
 import { services } from "@/lib/services"
-import { plans, CUSTOM_BUILD_RANGE } from "@/lib/plans"
+import { plans, CUSTOM_BUILD_RANGE, MAINTENANCE } from "@/lib/plans"
 import { projects } from "@/lib/projects"
 import { caseStudies } from "@/lib/caseStudies"
 
@@ -99,6 +99,12 @@ function build(): string {
 		)
 	}
 	push("")
+	push(
+		`**${MAINTENANCE.name} — ${MAINTENANCE.price} ${MAINTENANCE.billing}.**` +
+			` ${MAINTENANCE.details} Includes:` +
+			` ${MAINTENANCE.features.join("; ")}. ${MAINTENANCE.terms}`,
+		"",
+	)
 	push(
 		`Full product builds — anything with accounts, payments or a mobile app —` +
 			` are quoted per project and typically land between` +
